@@ -1,6 +1,5 @@
+//catarina codigo abaixo
 class Menu{
-//para catarina comentar o codigo abaixo
-
 
 float posX, posY;
 boolean state;
