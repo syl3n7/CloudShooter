@@ -5,6 +5,7 @@ class Menu{
 //properties
 float posX, posY;
 boolean state;
+Button b1, b2;
 
     //constructor 
     Menu(float x, float y) {
@@ -12,6 +13,9 @@ boolean state;
         posX = x;
         posY = y;
         state = true;
+        b1 = new Button(posX, posY, "Start");
+        b2 = new Button(posX, posY + 50, "Exit");
+
 
     }
 
@@ -20,9 +24,8 @@ boolean state;
 
         if (state == true) {
 
-            fill(140, 60 ,05);
-            rect(posX-100, posY, 100, 100);
-            rect(posX+100, posY, 100, 100);
+            b1.buttonStart();
+            b2.buttonStart();
 
         } else {
             //claudio fez esta parte do codigo
