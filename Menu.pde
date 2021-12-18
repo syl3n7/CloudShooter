@@ -1,11 +1,11 @@
 class Menu{
 //para catarina comentar o codigo abaixo
 
-
+//properties
 float posX, posY;
 boolean state;
 
- 
+    //constructor 
     Menu(float x, float y) {
 
         posX = x;
@@ -14,7 +14,7 @@ boolean state;
 
     }
 
-
+//method to 
     void start() {
 
         if (state == true) {
