@@ -1,13 +1,12 @@
-//catarina codigo abaixo
-class Menu{
-//para catarina comentar o codigo abaixo
 
-//properties
+class Menu{
+
+//propriedades
 float posX, posY;
 boolean state;
 Button button1, button2;
 
-    //constructor 
+    //construtor 
     Menu(float x, float y) {
 
         posX = x;
@@ -18,10 +17,10 @@ Button button1, button2;
 
     }
 
-//method to 
+    //método usado para desenhar os botões
     void start() {
 
-        if (state == true) {
+        if (state == true) { //desenha os botões
 
             button1.drawme();
             button2.drawme();
@@ -39,15 +38,14 @@ Button button1, button2;
             p1.moveme(); //mover o player1
             b1.drawme(); //desenhar as balas
             b1.moveme(); //mover as balas
-            e1.drawme(); //desenhar o enimigo
-            e1.move(); //Bmover o enimo
-            //  e1.healthcheck(); //verificar se o enimigo morreu ou nao
+            e1.drawme(); //desenhar o inimigo
+            e1.move(); //Bmover o inimigo
+            //  e1.healthcheck(); //verificar se o inimigo morreu ou nao
             score();
-            b1.enemycheck(); //verificar se a bala atingiu o enimigo 
+            b1.enemycheck(); //verificar se a bala atingiu o inimigo 
 
         }
 
     }
 
-}
-
+} 
