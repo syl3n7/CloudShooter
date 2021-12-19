@@ -34,8 +34,8 @@ class Player {
   }
 
   void shoot () {
-    b1.posX = posX+largura/2;
-    b1.posY = posY+altura/3.5;
+    b1.posX = posX+largura/2.5;
+    b1.posY = posY+altura/3.4;
     b1.moveme();
   }
 

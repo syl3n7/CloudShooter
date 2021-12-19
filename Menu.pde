@@ -6,30 +6,30 @@ float posX, posY;
 boolean state;
 Button button1, button2;
 Highscore highscore;
-//Movie movie;
 
     //construtor 
     Menu(float x, float y) {
         posX = x;
         posY = y;
         state = true;
-        button1 = new Button("assets/images/start_button.png", posX, posY);
-        button2 = new Button("assets/images/exit_button.png", posX, posY + 500);
+        button1 = new Button("assets/images/start_button.png", width/2, height/2);
+        button2 = new Button("assets/images/exit_button.png", width/2, height/2);
         highscore = new Highscore();
     }
 
     //método usado para desenhar os botões
     void start() {
 
-        if (state == true) { //desenha os botões
-//colocar botoes separados, onde controla o start, exit, options e consultar highscores
+        if (button1.pressed == true) { //desenha os botões
+        //colocar botoes separados, onde controla o start, exit, options e consultar highscores
             button1.drawme();
             button2.drawme();
+        } else if (button2.pressed == true) { ///pressionar botao exit guarda highscore e sai do jogo
             highscore.addData();
             highscore.saveData();
-
+            exit();
         } else {
-            //claudio fez esta parte do codigo
+        //claudio fez esta parte do codigo
             background(0, 80, 255); //background azul temporario
             c1.drawme(); //desenhar nuvem1
             c2.drawme(); //desenhar nuvem2
@@ -45,7 +45,7 @@ Highscore highscore;
             e1.move(); //Bmover o inimigo
             //  e1.healthcheck(); //verificar se o inimigo morreu ou nao
             score();
-            b1.enemycheck(); //verificar se a bala atingiu o inimigo 
+            b1.enemycheck(); //verificar se a bala atingiu o inimigo
 
         }
 

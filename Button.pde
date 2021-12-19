@@ -8,24 +8,23 @@ boolean pressed;
     Button(String name, float x, float y){
         button = loadImage(name);
         button.resize(button.width/2, button.height/2);
-        posX = 0; 
-        posY = 0;
+        posX = x;
+        posY = y;
         pressed = false;
     }
 
     void drawme(){
-        
         image(button, posX, posY);
     }
 
-    boolean pressed(){
+    // boolean pressed(){
 
-        if(this.pressed){
-            this.pressed = false;
-            return true;
-        }
+    //     if(this.pressed){
+    //         this.pressed = false;
+    //         return true;
+    //     }
 
-        return pressed;
-    }
+    //     return pressed;
+    // }
 
 }

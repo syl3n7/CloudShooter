@@ -46,7 +46,6 @@ void setup() {
 void draw() {
 
 //menu calls
-  image(movie, 0, 0, width, height);
   m.start();
 
 }
@@ -92,35 +91,15 @@ void keyReleased() {
 void score() {
   if (b1.enemycheck()) {
     score++;
-    println("hit" + score);
   }
-}
-
-//tabela de pontuacao
-void highscore() {
-
-}
-
-//no more lifelines calls this.
-void gameOver() {
-
-}
-
-//going through all the lifelines and leves without dying, calls this.
-void gameWon() {
-
-}
-
-//if the player loses the level this gets called and he loses a lifeline
-void gameLost() {
-  
 }
 
 void mousePressed() {
   if(mouseX > m.button1.button.width && mouseX < m.button1.button.width && mouseY > m.button1.button.height && mouseY < m.button1.button.height){
-    if(mouseX > m.button2.button.width && mouseX < m.button2.button.width && mouseY > m.button2.button.height && mouseY < m.button2.button.height){
-      if(m.state == true) m.state = false;
-    }
+    if(m.button1.pressed == false) m.button1.pressed = true;
   }
-  
+  if(mouseX > m.button2.button.width && mouseX < m.button2.button.width && mouseY > m.button2.button.height && mouseY < m.button2.button.height){
+    if(m.button2.pressed == false) m.button2.pressed = true;
+  }
+
 }

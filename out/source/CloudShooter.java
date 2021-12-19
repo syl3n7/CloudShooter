@@ -33,7 +33,6 @@ Bullets b1;
 Enemy e1;
 public int score = 0;
 public int lives = 3;
-Movie movie;
 
 //codigo apenas corrido 1x (inicio do programa)
  public void setup() {  
@@ -59,9 +58,6 @@ Movie movie;
   //enemy 1
   e1 = new Enemy("/assets/images/ovni.png", (width - 300), (height - 300), 150, 5, 100);
 
-  movie = new Movie(this,"assets/video/background.mp4");
-  movie.loop();
-
 }
 
 //quero adicionar um background que vai mudando a HUE de modo a ser dia/noite.
@@ -70,7 +66,6 @@ Movie movie;
  public void draw() {
 
 //menu calls
-  image(movie, 0, 0, width, height);
   m.start();
 
 }
@@ -116,37 +111,17 @@ void keyReleased() {
  public void score() {
   if (b1.enemycheck()) {
     score++;
-    println("hit" + score);
   }
-}
-
-//tabela de pontuacao
- public void highscore() {
-
-}
-
-//no more lifelines calls this.
- public void gameOver() {
-
-}
-
-//going through all the lifelines and leves without dying, calls this.
- public void gameWon() {
-
-}
-
-//if the player loses the level this gets called and he loses a lifeline
- public void gameLost() {
-  
 }
 
  public void mousePressed() {
   if(mouseX > m.button1.button.width && mouseX < m.button1.button.width && mouseY > m.button1.button.height && mouseY < m.button1.button.height){
-    if(mouseX > m.button2.button.width && mouseX < m.button2.button.width && mouseY > m.button2.button.height && mouseY < m.button2.button.height){
-      if(m.state == true) m.state = false;
-    }
+    if(m.button1.pressed == false) m.button1.pressed = true;
   }
-  
+  if(mouseX > m.button2.button.width && mouseX < m.button2.button.width && mouseY > m.button2.button.height && mouseY < m.button2.button.height){
+    if(m.button2.pressed == false) m.button2.pressed = true;
+  }
+
 }
 class Bullets {
 
@@ -195,25 +170,24 @@ boolean pressed;
     Button(String name, float x, float y){
         button = loadImage(name);
         button.resize(button.width/2, button.height/2);
-        posX = 0; 
-        posY = 0;
+        posX = x;
+        posY = y;
         pressed = false;
     }
 
      public void drawme(){
-        
         image(button, posX, posY);
     }
 
-     public boolean pressed(){
+    // boolean pressed(){
 
-        if(this.pressed){
-            this.pressed = false;
-            return true;
-        }
+    //     if(this.pressed){
+    //         this.pressed = false;
+    //         return true;
+    //     }
 
-        return pressed;
-    }
+    //     return pressed;
+    // }
 
 }
 //creating the class for cloud generating
@@ -317,38 +291,30 @@ float posX, posY;
 boolean state;
 Button button1, button2;
 Highscore highscore;
-//Movie movie;
 
     //construtor 
     Menu(float x, float y) {
         posX = x;
         posY = y;
         state = true;
-        button1 = new Button("assets/images/start_button.png", posX, posY);
-        button2 = new Button("assets/images/exit_button.png", posX, posY + 500);
+        button1 = new Button("assets/images/start_button.png", width/2, height/2);
+        button2 = new Button("assets/images/exit_button.png", width/2, height/2);
         highscore = new Highscore();
-        //movie = new Movie(this,"assets/video/background.mp4");
-        //movie.loop();
     }
-
-    // void movieEvent(Movie m){
-    //     m.read();
-    // }
-
 
     //método usado para desenhar os botões
      public void start() {
 
-        if (state == true) { //desenha os botões
-
-            // image(backgroundV, 0, 0, width, height);
+        if (button1.pressed == true) { //desenha os botões
+        //colocar botoes separados, onde controla o start, exit, options e consultar highscores
             button1.drawme();
             button2.drawme();
+        } else if (button2.pressed == true) { ///pressionar botao exit guarda highscore e sai do jogo
             highscore.addData();
             highscore.saveData();
-
+            exit();
         } else {
-            //claudio fez esta parte do codigo
+        //claudio fez esta parte do codigo
             background(0, 80, 255); //background azul temporario
             c1.drawme(); //desenhar nuvem1
             c2.drawme(); //desenhar nuvem2
@@ -364,7 +330,7 @@ Highscore highscore;
             e1.move(); //Bmover o inimigo
             //  e1.healthcheck(); //verificar se o inimigo morreu ou nao
             score();
-            b1.enemycheck(); //verificar se a bala atingiu o inimigo 
+            b1.enemycheck(); //verificar se a bala atingiu o inimigo
 
         }
 
@@ -407,8 +373,8 @@ class Player {
   }
 
    public void shoot () {
-    b1.posX = posX+largura/2;
-    b1.posY = posY+altura/3.5f;
+    b1.posX = posX+largura/2.5f;
+    b1.posY = posY+altura/3.4f;
     b1.moveme();
   }
 
