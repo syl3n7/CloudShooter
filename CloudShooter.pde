@@ -49,16 +49,6 @@ void draw() {
 
 }
 
-<<<<<<< Updated upstream
-//tenho que validar se a bala atinge o objeto dentro do draw
-=======
-//Customizar o GUI
-public void customGUI(){
-
-}
-
-//ja valido se a bala atinge o objeto, falta colocar dano por bala e definir health para o ovni.
->>>>>>> Stashed changes
 void keyPressed() {
   //falta por a bala a funcionar como no movimento smooth.
   if (key == ' ') {
@@ -96,7 +86,7 @@ void keyReleased() {
 }
 */
 
-//acresventar pontuacao na tabela
+//acrescentar pontuacao na tabela
 void score() {
   if (b1.enemycheck()) {
     score++;
@@ -125,5 +115,10 @@ void gameLost() {
 }
 
 void mousePressed() {
-  if(m.state == true) m.state = false;
+  if(mouseX > b1.m.width && mouseX < b1.m.width && mouseY > b1.m.height && mouseY < b1.m.height){
+    if(mouseX > b2.m.width && mouseX < b2.m.width && mouseY > b2.m.height && mouseY < b2.m.height){
+      if(m.state == true) m.state = false;
+    }
+  }
+  
 }
