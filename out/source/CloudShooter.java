@@ -29,7 +29,7 @@ CloudsGen c3;
 Player p1;
 Bullets b1;
 Enemy e1;
-int score = 0;
+public int score = 0;
 
 //codigo apenas corrido 1x (inicio do programa)
  public void setup() {  
@@ -183,16 +183,14 @@ class Button{
 //properties
 PImage button;
 float posX, posY;
-boolean pressed = false;
+boolean pressed;
 
     Button(String name, float x, float y){
-
         button = loadImage(name);
         button.resize(button.width/2, button.height/2);
         posX = 0; 
         posY = 0;
         pressed = false;
-
     }
 
      public void drawme(){
@@ -311,16 +309,16 @@ class Menu{
 float posX, posY;
 boolean state;
 Button button1, button2;
+Highscore highscore;
 
     //construtor 
     Menu(float x, float y) {
-
         posX = x;
         posY = y;
         state = true;
-        button1 = new Button("assets/images/Start.png", posX, posY);
-        button2 = new Button("assets/images/Exit.png", posX, posY + 50);
-
+        button1 = new Button("assets/images/start_button.png", posX, posY);
+        button2 = new Button("assets/images/exit_button.png", posX, posY + 500);
+        highscore = new Highscore();
     }
 
     //método usado para desenhar os botões
@@ -330,6 +328,8 @@ Button button1, button2;
 
             button1.drawme();
             button2.drawme();
+            highscore.addData();
+            highscore.saveData();
 
         } else {
             //claudio fez esta parte do codigo
@@ -433,26 +433,31 @@ Table table;
         table = new Table();
         //adicionar colunas na tabela
         table.addColumn("id");
-        table.addColumn("name");
         table.addColumn("score");
 
-        //inicializar as linhas
+    }
+
+     public void addData(){
+        
         TableRow newRow = table.addRow();
 
         //adicionar linhas na tabela
         newRow.setInt("id", table.lastRowIndex()+1);
-        newRow.setString("name", "José");
-        newRow.setInt("score", 100);
-
-        saveTable(table, "data/highscore.csv");
+        newRow.setInt("score", score);
 
     }
+
+     public void saveData(){
+        //guardar os dados da tabela no ficheiro
+        saveTable(table, "data/highscore.csv");
+    }
+
 
     //metodos
      public int top5(){
         int result = 0;
         //ler o ficheiro e determinar o top 5
-
+        
 
 
         return result;

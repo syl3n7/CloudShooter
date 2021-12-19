@@ -10,7 +10,7 @@ CloudsGen c3;
 Player p1;
 Bullets b1;
 Enemy e1;
-int score = 0;
+public int score = 0;
 
 //codigo apenas corrido 1x (inicio do programa)
 void setup() {  

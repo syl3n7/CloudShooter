@@ -5,14 +5,16 @@ class Menu{
 float posX, posY;
 boolean state;
 Button button1, button2;
+Highscore highscore;
 
     //construtor 
     Menu(float x, float y) {
         posX = x;
         posY = y;
         state = true;
-        button1 = new Button("assets/images/Start.png", posX, posY);
-        button2 = new Button("assets/images/Exit.png", posX, posY + 50);
+        button1 = new Button("assets/images/start_button.png", posX, posY);
+        button2 = new Button("assets/images/exit_button.png", posX, posY + 500);
+        highscore = new Highscore();
     }
 
     //método usado para desenhar os botões
@@ -22,6 +24,8 @@ Button button1, button2;
 
             button1.drawme();
             button2.drawme();
+            highscore.addData();
+            highscore.saveData();
 
         } else {
             //claudio fez esta parte do codigo
