@@ -1,11 +1,5 @@
-<<<<<<< Updated upstream
 // Importar tudo da library GCP
 import org.gamecontrolplus.*;
-=======
-// Importar G4P 
-import g4p_controls.*;
-import 
->>>>>>> Stashed changes
 
 //inicializar objetos
 ControlIO controlIO; //usar controlador
