@@ -115,8 +115,8 @@ void gameLost() {
 }
 
 void mousePressed() {
-  if(mouseX > m.b1.width && mouseX < m.b1.width && mouseY > m.b1.height && mouseY < m.b1.height){
-    if(mouseX > m.b2.width && mouseX < m.b2.width && mouseY > m.b2.height && mouseY < m.b2.height){
+  if(mouseX > m.button1.button.width && mouseX < m.button1.button.width && mouseY > m.button1.button.height && mouseY < m.button1.button.height){
+    if(mouseX > m.button2.button.width && mouseX < m.button2.button.width && mouseY > m.button2.button.height && mouseY < m.button2.button.height){
       if(m.state == true) m.state = false;
     }
   }

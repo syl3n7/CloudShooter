@@ -1,7 +1,7 @@
 class Highscore{
 
 //propriedades
-Table t1;
+Table table;
 
 //construtor
     Highscore(){
@@ -27,12 +27,12 @@ Table t1;
 
     //metodos
     int top5(){
-
+        int result = 0;
         //ler o ficheiro e determinar o top 5
 
 
 
-        //return 1, 2, 3, 4, 5;
+        return result;
     }
 
 }

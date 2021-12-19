@@ -134,8 +134,8 @@ void keyReleased() {
 }
 
  public void mousePressed() {
-  if(mouseX > m.b1.width && mouseX < m.b1.width && mouseY > m.b1.height && mouseY < m.b1.height){
-    if(mouseX > m.b2.width && mouseX < m.b2.width && mouseY > m.b2.height && mouseY < m.b2.height){
+  if(mouseX > m.button1.button.width && mouseX < m.button1.button.width && mouseY > m.button1.button.height && mouseY < m.button1.button.height){
+    if(mouseX > m.button2.button.width && mouseX < m.button2.button.width && mouseY > m.button2.button.height && mouseY < m.button2.button.height){
       if(m.state == true) m.state = false;
     }
   }
@@ -181,13 +181,21 @@ class Bullets {
 class Button{
 
 //properties
+PImage button;
 float posX, posY;
 boolean pressed = false;
 
-    Button(){
-        this.posX = 0; 
-        this.posY = 0;
+    Button(String name, float x, float y){
+
+        button = loadImage(name);
+        posX = 0; 
+        posY = 0;
         pressed = false;
+
+    }
+
+     public void drawme(){
+        image(button, posX, posY);
     }
 
      public boolean pressed(){
@@ -230,7 +238,6 @@ class CloudsGen {
     }
   }
 }
-//para a catarina comentar o codigo acima
 class Enemy {
 
   //propriedades
@@ -302,7 +309,7 @@ class Menu{
 //properties
 float posX, posY;
 boolean state;
-Button b1, b2;
+Button button1, button2;
 
     //constructor 
     Menu(float x, float y) {
@@ -310,8 +317,8 @@ Button b1, b2;
         posX = x;
         posY = y;
         state = true;
-        b1 = new Button(posX, posY, "Start");
-        b2 = new Button(posX, posY + 50, "Exit");
+        button1 = new Button("assets/Start.png", posX, posY);
+        button2 = new Button("assets/Exit.png", posX, posY + 50);
 
 
     }
@@ -321,8 +328,8 @@ Button b1, b2;
 
         if (state == true) {
 
-            b1.buttonStart();
-            b2.buttonStart();
+            button1.drawme();
+            button2.drawme();
 
         } else {
             //claudio fez esta parte do codigo
@@ -418,7 +425,7 @@ class Player {
 class Highscore{
 
 //propriedades
-Table t1;
+Table table;
 
 //construtor
     Highscore(){
@@ -444,12 +451,12 @@ Table t1;
 
     //metodos
      public int top5(){
-
+        int result = 0;
         //ler o ficheiro e determinar o top 5
 
 
 
-        //return 1, 2, 3, 4, 5;
+        return result;
     }
 
 }
