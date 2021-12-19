@@ -17,7 +17,7 @@ public int lives = 3;
 //codigo apenas corrido 1x (inicio do programa)
 void setup() {  
 
-  fullScreen(); //utilizado para por o canvas em full screen
+  size(1600, 900, P2D); //utilizado para por o canvas em full screen
 
   rectMode(CENTER); //função usada para centrar os rectângulos
 
@@ -45,7 +45,7 @@ void setup() {
 //desenhar os elementos do programa no ecra
 void draw() {
 
-//menu calls
+// calls menu
   m.start();
 
 }

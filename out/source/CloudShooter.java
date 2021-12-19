@@ -65,7 +65,7 @@ public int lives = 3;
 //desenhar os elementos do programa no ecra
  public void draw() {
 
-//menu calls
+// calls menu
   m.start();
 
 }
@@ -448,7 +448,7 @@ Table table;
 }
 
 
-  public void settings() { fullScreen(); }
+  public void settings() { size(1600, 900, P2D); }
 
   static public void main(String[] passedArgs) {
     String[] appletArgs = new String[] { "CloudShooter" };
