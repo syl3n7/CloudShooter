@@ -1,5 +1,6 @@
 // Importar tudo da library GCP
 import org.gamecontrolplus.*;
+import processing.video.*;
 
 //inicializar objetos
 ControlIO controlIO; //usar controlador
@@ -11,6 +12,7 @@ Player p1;
 Bullets b1;
 Enemy e1;
 public int score = 0;
+public int lives = 3;
 
 //codigo apenas corrido 1x (inicio do programa)
 void setup() {  
@@ -19,7 +21,7 @@ void setup() {
 
   rectMode(CENTER); //função usada para centrar os rectângulos
 
-  frameRate(25); //especificar framerate a usar
+  frameRate(24); //especificar framerate a usar
 
   //menu start
   m = new Menu(width/2, height/2);
@@ -38,13 +40,13 @@ void setup() {
 
 }
 
-
 //quero adicionar um background que vai mudando a HUE de modo a ser dia/noite.
 
 //desenhar os elementos do programa no ecra
 void draw() {
 
-//menu calls
+// calls menu
+  background(0);
   m.start();
 
 }
@@ -90,35 +92,15 @@ void keyReleased() {
 void score() {
   if (b1.enemycheck()) {
     score++;
-    println("hit" + score);
   }
-}
-
-//tabela de pontuacao
-void highscore() {
-
-}
-
-//no more lifelines calls this.
-void gameOver() {
-
-}
-
-//going through all the lifelines and leves without dying, calls this.
-void gameWon() {
-
-}
-
-//if the player loses the level this gets called and he loses a lifeline
-void gameLost() {
-  
 }
 
 void mousePressed() {
   if(mouseX > m.button1.button.width && mouseX < m.button1.button.width && mouseY > m.button1.button.height && mouseY < m.button1.button.height){
-    if(mouseX > m.button2.button.width && mouseX < m.button2.button.width && mouseY > m.button2.button.height && mouseY < m.button2.button.height){
-      if(m.state == true) m.state = false;
-    }
+    if(m.button1.pressed == false) m.button1.pressed = true;
   }
-  
+  if(mouseX > m.button2.button.width && mouseX < m.button2.button.width && mouseY > m.button2.button.height && mouseY < m.button2.button.height){
+    if(m.button2.pressed == false) m.button2.pressed = true;
+  }
+
 }

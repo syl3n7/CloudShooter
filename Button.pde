@@ -8,24 +8,24 @@ boolean pressed;
     Button(String name, float x, float y){
         button = loadImage(name);
         button.resize(button.width/2, button.height/2);
-        posX = 0; 
-        posY = 0;
+        posX = x;
+        posY = y;
         pressed = false;
     }
 
     void drawme(){
-        
         image(button, posX, posY);
     }
 
-    boolean pressed(){
+//i want to use this so that i dont mess with the variable outside of the class
+    // boolean pressed(){
 
-        if(this.pressed){
-            this.pressed = false;
-            return true;
-        }
+    //     if(pressed){
+    //         pressed = false;
+    //         return true;
+    //     }
 
-        return pressed;
-    }
+    //     return pressed;
+    // }
 
 }

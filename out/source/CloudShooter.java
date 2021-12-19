@@ -5,6 +5,7 @@ import processing.event.*;
 import processing.opengl.*;
 
 import org.gamecontrolplus.*;
+import processing.video.*;
 
 import java.util.HashMap;
 import java.util.ArrayList;
@@ -20,6 +21,7 @@ public class CloudShooter extends PApplet {
 // Importar tudo da library GCP
 
 
+
 //inicializar objetos
 ControlIO controlIO; //usar controlador
 Menu m;
@@ -30,6 +32,7 @@ Player p1;
 Bullets b1;
 Enemy e1;
 public int score = 0;
+public int lives = 3;
 
 //codigo apenas corrido 1x (inicio do programa)
  public void setup() {  
@@ -38,7 +41,7 @@ public int score = 0;
 
   rectMode(CENTER); //função usada para centrar os rectângulos
 
-  frameRate(25); //especificar framerate a usar
+  frameRate(24); //especificar framerate a usar
 
   //menu start
   m = new Menu(width/2, height/2);
@@ -57,13 +60,13 @@ public int score = 0;
 
 }
 
-
 //quero adicionar um background que vai mudando a HUE de modo a ser dia/noite.
 
 //desenhar os elementos do programa no ecra
  public void draw() {
 
-//menu calls
+// calls menu
+  background(0);
   m.start();
 
 }
@@ -109,37 +112,17 @@ void keyReleased() {
  public void score() {
   if (b1.enemycheck()) {
     score++;
-    println("hit" + score);
   }
-}
-
-//tabela de pontuacao
- public void highscore() {
-
-}
-
-//no more lifelines calls this.
- public void gameOver() {
-
-}
-
-//going through all the lifelines and leves without dying, calls this.
- public void gameWon() {
-
-}
-
-//if the player loses the level this gets called and he loses a lifeline
- public void gameLost() {
-  
 }
 
  public void mousePressed() {
   if(mouseX > m.button1.button.width && mouseX < m.button1.button.width && mouseY > m.button1.button.height && mouseY < m.button1.button.height){
-    if(mouseX > m.button2.button.width && mouseX < m.button2.button.width && mouseY > m.button2.button.height && mouseY < m.button2.button.height){
-      if(m.state == true) m.state = false;
-    }
+    if(m.button1.pressed == false) m.button1.pressed = true;
   }
-  
+  if(mouseX > m.button2.button.width && mouseX < m.button2.button.width && mouseY > m.button2.button.height && mouseY < m.button2.button.height){
+    if(m.button2.pressed == false) m.button2.pressed = true;
+  }
+
 }
 class Bullets {
 
@@ -188,25 +171,25 @@ boolean pressed;
     Button(String name, float x, float y){
         button = loadImage(name);
         button.resize(button.width/2, button.height/2);
-        posX = 0; 
-        posY = 0;
+        posX = x;
+        posY = y;
         pressed = false;
     }
 
      public void drawme(){
-        
         image(button, posX, posY);
     }
 
-     public boolean pressed(){
+//i want to use this so that i dont mess with the variable outside of the class
+    // boolean pressed(){
 
-        if(this.pressed){
-            this.pressed = false;
-            return true;
-        }
+    //     if(pressed){
+    //         pressed = false;
+    //         return true;
+    //     }
 
-        return pressed;
-    }
+    //     return pressed;
+    // }
 
 }
 //creating the class for cloud generating
@@ -316,44 +299,44 @@ Highscore highscore;
         posX = x;
         posY = y;
         state = true;
-        button1 = new Button("assets/images/start_button.png", posX, posY);
-        button2 = new Button("assets/images/exit_button.png", posX, posY + 500);
+        button1 = new Button("assets/images/start_button.png", width/2 - 200, height/2);
+        button2 = new Button("assets/images/exit_button.png", width/2 + 200, height/2);
         highscore = new Highscore();
     }
 
     //método usado para desenhar os botões
      public void start() {
-
-        if (state == true) { //desenha os botões
-
+        //verficar estado pressed de cada botao / desenhar jogo by default
+        while(state){
             button1.drawme();
             button2.drawme();
-            highscore.addData();
-            highscore.saveData();
-
-        } else {
-            //claudio fez esta parte do codigo
-            background(0, 80, 255); //background azul temporario
-            c1.drawme(); //desenhar nuvem1
-            c2.drawme(); //desenhar nuvem2
-            c3.drawme(); //desenhar nuvem3
-            c1.move(); //mover a nuvem1
-            c2.move(); //mover a nuvem2
-            c3.move(); //mover a nuvem3
-            p1.drawme(); //desenhar o player1
-            p1.moveme(); //mover o player1
-            b1.drawme(); //desenhar as balas
-            b1.moveme(); //mover as balas
-            e1.drawme(); //desenhar o inimigo
-            e1.move(); //Bmover o inimigo
-            //  e1.healthcheck(); //verificar se o inimigo morreu ou nao
-            score();
-            b1.enemycheck(); //verificar se a bala atingiu o inimigo 
-
+            if (button1.pressed == true) { 
+                state = false;
+            } else if (button2.pressed == true) { ///pressionar botao exit guarda highscore e sai do jogo
+                highscore.addData();
+                highscore.saveData();
+                exit();
+            } else {}
         }
 
+        //claudio fez esta parte do codigo
+        background(0, 80, 255); //background azul temporario
+        c1.drawme(); //desenhar nuvem1
+        c2.drawme(); //desenhar nuvem2
+        c3.drawme(); //desenhar nuvem3
+        c1.move(); //mover a nuvem1
+        c2.move(); //mover a nuvem2
+        c3.move(); //mover a nuvem3
+        p1.drawme(); //desenhar o player1
+        p1.moveme(); //mover o player1
+        b1.drawme(); //desenhar as balas
+        b1.moveme(); //mover as balas
+        e1.drawme(); //desenhar o inimigo
+        e1.move(); //Bmover o inimigo
+        //  e1.healthcheck(); //verificar se o inimigo morreu ou nao
+        score();
+        b1.enemycheck(); //verificar se a bala atingiu o inimigo
     }
-
 } 
 class Player {
   //Properties
@@ -391,22 +374,20 @@ class Player {
   }
 
    public void shoot () {
-    b1.posX = posX+largura/2;
-    b1.posY = posY+altura/3.5f;
+    b1.posX = posX+largura/2.5f;
+    b1.posY = posY+altura/3.4f;
     b1.moveme();
   }
 
   //validar posicao e incremento da mesma caso tecla seja pressionada
    public void moveme(){
-
     if (moveLeft) posX -= tam;  // "if(left == true)" igual a "if(left)"
     else if (moveRight) posX += tam;
     else if (moveUp) posY -= tam;
     else if (moveDown) posY += tam;
-
   }
   
-  //codigo importado do exemplo do professor em ordem a obter movimento suave
+  //codigo importado do exemplo do professor em ordem a obter movimento + suave
   /*  void show() {
     if (die) {
       posY += 3*speed;   
@@ -440,7 +421,7 @@ Table table;
      public void addData(){
         
         TableRow newRow = table.addRow();
-
+        
         //adicionar linhas na tabela
         newRow.setInt("id", table.lastRowIndex()+1);
         newRow.setInt("score", score);
