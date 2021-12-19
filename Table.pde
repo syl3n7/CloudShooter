@@ -7,7 +7,7 @@ Table t1;
     Highscore(){
 
         //inicializar a tabela para armazenar highscore
-        t1 = new Table();
+        table = new Table();
         //adicionar colunas na tabela
         table.addColumn("id");
         table.addColumn("name");
@@ -21,7 +21,7 @@ Table t1;
         newRow.setString("name", "José");
         newRow.setInt("score", 100);
 
-        saveTable(table, "data/highscore.csv"); );
+        saveTable(table, "data/highscore.csv");
 
     }
 
@@ -32,7 +32,7 @@ Table t1;
 
 
 
-        return 1, 2, 3, 4, 5;
+        //return 1, 2, 3, 4, 5;
     }
 
 }

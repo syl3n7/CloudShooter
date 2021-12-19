@@ -134,8 +134,8 @@ void keyReleased() {
 }
 
  public void mousePressed() {
-  if(mouseX > b1.m.width && mouseX < b1.m.width && mouseY > b1.m.height && mouseY < b1.m.height){
-    if(mouseX > b2.m.width && mouseX < b2.m.width && mouseY > b2.m.height && mouseY < b2.m.height){
+  if(mouseX > m.b1.width && mouseX < m.b1.width && mouseY > m.b1.height && mouseY < m.b1.height){
+    if(mouseX > m.b2.width && mouseX < m.b2.width && mouseY > m.b2.height && mouseY < m.b2.height){
       if(m.state == true) m.state = false;
     }
   }
@@ -423,10 +423,22 @@ Table t1;
 //construtor
     Highscore(){
 
-        t1 = new Table();
-        table.addColumn("name");
+        //inicializar a tabela para armazenar highscore
+        table = new Table();
+        //adicionar colunas na tabela
+        table.addColumn("id");
         table.addColumn("name");
         table.addColumn("score");
+
+        //inicializar as linhas
+        TableRow newRow = table.addRow();
+
+        //adicionar linhas na tabela
+        newRow.setInt("id", table.lastRowIndex()+1);
+        newRow.setString("name", "José");
+        newRow.setInt("score", 100);
+
+        saveTable(table, "data/highscore.csv");
 
     }
 
@@ -435,7 +447,9 @@ Table t1;
 
         //ler o ficheiro e determinar o top 5
 
-        return 1, 2, 3, 4, 5;
+
+
+        //return 1, 2, 3, 4, 5;
     }
 
 }
