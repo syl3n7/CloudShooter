@@ -17,11 +17,11 @@ public int lives = 3;
 //codigo apenas corrido 1x (inicio do programa)
 void setup() {  
 
-  size(1600, 900, P2D); //utilizado para por o canvas em full screen
+  fullScreen(P2D); //utilizado para por o canvas em full screen
 
   rectMode(CENTER); //função usada para centrar os rectângulos
 
-  frameRate(25); //especificar framerate a usar
+  frameRate(24); //especificar framerate a usar
 
   //menu start
   m = new Menu(width/2, height/2);
@@ -46,6 +46,7 @@ void setup() {
 void draw() {
 
 // calls menu
+  background(0);
   m.start();
 
 }

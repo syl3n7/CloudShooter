@@ -41,15 +41,13 @@ class Player {
 
   //validar posicao e incremento da mesma caso tecla seja pressionada
   void moveme(){
-
     if (moveLeft) posX -= tam;  // "if(left == true)" igual a "if(left)"
     else if (moveRight) posX += tam;
     else if (moveUp) posY -= tam;
     else if (moveDown) posY += tam;
-
   }
   
-  //codigo importado do exemplo do professor em ordem a obter movimento suave
+  //codigo importado do exemplo do professor em ordem a obter movimento + suave
   /*  void show() {
     if (die) {
       posY += 3*speed;   

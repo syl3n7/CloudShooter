@@ -17,10 +17,11 @@ boolean pressed;
         image(button, posX, posY);
     }
 
+//i want to use this so that i dont mess with the variable outside of the class
     // boolean pressed(){
 
-    //     if(this.pressed){
-    //         this.pressed = false;
+    //     if(pressed){
+    //         pressed = false;
     //         return true;
     //     }
 
