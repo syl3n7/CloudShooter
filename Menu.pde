@@ -8,13 +8,11 @@ Button button1, button2;
 
     //construtor 
     Menu(float x, float y) {
-
         posX = x;
         posY = y;
         state = true;
-        button1 = new Button("assets/Start.png", posX, posY);
-        button2 = new Button("assets/Exit.png", posX, posY + 50);
-
+        button1 = new Button("assets/images/Start.png", posX, posY);
+        button2 = new Button("assets/images/Exit.png", posX, posY + 50);
     }
 
     //método usado para desenhar os botões

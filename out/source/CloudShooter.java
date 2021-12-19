@@ -188,6 +188,7 @@ boolean pressed = false;
     Button(String name, float x, float y){
 
         button = loadImage(name);
+        button.resize(button.width/2, button.height/2);
         posX = 0; 
         posY = 0;
         pressed = false;
@@ -195,6 +196,7 @@ boolean pressed = false;
     }
 
      public void drawme(){
+        
         image(button, posX, posY);
     }
 
@@ -302,31 +304,29 @@ class Enemy {
   }
   */
 }
-//catarina codigo abaixo
-class Menu{
-//para catarina comentar o codigo abaixo
 
-//properties
+class Menu{
+
+//propriedades
 float posX, posY;
 boolean state;
 Button button1, button2;
 
-    //constructor 
+    //construtor 
     Menu(float x, float y) {
 
         posX = x;
         posY = y;
         state = true;
-        button1 = new Button("assets/Start.png", posX, posY);
-        button2 = new Button("assets/Exit.png", posX, posY + 50);
-
+        button1 = new Button("assets/images/Start.png", posX, posY);
+        button2 = new Button("assets/images/Exit.png", posX, posY + 50);
 
     }
 
-//method to 
+    //método usado para desenhar os botões
      public void start() {
 
-        if (state == true) {
+        if (state == true) { //desenha os botões
 
             button1.drawme();
             button2.drawme();
@@ -344,18 +344,17 @@ Button button1, button2;
             p1.moveme(); //mover o player1
             b1.drawme(); //desenhar as balas
             b1.moveme(); //mover as balas
-            e1.drawme(); //desenhar o enimigo
-            e1.move(); //Bmover o enimo
-            //  e1.healthcheck(); //verificar se o enimigo morreu ou nao
+            e1.drawme(); //desenhar o inimigo
+            e1.move(); //Bmover o inimigo
+            //  e1.healthcheck(); //verificar se o inimigo morreu ou nao
             score();
-            b1.enemycheck(); //verificar se a bala atingiu o enimigo 
+            b1.enemycheck(); //verificar se a bala atingiu o inimigo 
 
         }
 
     }
 
-}
-
+} 
 class Player {
   //Properties
   float altura, largura; //altura e largura da imagem
