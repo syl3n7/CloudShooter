@@ -5,6 +5,7 @@ import processing.event.*;
 import processing.opengl.*;
 
 import org.gamecontrolplus.*;
+import processing.video.*;
 
 import java.util.HashMap;
 import java.util.ArrayList;
@@ -20,6 +21,7 @@ public class CloudShooter extends PApplet {
 // Importar tudo da library GCP
 
 
+
 //inicializar objetos
 ControlIO controlIO; //usar controlador
 Menu m;
@@ -30,6 +32,8 @@ Player p1;
 Bullets b1;
 Enemy e1;
 public int score = 0;
+public int lives = 3;
+Movie movie;
 
 //codigo apenas corrido 1x (inicio do programa)
  public void setup() {  
@@ -55,8 +59,10 @@ public int score = 0;
   //enemy 1
   e1 = new Enemy("/assets/images/ovni.png", (width - 300), (height - 300), 150, 5, 100);
 
-}
+  movie = new Movie(this,"assets/video/background.mp4");
+  movie.loop();
 
+}
 
 //quero adicionar um background que vai mudando a HUE de modo a ser dia/noite.
 
@@ -64,6 +70,7 @@ public int score = 0;
  public void draw() {
 
 //menu calls
+  image(movie, 0, 0, width, height);
   m.start();
 
 }
@@ -310,6 +317,7 @@ float posX, posY;
 boolean state;
 Button button1, button2;
 Highscore highscore;
+//Movie movie;
 
     //construtor 
     Menu(float x, float y) {
@@ -319,13 +327,21 @@ Highscore highscore;
         button1 = new Button("assets/images/start_button.png", posX, posY);
         button2 = new Button("assets/images/exit_button.png", posX, posY + 500);
         highscore = new Highscore();
+        //movie = new Movie(this,"assets/video/background.mp4");
+        //movie.loop();
     }
+
+    // void movieEvent(Movie m){
+    //     m.read();
+    // }
+
 
     //método usado para desenhar os botões
      public void start() {
 
         if (state == true) { //desenha os botões
 
+            // image(backgroundV, 0, 0, width, height);
             button1.drawme();
             button2.drawme();
             highscore.addData();
@@ -440,7 +456,7 @@ Table table;
      public void addData(){
         
         TableRow newRow = table.addRow();
-
+        
         //adicionar linhas na tabela
         newRow.setInt("id", table.lastRowIndex()+1);
         newRow.setInt("score", score);
@@ -466,7 +482,7 @@ Table table;
 }
 
 
-  public void settings() { fullScreen(P2D); }
+  public void settings() { fullScreen(); }
 
   static public void main(String[] passedArgs) {
     String[] appletArgs = new String[] { "CloudShooter" };

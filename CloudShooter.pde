@@ -1,5 +1,6 @@
 // Importar tudo da library GCP
 import org.gamecontrolplus.*;
+import processing.video.*;
 
 //inicializar objetos
 ControlIO controlIO; //usar controlador
@@ -11,11 +12,12 @@ Player p1;
 Bullets b1;
 Enemy e1;
 public int score = 0;
+public int lives = 3;
 
 //codigo apenas corrido 1x (inicio do programa)
 void setup() {  
 
-  fullScreen(P2D); //utilizado para por o canvas em full screen
+  fullScreen(); //utilizado para por o canvas em full screen
 
   rectMode(CENTER); //função usada para centrar os rectângulos
 
@@ -38,13 +40,13 @@ void setup() {
 
 }
 
-
 //quero adicionar um background que vai mudando a HUE de modo a ser dia/noite.
 
 //desenhar os elementos do programa no ecra
 void draw() {
 
 //menu calls
+  image(movie, 0, 0, width, height);
   m.start();
 
 }

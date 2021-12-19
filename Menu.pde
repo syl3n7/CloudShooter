@@ -6,6 +6,7 @@ float posX, posY;
 boolean state;
 Button button1, button2;
 Highscore highscore;
+//Movie movie;
 
     //construtor 
     Menu(float x, float y) {
@@ -21,7 +22,7 @@ Highscore highscore;
     void start() {
 
         if (state == true) { //desenha os botões
-
+//colocar botoes separados, onde controla o start, exit, options e consultar highscores
             button1.drawme();
             button2.drawme();
             highscore.addData();
