@@ -37,7 +37,7 @@ public int lives = 3;
 
   /* size commented out by preprocessor */; //utilizado para por o canvas em full screen
 
-  rectMode(CENTER); //função usada para centrar os rectângulos
+  //rectMode(CENTER); //função usada para centrar os rectângulos
 
   frameRate(30); //especificar framerate a usar
 
@@ -66,13 +66,14 @@ public int lives = 3;
   background(0);
   m.start();
   if (m.state) {
-    m.button1.drawme();
-    m.button2.drawme();
+    m.start.drawme();
+    m.exit.drawme();
   }
-
+  
   if(m.state == false){
     //claudio fez esta parte do codigo
     background(0, 80, 255); //background azul temporario
+    m.back.drawme(); //desenhar o botão de pausa
     c1.drawme(); //desenhar nuvem1
     c2.drawme(); //desenhar nuvem2
     c3.drawme(); //desenhar nuvem3
@@ -135,13 +136,22 @@ void keyReleased() {
 }
 
  public void mousePressed() { // quando clicar no botao do rato dentro das condicoes especificadas(dentro dos limites do "canvas" da imagem do botao), iniciar jogo ou sair do jogo
-  if(m.button1.pressed()) m.button1.button = loadImage("assets/images/start_button.png");
-  if(m.button2.pressed()) m.button2.button = loadImage("assets/images/exit_button.png");
+  //if(m.start.pressed()) m.start.button = loadImage("assets/images/start_button.png");
+  //if(m.exit.pressed()) m.exit.button = loadImage("assets/images/exit_button.png");
+  //if(m.back.pressed()) m.back.button = loadImage("assets/images/exit_button.png");
 }
 
  public void mouseReleased() {
-  if(m.button1.pressed()) m.button1.pressed = true;
-  if(m.button2.pressed()) m.button2.pressed = true;
+  if(m.start.pressed()) m.start.pressed = true;
+  println(m.start.pressed);
+  if(m.exit.pressed()) m.exit.pressed = true;
+  println(m.exit.pressed);
+  if(m.back.pressed()){
+    m.back.pressed = true;
+    m.state = true;
+  }
+  println("state butao back "+m.back.pressed);
+  println("state menu "+m.state);
 }
 class Bullets {
 
@@ -184,32 +194,32 @@ class Button{
 
 //properties
 PImage button;
-float posX, posY;
+float posX, posY, tam1, tam2;
 boolean pressed;
 
     Button(String name, float x, float y){
         button = loadImage(name);
         //button.resize(button.width/2, button.height/2);
+        tam1 = 210;
+        tam2 = 130;
         posX = x;
         posY = y;
         pressed = false;
     }
 
      public void drawme(){
-        image(button, posX, posY);
+        image(button, posX, posY);//colocar isto na liunha 21 depois
+        fill(255, 0, 0, 100);
+        rect(posX+60, posY+60, tam1, tam2); 
     }
 
 //i want to use this so that i dont mess with the variable outside of the class
      public boolean pressed(){
-
-        if(mouseX > posX && mouseX < posX + width/2 && mouseY > posY && mouseY < height/2 ){
-            pressed = false;
-            return true;
+        if(mouseX > posX && mouseX < posX + tam1 && mouseY > posY && mouseY < posY + tam2*2 ){
+            pressed = true;
         }
-
         return pressed;
     }
-
 }
 //creating the class for cloud generating
 class CloudsGen {
@@ -301,7 +311,7 @@ class Menu{
 //propriedades
 float posX, posY;
 boolean state;
-Button button1, button2;
+Button start, exit, back;
 Highscore highscore;
 
     //construtor 
@@ -309,21 +319,24 @@ Highscore highscore;
         posX = x;
         posY = y;
         state = true;
-        button1 = new Button("assets/images/refurbished_start_button.png", width/2 - 500, height/2 - 100); //image to be changed in the near future
-        button2 = new Button("assets/images/refurbished_exit_button.png", width/2 + 100, height/2 - 100);
+        start = new Button("assets/images/refurbished_start_button.png", width/2 - 500, height/2 - 100); //image to be changed in the near future
+        exit = new Button("assets/images/refurbished_exit_button.png", width/2 + 100, height/2 - 100);
+        back = new Button("assets/images/refurbished_exit_button.png", 1600, 10);
         highscore = new Highscore();
     }
 
     //método usado para desenhar os botões
      public void start() {
         //verficar estado pressed de cada botao / desenhar jogo by default
+        if(back.pressed) m.state = true;
         if(state){
-            if (button1.pressed == true) state = false;
-            if (button2.pressed == true) { ///pressionar botao exit guarda highscore e sai do jogo
+            if (start.pressed) state = false;
+            if (exit.pressed) { ///pressionar botao exit guarda highscore e sai do jogo
                 highscore.addData();
                 highscore.saveData();
                 exit();
             }
+            
         }
     }
 } 
@@ -433,7 +446,7 @@ Table table;
 }
 
 
-  public void settings() { fullScreen(P2D); }
+  public void settings() { size(1920, 1080, P2D); }
 
   static public void main(String[] passedArgs) {
     String[] appletArgs = new String[] { "CloudShooter" };
