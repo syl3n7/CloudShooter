@@ -21,7 +21,7 @@ void setup() {
 
   rectMode(CENTER); //função usada para centrar os rectângulos
 
-  frameRate(24); //especificar framerate a usar
+  frameRate(30); //especificar framerate a usar
 
   //menu start
   m = new Menu(width/2, height/2);
@@ -44,11 +44,33 @@ void setup() {
 
 //desenhar os elementos do programa no ecra
 void draw() {
-
-// calls menu
+  //calls menu
   background(0);
   m.start();
+  if (m.state) {
+    m.button1.drawme();
+    m.button2.drawme();
+  }
 
+  if(m.state == false){
+    //claudio fez esta parte do codigo
+    background(0, 80, 255); //background azul temporario
+    c1.drawme(); //desenhar nuvem1
+    c2.drawme(); //desenhar nuvem2
+    c3.drawme(); //desenhar nuvem3
+    c1.move(); //mover a nuvem1
+    c2.move(); //mover a nuvem2
+    c3.move(); //mover a nuvem3
+    p1.drawme(); //desenhar o player1
+    p1.moveme(); //mover o player1
+    b1.drawme(); //desenhar as balas
+    b1.moveme(); //mover as balas
+    e1.drawme(); //desenhar o inimigo
+    e1.move(); //Bmover o inimigo
+    //  e1.healthcheck(); //verificar se o inimigo morreu ou nao
+    score();
+    b1.enemycheck(); //verificar se a bala atingiu o inimigo
+  }
 }
 
 void keyPressed() {
@@ -95,12 +117,11 @@ void score() {
   }
 }
 
-void mousePressed() {
-  if(mouseX > m.button1.button.width && mouseX < m.button1.button.width && mouseY > m.button1.button.height && mouseY < m.button1.button.height){
+void mousePressed() { // quando clicar no botao do rato dentro das condicoes especificadas(dentro dos limites do "canvas" da imagem do botao), iniciar jogo ou sair do jogo
+  if(mouseX < m.button1.button.width && mouseX < m.button1.button.width && mouseY > m.button1.button.height && mouseY < m.button1.button.height){
     if(m.button1.pressed == false) m.button1.pressed = true;
   }
-  if(mouseX > m.button2.button.width && mouseX < m.button2.button.width && mouseY > m.button2.button.height && mouseY < m.button2.button.height){
+  if(mouseX < m.button2.button.width && mouseX < m.button2.button.width && mouseY < m.button2.button.height && mouseY < m.button2.button.height){
     if(m.button2.pressed == false) m.button2.pressed = true;
   }
-
 }
