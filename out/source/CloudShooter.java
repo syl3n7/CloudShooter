@@ -5,7 +5,6 @@ import processing.event.*;
 import processing.opengl.*;
 
 import org.gamecontrolplus.*;
-import processing.video.*;
 
 import java.util.HashMap;
 import java.util.ArrayList;
@@ -19,7 +18,6 @@ import java.io.IOException;
 public class CloudShooter extends PApplet {
 
 // Importar tudo da library GCP
-
 
 
 //inicializar objetos
@@ -94,7 +92,6 @@ public int lives = 3;
 }
 
  public void keyPressed() {
-  //falta por a bala a funcionar como no movimento smooth.
   if (key == ' ') {
     p1.shoot();
   }
@@ -138,12 +135,13 @@ void keyReleased() {
 }
 
  public void mousePressed() { // quando clicar no botao do rato dentro das condicoes especificadas(dentro dos limites do "canvas" da imagem do botao), iniciar jogo ou sair do jogo
-  if(mouseX < m.button1.button.width && mouseX < m.button1.button.width && mouseY > m.button1.button.height && mouseY < m.button1.button.height){
-    if(m.button1.pressed == false) m.button1.pressed = true;
-  }
-  if(mouseX < m.button2.button.width && mouseX < m.button2.button.width && mouseY < m.button2.button.height && mouseY < m.button2.button.height){
-    if(m.button2.pressed == false) m.button2.pressed = true;
-  }
+  if(m.button1.pressed()) m.button1.button = loadImage("assets/images/start_button.png");
+  if(m.button2.pressed()) m.button2.button = loadImage("assets/images/exit_button.png");
+}
+
+ public void mouseReleased() {
+  if(m.button1.pressed()) m.button1.pressed = true;
+  if(m.button2.pressed()) m.button2.pressed = true;
 }
 class Bullets {
 
@@ -191,7 +189,7 @@ boolean pressed;
 
     Button(String name, float x, float y){
         button = loadImage(name);
-        button.resize(button.width/2, button.height/2);
+        //button.resize(button.width/2, button.height/2);
         posX = x;
         posY = y;
         pressed = false;
@@ -202,15 +200,15 @@ boolean pressed;
     }
 
 //i want to use this so that i dont mess with the variable outside of the class
-    // boolean pressed(){
+     public boolean pressed(){
 
-    //     if(pressed){
-    //         pressed = false;
-    //         return true;
-    //     }
+        if(mouseX > posX && mouseX < posX + width/2 && mouseY > posY && mouseY < height/2 ){
+            pressed = false;
+            return true;
+        }
 
-    //     return pressed;
-    // }
+        return pressed;
+    }
 
 }
 //creating the class for cloud generating
@@ -254,7 +252,6 @@ class Enemy {
   float mediaY = height/2;
   //constructor
   Enemy(String nome, float x, float y, int t, float v, float d) {
-
     img = loadImage(nome);
     posX = width-tam;
     posY = 0;
@@ -262,21 +259,17 @@ class Enemy {
     vel = v;
     damage = d;
     health = 100;
-
   }
-
+//necessito de chamar recursivamente esta funcao para que o jogador possa eliminar o inimigo e ele continue a dar spawn
    public void drawme() {
-
     img.resize(PApplet.parseInt(tam), PApplet.parseInt(tam)); //redimensiona a imagem
     image(img, posX, posY);
-
   }
 
 //necessito de fazer com que o enimigo se multiplique a cada posY completo 
 
 //fazer enimigo andar pelo canvas variando velocidade horizontal e posicao vertical aleatoria
    public void move() {
-  
     //tam = randomGaussian();
     //tam = tam * dp + mediaY; 
     tsmoothed = noise(trand); //posicao vertical dinamica, dificuldade 0
@@ -286,13 +279,10 @@ class Enemy {
     if (posX < 0) {
       delay(250);
       posX = width + tam;
-     
     } else {
       posX -= vel;
-      trand += 0.05f;
-      
+      trand += 0.07f;
     }
-
   }
 
 /* placeholder para verificar se foi atingiho pela bala*/
@@ -319,8 +309,8 @@ Highscore highscore;
         posX = x;
         posY = y;
         state = true;
-        button1 = new Button("assets/images/start_button.png", width/2 - 200, height/2);
-        button2 = new Button("assets/images/exit_button.png", width/2 + 200, height/2);
+        button1 = new Button("assets/images/refurbished_start_button.png", width/2 - 500, height/2 - 100); //image to be changed in the near future
+        button2 = new Button("assets/images/refurbished_exit_button.png", width/2 + 100, height/2 - 100);
         highscore = new Highscore();
     }
 
@@ -343,7 +333,7 @@ class Player {
   PImage img; //sprite normal
   //PImage img2; //sprite while moving up
   //PImage img3; //sprite while moving down
-  float posX, posY, tam;
+  float posX, posY, tam, health;
   boolean moveUp, moveDown, moveLeft, moveRight; //booleanas para controlar o movimento do player
 
   //Constructor
@@ -354,6 +344,7 @@ class Player {
     posX = x;
     posY = y;
     tam = t;
+    health = 100;
     largura = img.width;
     altura = img.height;
     moveDown  = false;
@@ -365,14 +356,18 @@ class Player {
   //spawn da imagem mediante parametros indicados + resize para tamanho pretendido
    public void drawme() {
     img.resize(650, 350);
-    image(img, posX, posY);
+    if(health > 0) {
+      image(img, posX, posY);
+    }
   }
 
   //damage radius
    public void damage() {
+    //http://jeffreythompson.org/collision-detection/rect-rect.php
+    //ler novamente o link acima. necessito de fazer a verificacao de colisao.
   }
 
-   public void shoot () {
+   public void shoot () {  
     b1.posX = posX+largura/2.5f;
     b1.posY = posY+altura/3.4f;
     b1.moveme();
@@ -408,23 +403,18 @@ Table table;
 
 //construtor
     Highscore(){
-
         //inicializar a tabela para armazenar highscore
         table = new Table();
         //adicionar colunas na tabela
         table.addColumn("id");
         table.addColumn("score");
-
     }
 
      public void addData(){
-        
         TableRow newRow = table.addRow();
-        
         //adicionar linhas na tabela
         newRow.setInt("id", table.lastRowIndex()+1);
         newRow.setInt("score", score);
-
     }
 
      public void saveData(){
@@ -432,14 +422,11 @@ Table table;
         saveTable(table, "data/highscore.csv");
     }
 
-
     //metodos
      public int top5(){
         int result = 0;
         //ler o ficheiro e determinar o top 5
         
-
-
         return result;
     }
 

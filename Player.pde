@@ -4,7 +4,7 @@ class Player {
   PImage img; //sprite normal
   //PImage img2; //sprite while moving up
   //PImage img3; //sprite while moving down
-  float posX, posY, tam;
+  float posX, posY, tam, health;
   boolean moveUp, moveDown, moveLeft, moveRight; //booleanas para controlar o movimento do player
 
   //Constructor
@@ -15,6 +15,7 @@ class Player {
     posX = x;
     posY = y;
     tam = t;
+    health = 100;
     largura = img.width;
     altura = img.height;
     moveDown  = false;
@@ -26,14 +27,18 @@ class Player {
   //spawn da imagem mediante parametros indicados + resize para tamanho pretendido
   void drawme() {
     img.resize(650, 350);
-    image(img, posX, posY);
+    if(health > 0) {
+      image(img, posX, posY);
+    }
   }
 
   //damage radius
   void damage() {
+    //http://jeffreythompson.org/collision-detection/rect-rect.php
+    //ler novamente o link acima. necessito de fazer a verificacao de colisao.
   }
 
-  void shoot () {
+  void shoot () {  
     b1.posX = posX+largura/2.5;
     b1.posY = posY+altura/3.4;
     b1.moveme();

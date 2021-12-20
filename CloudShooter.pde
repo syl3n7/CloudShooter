@@ -1,6 +1,5 @@
 // Importar tudo da library GCP
 import org.gamecontrolplus.*;
-import processing.video.*;
 
 //inicializar objetos
 ControlIO controlIO; //usar controlador
@@ -74,7 +73,6 @@ void draw() {
 }
 
 void keyPressed() {
-  //falta por a bala a funcionar como no movimento smooth.
   if (key == ' ') {
     p1.shoot();
   }
@@ -118,10 +116,11 @@ void score() {
 }
 
 void mousePressed() { // quando clicar no botao do rato dentro das condicoes especificadas(dentro dos limites do "canvas" da imagem do botao), iniciar jogo ou sair do jogo
-  if(mouseX < m.button1.button.width && mouseX < m.button1.button.width && mouseY > m.button1.button.height && mouseY < m.button1.button.height){
-    if(m.button1.pressed == false) m.button1.pressed = true;
-  }
-  if(mouseX < m.button2.button.width && mouseX < m.button2.button.width && mouseY < m.button2.button.height && mouseY < m.button2.button.height){
-    if(m.button2.pressed == false) m.button2.pressed = true;
-  }
+  if(m.button1.pressed()) m.button1.button = loadImage("assets/images/start_button.png");
+  if(m.button2.pressed()) m.button2.button = loadImage("assets/images/exit_button.png");
+}
+
+void mouseReleased() {
+  if(m.button1.pressed()) m.button1.pressed = true;
+  if(m.button2.pressed()) m.button2.pressed = true;
 }
