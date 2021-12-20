@@ -10,7 +10,6 @@ class Enemy {
   float mediaY = height/2;
   //constructor
   Enemy(String nome, float x, float y, int t, float v, float d) {
-
     img = loadImage(nome);
     posX = width-tam;
     posY = 0;
@@ -18,21 +17,17 @@ class Enemy {
     vel = v;
     damage = d;
     health = 100;
-
   }
-
+//necessito de chamar recursivamente esta funcao para que o jogador possa eliminar o inimigo e ele continue a dar spawn
   void drawme() {
-
     img.resize(int(tam), int(tam)); //redimensiona a imagem
     image(img, posX, posY);
-
   }
 
 //necessito de fazer com que o enimigo se multiplique a cada posY completo 
 
 //fazer enimigo andar pelo canvas variando velocidade horizontal e posicao vertical aleatoria
   void move() {
-  
     //tam = randomGaussian();
     //tam = tam * dp + mediaY; 
     tsmoothed = noise(trand); //posicao vertical dinamica, dificuldade 0
@@ -42,13 +37,10 @@ class Enemy {
     if (posX < 0) {
       delay(250);
       posX = width + tam;
-     
     } else {
       posX -= vel;
-      trand += 0.05;
-      
+      trand += 0.07;
     }
-
   }
 
 /* placeholder para verificar se foi atingiho pela bala*/

@@ -7,7 +7,7 @@ boolean pressed;
 
     Button(String name, float x, float y){
         button = loadImage(name);
-        button.resize(button.width/2, button.height/2);
+        //button.resize(button.width/2, button.height/2);
         posX = x;
         posY = y;
         pressed = false;
@@ -18,14 +18,14 @@ boolean pressed;
     }
 
 //i want to use this so that i dont mess with the variable outside of the class
-    // boolean pressed(){
+    boolean pressed(){
 
-    //     if(pressed){
-    //         pressed = false;
-    //         return true;
-    //     }
+        if(mouseX > posX && mouseX < posX + width/2 && mouseY > posY && mouseY < height/2 ){
+            pressed = false;
+            return true;
+        }
 
-    //     return pressed;
-    // }
+        return pressed;
+    }
 
 }
