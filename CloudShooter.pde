@@ -20,7 +20,7 @@ void setup() {
 
   //rectMode(CENTER); //função usada para centrar os rectângulos
 
-  frameRate(30); //especificar framerate a usar
+  frameRate(60); //especificar framerate a usar
 
   //menu start
   m = new Menu(width/2, height/2);
@@ -39,12 +39,10 @@ void setup() {
 
 }
 
-//quero adicionar um background que vai mudando a HUE de modo a ser dia/noite.
-
 //desenhar os elementos do programa no ecra
 void draw() {
   //calls menu
-  background(0);
+  background(0); //quero adicionar um background que vai mudando a HUE de modo a ser dia/noite.
   m.start();
   if (m.state) {
     m.start.drawme();
@@ -120,17 +118,19 @@ void mousePressed() { // quando clicar no botao do rato dentro das condicoes esp
   //if(m.start.pressed()) m.start.button = loadImage("assets/images/start_button.png");
   //if(m.exit.pressed()) m.exit.button = loadImage("assets/images/exit_button.png");
   //if(m.back.pressed()) m.back.button = loadImage("assets/images/exit_button.png");
+  //ignora o codigo acima por agora
+  
+  if(m.start.pressed()) m.start.pressed = true;
+  //println(m.start.pressed);
+  if(m.exit.pressed()) m.exit.pressed = true;
+  //println(m.exit.pressed);
+  if(m.back.pressed()){
+    m.back.pressed = true;
+  }
+  //println("state butao back "+m.back.pressed);//debug
+  //println("state menu "+m.state);//debug
 }
 
 void mouseReleased() {
-  if(m.start.pressed()) m.start.pressed = true;
-  println(m.start.pressed);
-  if(m.exit.pressed()) m.exit.pressed = true;
-  println(m.exit.pressed);
-  if(m.back.pressed()){
-    m.back.pressed = true;
-    m.state = true;
-  }
-  println("state butao back "+m.back.pressed);
-  println("state menu "+m.state);
+
 }

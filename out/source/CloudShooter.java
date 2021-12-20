@@ -39,7 +39,7 @@ public int lives = 3;
 
   //rectMode(CENTER); //função usada para centrar os rectângulos
 
-  frameRate(30); //especificar framerate a usar
+  frameRate(60); //especificar framerate a usar
 
   //menu start
   m = new Menu(width/2, height/2);
@@ -58,12 +58,10 @@ public int lives = 3;
 
 }
 
-//quero adicionar um background que vai mudando a HUE de modo a ser dia/noite.
-
 //desenhar os elementos do programa no ecra
  public void draw() {
   //calls menu
-  background(0);
+  background(0); //quero adicionar um background que vai mudando a HUE de modo a ser dia/noite.
   m.start();
   if (m.state) {
     m.start.drawme();
@@ -143,15 +141,15 @@ void keyReleased() {
 
  public void mouseReleased() {
   if(m.start.pressed()) m.start.pressed = true;
-  println(m.start.pressed);
+  //println(m.start.pressed);
   if(m.exit.pressed()) m.exit.pressed = true;
-  println(m.exit.pressed);
+  //println(m.exit.pressed);
   if(m.back.pressed()){
     m.back.pressed = true;
     m.state = true;
   }
-  println("state butao back "+m.back.pressed);
-  println("state menu "+m.state);
+  //println("state butao back "+m.back.pressed);//debug
+  //println("state menu "+m.state);//debug
 }
 class Bullets {
 
@@ -209,8 +207,8 @@ boolean pressed;
 
      public void drawme(){
         image(button, posX, posY);//colocar isto na liunha 21 depois
-        fill(255, 0, 0, 100);
-        rect(posX+60, posY+60, tam1, tam2); 
+        //fill(255, 0, 0, 100); //manual debug
+        //rect(posX+60, posY+60, tam1, tam2); //manual debug
     }
 
 //i want to use this so that i dont mess with the variable outside of the class
@@ -327,8 +325,7 @@ Highscore highscore;
 
     //método usado para desenhar os botões
      public void start() {
-        //verficar estado pressed de cada botao / desenhar jogo by default
-        
+        //verficar estado pressed de cada botao
         if(state){
             if (start.pressed) state = false;
             if (exit.pressed) { ///pressionar botao exit guarda highscore e sai do jogo
@@ -336,8 +333,14 @@ Highscore highscore;
                 highscore.saveData();
                 exit();
             }
-            if(back.pressed) m.state = true;
         }
+        if(back.pressed) {
+            println("back pressed "+back.pressed);
+            println("state "+state);
+            state = true;
+            highscore.addData();
+        }
+        back.pressed = false;
     }
 } 
 class Player {

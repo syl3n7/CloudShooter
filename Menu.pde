@@ -19,8 +19,7 @@ Highscore highscore;
 
     //método usado para desenhar os botões
     void start() {
-        //verficar estado pressed de cada botao / desenhar jogo by default
-        
+        //verficar estado pressed de cada botao
         if(state){
             if (start.pressed) state = false;
             if (exit.pressed) { ///pressionar botao exit guarda highscore e sai do jogo
@@ -28,7 +27,13 @@ Highscore highscore;
                 highscore.saveData();
                 exit();
             }
-            if(back.pressed) m.state = true;
+        }
+        if(back.pressed) {
+            println("start pressed "+start.pressed);
+            println("state "+state);
+            state = true;
+            start.pressed = false;
+            highscore.addData();
         }
     }
 } 
