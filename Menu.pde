@@ -11,8 +11,8 @@ Highscore highscore;
         posX = x;
         posY = y;
         state = true;
-        button1 = new Button("assets/images/start_button.png", width/2 - 200, height/2); //image to be changed in the near future
-        button2 = new Button("assets/images/exit_button.png", width/2 + 200, height/2);
+        button1 = new Button("assets/images/refurbished_start_button.png", width/2 - 500, height/2 - 100); //image to be changed in the near future
+        button2 = new Button("assets/images/refurbished_exit_button.png", width/2 + 100, height/2 - 100);
         highscore = new Highscore();
     }
 
