@@ -54,8 +54,8 @@ void draw() {
   if (m.state) {
     m.start.drawme();
     m.exit.drawme();
-  }
-  
+  } //add a button to acess the highscores // add a button to acess instructions
+  //stop the game with sleep() if the player dies and write GAME OVER, and if the play again is pressed you can resume.
   if(m.state == false){
     //claudio fez esta parte do codigo
     background(0, 80, 255); //background azul temporario

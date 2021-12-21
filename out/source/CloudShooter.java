@@ -35,15 +35,16 @@ float bgc = 0;
 
 //codigo apenas corrido 1x (inicio do programa)
  public void setup() {  
+//https://forum.processing.org/one/topic/dynamic-screen-background-resize-need-guidance.html
+//vou provavelmente precisar do link acima para colocar o tamanho da imagem de fundo dinamica 
 
   /* size commented out by preprocessor */; //utilizado para por o canvas em full screen
 
   //rectMode(CENTER); //função usada para centrar os rectângulos
 
   frameRate(60); //especificar framerate a usar
-  //background color
   
-  //menu start
+  //menu 
   m = new Menu(width/2, height/2);
   //nuvem 1
   c1 = new CloudsGen("/assets/images/cloud1.png", 100, random(height));
@@ -67,7 +68,7 @@ float bgc = 0;
   if(bgc < 256) background(bgc++, 0, 0, 0);
   else background(bgc--, 0, 0, 0);
 
-   //quero adicionar um background que vai mudando a HUE de modo a ser dia/noite.
+  //quero adicionar um background que vai mudando a HUE de modo a ser dia/noite.
   m.start();
   if (m.state) {
     m.start.drawme();
@@ -114,7 +115,7 @@ float bgc = 0;
   if(key == 'd'|| key == 'D') p1.moveRight = false;
 }
 
-//codigo importado do exemplo do professor em ordem a obter movimento suave
+//codigo importado do exemplo fornecido pelo professor para o movimento ser + suave
 /*void keyPressed() {
   if(key == 'j' || key == 'J') plane.left = true;
   if(key == 'l' || key == 'L') plane.right = true;
@@ -356,8 +357,10 @@ class Player {
   //Constructor
   Player(String n, float x, float y, float t) {
     img = loadImage(n);
-    //img2 = loadimage(n2);
-    //img3 = loadimage(n3);
+    //imgUp = loadimage(imgUp);
+    //imgDown = loadimage(imgDown);
+    //imgLeft = loadimage(imgLeft);
+    //imgRight = loadimage(imgRight);
     posX = x;
     posY = y;
     tam = t;
@@ -374,8 +377,25 @@ class Player {
    public void drawme() {
     img.resize(650, 350);
     if(health > 0) {
-      image(img, posX, posY);
+      image(img, posX, posY); //missing the new sprite
     }
+    checkDirection();
+  }
+
+  //check direction and change the sprite acordingly
+   public void checkDirection() {
+    if(moveUp) {
+      //img = loadImage(imgUp); //missing the sprite
+    }
+    if(moveDown) {
+      //img = loadImage(imgDown); //missing the sprite
+    }
+    if(moveLeft) {
+      //img = loadImage(imgLeft); //missing the sprite
+    }
+    if(moveRight) {
+      //img = loadImage(imgRight); //missing the sprite
+    } 
   }
 
   //damage radius
