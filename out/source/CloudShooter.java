@@ -31,6 +31,7 @@ Bullets b1;
 Enemy e1;
 public int score = 0;
 public int lives = 3;
+float bgc = 0;
 
 //codigo apenas corrido 1x (inicio do programa)
  public void setup() {  
@@ -40,7 +41,8 @@ public int lives = 3;
   //rectMode(CENTER); //função usada para centrar os rectângulos
 
   frameRate(60); //especificar framerate a usar
-
+  //background color
+  
   //menu start
   m = new Menu(width/2, height/2);
   //nuvem 1
@@ -60,8 +62,12 @@ public int lives = 3;
 
 //desenhar os elementos do programa no ecra
  public void draw() {
-  //calls menu
-  background(0); //quero adicionar um background que vai mudando a HUE de modo a ser dia/noite.
+  //calls menu 
+  //testing dynamic background color
+  if(bgc < 256) background(bgc++, 0, 0, 0);
+  else background(bgc--, 0, 0, 0);
+
+   //quero adicionar um background que vai mudando a HUE de modo a ser dia/noite.
   m.start();
   if (m.state) {
     m.start.drawme();
@@ -133,7 +139,7 @@ void keyReleased() {
  public void mousePressed() { // quando clicar no botao do rato dentro das condicoes especificadas(dentro dos limites do "canvas" da imagem do botao), iniciar jogo ou sair do jogo
   if(m.start.pressed()) m.start.button = loadImage("assets/images/start_button.png");
   if(m.exit.pressed()) m.exit.button = loadImage("assets/images/exit_button.png");
-  if(m.back.pressed()) m.back.button = loadImage("assets/images/exit_button.png");
+  if(m.back.pressed()) m.back.button = loadImage("assets/images/back_button.png");
 }
 
  public void mouseReleased() {
@@ -144,7 +150,7 @@ void keyReleased() {
   if(m.exit.pressed()) m.exit.button = loadImage("assets/images/pressed_exit_button.png");
   //println(m.exit.pressed);
   if(m.back.pressed()) m.back.pressed = true;
-  if(m.back.pressed()) m.back.button = loadImage("assets/images/pressed_exit_button.png");
+  if(m.back.pressed()) m.back.button = loadImage("assets/images/pressed_back_button.png");
   //println("state butao back "+m.back.pressed);//debug
   //println("state menu "+m.state);//debug
 }
