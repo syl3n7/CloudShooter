@@ -10,8 +10,10 @@ class Player {
   //Constructor
   Player(String n, float x, float y, float t) {
     img = loadImage(n);
-    //img2 = loadimage(n2);
-    //img3 = loadimage(n3);
+    //imgUp = loadimage(imgUp);
+    //imgDown = loadimage(imgDown);
+    //imgLeft = loadimage(imgLeft);
+    //imgRight = loadimage(imgRight);
     posX = x;
     posY = y;
     tam = t;
@@ -33,22 +35,21 @@ class Player {
     checkDirection();
   }
 
-  //check direction
+  //check direction and change the sprite acordingly
   void checkDirection() {
     if(moveUp) {
-      //img = loadImage(img); //missing the sprite
+      //img = loadImage(imgUp); //missing the sprite
     }
     if(moveDown) {
-      //img = loadImage(img); //missing the sprite
+      //img = loadImage(imgDown); //missing the sprite
     }
     if(moveLeft) {
-      //img = loadImage(img); //missing the sprite
+      //img = loadImage(imgLeft); //missing the sprite
     }
     if(moveRight) {
-      //img = loadImage(img); //missing the sprite
+      //img = loadImage(imgRight); //missing the sprite
     } 
   }
-
 
   //damage radius
   void damage() {
