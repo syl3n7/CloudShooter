@@ -131,24 +131,22 @@ void keyReleased() {
 }
 
  public void mousePressed() { // quando clicar no botao do rato dentro das condicoes especificadas(dentro dos limites do "canvas" da imagem do botao), iniciar jogo ou sair do jogo
-  //if(m.start.pressed()) m.start.button = loadImage("assets/images/start_button.png");
-  //if(m.exit.pressed()) m.exit.button = loadImage("assets/images/exit_button.png");
-  //if(m.back.pressed()) m.back.button = loadImage("assets/images/exit_button.png");
-  //ignora o codigo acima por agora
-  
-  if(m.start.pressed()) m.start.pressed = true;
-  println(m.start.pressed);
-  if(m.exit.pressed()) m.exit.pressed = true;
-  //println(m.exit.pressed);
-  if(m.back.pressed()){
-    m.back.pressed = true;
-  }
-  //println("state butao back "+m.back.pressed);//debug
-  //println("state menu "+m.state);//debug
+  if(m.start.pressed()) m.start.button = loadImage("assets/images/start_button.png");
+  if(m.exit.pressed()) m.exit.button = loadImage("assets/images/exit_button.png");
+  if(m.back.pressed()) m.back.button = loadImage("assets/images/exit_button.png");
 }
 
  public void mouseReleased() {
-
+  if(m.start.pressed()) m.start.pressed = true;
+  if(m.start.pressed()) m.start.button = loadImage("assets/images/pressed_start_button.png");
+  //println(m.start.pressed);
+  if(m.exit.pressed()) m.exit.pressed = true;
+  if(m.exit.pressed()) m.exit.button = loadImage("assets/images/pressed_exit_button.png");
+  //println(m.exit.pressed);
+  if(m.back.pressed()) m.back.pressed = true;
+  if(m.back.pressed()) m.back.button = loadImage("assets/images/pressed_exit_button.png");
+  //println("state butao back "+m.back.pressed);//debug
+  //println("state menu "+m.state);//debug
 }
 class Bullets {
 
@@ -316,9 +314,9 @@ Highscore highscore;
         posX = x;
         posY = y;
         state = true;
-        start = new Button("assets/images/refurbished_start_button.png", width/2 - 500, height/2 - 100); //image to be changed in the near future
-        exit = new Button("assets/images/refurbished_exit_button.png", width/2 + 100, height/2 - 100);
-        back = new Button("assets/images/refurbished_exit_button.png", 1600, 10);
+        start = new Button("assets/images/start_button.png", width/2 - 500, height/2 - 100); //image to be changed in the near future
+        exit = new Button("assets/images/exit_button.png", width/2 + 100, height/2 - 100);
+        back = new Button("assets/images/exit_button.png", 1600, 10);
         highscore = new Highscore();
     }
 
@@ -328,7 +326,6 @@ Highscore highscore;
         if(state){
             if (start.pressed) state = false;
             if (exit.pressed) { ///pressionar botao exit guarda highscore e sai do jogo
-                highscore.addData();
                 highscore.saveData();
                 exit();
             }
