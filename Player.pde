@@ -28,9 +28,27 @@ class Player {
   void drawme() {
     img.resize(650, 350);
     if(health > 0) {
-      image(img, posX, posY);
+      image(img, posX, posY); //missing the new sprite
     }
+    checkDirection();
   }
+
+  //check direction
+  void checkDirection() {
+    if(moveUp) {
+      //img = loadImage(img); //missing the sprite
+    }
+    if(moveDown) {
+      //img = loadImage(img); //missing the sprite
+    }
+    if(moveLeft) {
+      //img = loadImage(img); //missing the sprite
+    }
+    if(moveRight) {
+      //img = loadImage(img); //missing the sprite
+    } 
+  }
+
 
   //damage radius
   void damage() {

@@ -24,9 +24,8 @@ void setup() {
   //rectMode(CENTER); //função usada para centrar os rectângulos
 
   frameRate(60); //especificar framerate a usar
-  //background color
   
-  //menu start
+  //menu 
   m = new Menu(width/2, height/2);
   //nuvem 1
   c1 = new CloudsGen("/assets/images/cloud1.png", 100, random(height));
@@ -50,7 +49,7 @@ void draw() {
   if(bgc < 256) background(bgc++, 0, 0, 0);
   else background(bgc--, 0, 0, 0);
 
-   //quero adicionar um background que vai mudando a HUE de modo a ser dia/noite.
+  //quero adicionar um background que vai mudando a HUE de modo a ser dia/noite.
   m.start();
   if (m.state) {
     m.start.drawme();
@@ -97,7 +96,7 @@ void keyReleased() {
   if(key == 'd'|| key == 'D') p1.moveRight = false;
 }
 
-//codigo importado do exemplo do professor em ordem a obter movimento suave
+//codigo importado do exemplo fornecido pelo professor para o movimento ser + suave
 /*void keyPressed() {
   if(key == 'j' || key == 'J') plane.left = true;
   if(key == 'l' || key == 'L') plane.right = true;
