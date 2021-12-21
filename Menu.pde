@@ -29,11 +29,10 @@ Highscore highscore;
             }
         }
         if(back.pressed) {
-            println("start pressed "+start.pressed);
-            println("state "+state);
+            highscore.addData();
             state = true;
             start.pressed = false;
-            highscore.addData();
+            back.pressed = false;
         }
     }
 } 

@@ -66,8 +66,8 @@ void draw() {
     e1.drawme(); //desenhar o inimigo
     e1.move(); //Bmover o inimigo
     //  e1.healthcheck(); //verificar se o inimigo morreu ou nao
-    score();
-    b1.enemycheck(); //verificar se a bala atingiu o inimigo
+    score(); //"b1.enemycheck();" ou seja: verificar se a bala atingiu o inimigo e acrescentar valor ao score
+    
   }
 }
 
@@ -80,16 +80,13 @@ void keyPressed() {
   if(key == 'w'|| key == 'W') p1.moveUp = true;
   if(key == 'a'|| key == 'A') p1.moveLeft = true;
   if(key == 'd'|| key == 'D') p1.moveRight = true;
-
 }
 
 void keyReleased() {
-
   if(key == 's'|| key == 'S') p1.moveDown = false;
   if(key == 'w'|| key == 'W') p1.moveUp = false;
   if(key == 'a'|| key == 'A') p1.moveLeft = false;
   if(key == 'd'|| key == 'D') p1.moveRight = false;
-
 }
 
 //codigo importado do exemplo do professor em ordem a obter movimento suave
@@ -121,7 +118,7 @@ void mousePressed() { // quando clicar no botao do rato dentro das condicoes esp
   //ignora o codigo acima por agora
   
   if(m.start.pressed()) m.start.pressed = true;
-  //println(m.start.pressed);
+  println(m.start.pressed);
   if(m.exit.pressed()) m.exit.pressed = true;
   //println(m.exit.pressed);
   if(m.back.pressed()){
