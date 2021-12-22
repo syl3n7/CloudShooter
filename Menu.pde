@@ -14,8 +14,8 @@ Highscore highscore;
         start = new Button("assets/images/start_button.png", width/2 - 500, height/2 - 100); //image to be changed in the near future
         exit = new Button("assets/images/exit_button.png", width/2 + 100, height/2 - 100);
         back = new Button("assets/images/exit_button.png", 1600, 10);
-        instructions = new Button("assets/images/start_button.png", width/2 - 500, height/2 + 200);
-        highscorestable = new Button("assets/images/start_button.png", width/2 + 100, height/2 + 200);
+        instructions = new Button("assets/images/instructions_button.png", width/2 - 500, height/2 + 200);
+        highscorestable = new Button("assets/images/highscores_button.png", width/2 + 100, height/2 + 200);
         highscore = new Highscore();
     }
 
