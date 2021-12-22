@@ -73,8 +73,10 @@ float bgc = 0;
   if (m.state) {
     m.start.drawme();
     m.exit.drawme();
-  }
-  
+    m.highscorestable.drawme();
+    m.instructions.drawme();
+  } //add a button to acess the highscores // add a button to acess instructions
+  //stop the game with sleep() if the player dies and write GAME OVER, and if the play again is pressed you can resume.
   if(m.state == false){
     //claudio fez esta parte do codigo
     background(0, 80, 255); //background azul temporario
@@ -313,7 +315,7 @@ class Menu{
 //propriedades
 float posX, posY;
 boolean state;
-Button start, exit, back;
+Button start, exit, back, highscorestable, instructions, credits;
 Highscore highscore;
 
     //construtor 
@@ -324,6 +326,8 @@ Highscore highscore;
         start = new Button("assets/images/start_button.png", width/2 - 500, height/2 - 100); //image to be changed in the near future
         exit = new Button("assets/images/exit_button.png", width/2 + 100, height/2 - 100);
         back = new Button("assets/images/exit_button.png", 1600, 10);
+        instructions = new Button("assets/images/start_button.png", width/2 - 500, height/2 + 200);
+        highscorestable = new Button("assets/images/start_button.png", width/2 + 100, height/2 + 200);
         highscore = new Highscore();
     }
 

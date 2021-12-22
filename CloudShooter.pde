@@ -52,8 +52,10 @@ void draw() {
   //quero adicionar um background que vai mudando a HUE de modo a ser dia/noite.
   m.start();
   if (m.state) {
-    m.start.drawme();
+    m.start.drawme(); //use loadtable to load the previous highscores
     m.exit.drawme();
+    m.highscorestable.drawme();
+    m.instructions.drawme();
   } //add a button to acess the highscores // add a button to acess instructions
   //stop the game with sleep() if the player dies and write GAME OVER, and if the play again is pressed you can resume.
   if(m.state == false){
