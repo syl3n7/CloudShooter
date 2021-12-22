@@ -1,8 +1,11 @@
 // Importar tudo da library GCP
 import org.gamecontrolplus.*;
+import net.java.games.input.*;
 
 //inicializar objetos
-ControlIO controlIO; //usar controlador
+ControlIO control; //objeto para ler controlos
+Configuration config; //usar configuração
+ControlDevice gpad; //usar dispositivo
 Menu m;
 CloudsGen c1;
 CloudsGen c2;
@@ -24,6 +27,17 @@ void setup() {
   //rectMode(CENTER); //função usada para centrar os rectângulos
 
   frameRate(60); //especificar framerate a usar
+
+  surface.setTitle("CloudShooter by Catarina & Claudio"); //titulo da janela
+  // Initialise the ControlIO
+  control = ControlIO.getInstance(this);
+  // Find a gamepad that matches the configuration file. To match with any 
+  // connected device remove the call to filter.
+  gpad = control.filter(GCP.GAMEPAD).getMatchedDevice("BController");
+  if (gpad == null) {
+    println("No suitable device configured");
+    System.exit(-1); // End the program NOW!
+  }
   
   //menu 
   m = new Menu(width/2, height/2);

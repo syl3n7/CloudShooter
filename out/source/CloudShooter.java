@@ -5,6 +5,7 @@ import processing.event.*;
 import processing.opengl.*;
 
 import org.gamecontrolplus.*;
+import net.java.games.input.*;
 
 import java.util.HashMap;
 import java.util.ArrayList;
@@ -20,8 +21,11 @@ public class CloudShooter extends PApplet {
 // Importar tudo da library GCP
 
 
+
 //inicializar objetos
-ControlIO controlIO; //usar controlador
+ControlIO control; //objeto para ler controlos
+Configuration config; //usar configuração
+ControlDevice gpad; //usar dispositivo
 Menu m;
 CloudsGen c1;
 CloudsGen c2;
@@ -43,6 +47,17 @@ float bgc = 0;
   //rectMode(CENTER); //função usada para centrar os rectângulos
 
   frameRate(60); //especificar framerate a usar
+
+  surface.setTitle("CloudShooter by Catarina & Claudio"); //titulo da janela
+  // Initialise the ControlIO
+  control = ControlIO.getInstance(this);
+  // Find a gamepad that matches the configuration file. To match with any 
+  // connected device remove the call to filter.
+  gpad = control.filter(GCP.GAMEPAD).getMatchedDevice("BController");
+  if (gpad == null) {
+    println("No suitable device configured");
+    System.exit(-1); // End the program NOW!
+  }
   
   //menu 
   m = new Menu(width/2, height/2);
@@ -310,6 +325,41 @@ class Enemy {
   }
   */
 }
+class Highscore{
+
+//propriedades
+Table table;
+
+//construtor
+    Highscore(){
+        //inicializar a tabela para armazenar highscore
+        table = new Table();
+        //adicionar colunas na tabela
+        table.addColumn("id");
+        table.addColumn("score");
+    }
+
+     public void addData(){
+        TableRow newRow = table.addRow();
+        //adicionar linhas na tabela
+        newRow.setInt("id", table.lastRowIndex()+1);
+        newRow.setInt("score", score);
+    }
+
+     public void saveData(){
+        //guardar os dados da tabela no ficheiro
+        saveTable(table, "data/highscore.csv");
+    }
+
+    //metodos
+     public int top5(){ // tenho que por isto a funcionar para mostrar pelo botao highscore
+        int result = 0;
+        //ler o ficheiro e determinar o top 5
+        
+        return result;
+    }
+
+}
 class Menu{
 
 //propriedades
@@ -435,41 +485,6 @@ class Player {
     image(img, posX, posY);
   }
   */
-
-}
-class Highscore{
-
-//propriedades
-Table table;
-
-//construtor
-    Highscore(){
-        //inicializar a tabela para armazenar highscore
-        table = new Table();
-        //adicionar colunas na tabela
-        table.addColumn("id");
-        table.addColumn("score");
-    }
-
-     public void addData(){
-        TableRow newRow = table.addRow();
-        //adicionar linhas na tabela
-        newRow.setInt("id", table.lastRowIndex()+1);
-        newRow.setInt("score", score);
-    }
-
-     public void saveData(){
-        //guardar os dados da tabela no ficheiro
-        saveTable(table, "data/highscore.csv");
-    }
-
-    //metodos
-     public int top5(){
-        int result = 0;
-        //ler o ficheiro e determinar o top 5
-        
-        return result;
-    }
 
 }
 
