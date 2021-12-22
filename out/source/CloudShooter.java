@@ -155,20 +155,20 @@ void keyReleased() {
 }
 
  public void mousePressed() { // quando clicar no botao do rato dentro das condicoes especificadas(dentro dos limites do "canvas" da imagem do botao), iniciar jogo ou sair do jogo
-  if(m.start.pressed()) m.start.button = loadImage("assets/images/start_button.png");
-  if(m.exit.pressed()) m.exit.button = loadImage("assets/images/exit_button.png");
-  if(m.back.pressed()) m.back.button = loadImage("assets/images/back_button.png");
+  if(m.start.pressed()) m.start.button = loadImage("assets/images/pressed_start_button.png");
+  if(m.exit.pressed()) m.exit.button = loadImage("assets/images/pressed_exit_button.png");
+  if(m.back.pressed()) m.back.button = loadImage("assets/images/pressed_back_button.png");
 }
 
  public void mouseReleased() {
   if(m.start.pressed()) m.start.pressed = true;
-  if(m.start.pressed()) m.start.button = loadImage("assets/images/pressed_start_button.png");
+  if(m.start.pressed()) m.start.button = loadImage("assets/images/start_button.png");
   //println(m.start.pressed);
   if(m.exit.pressed()) m.exit.pressed = true;
-  if(m.exit.pressed()) m.exit.button = loadImage("assets/images/pressed_exit_button.png");
+  if(m.exit.pressed()) m.exit.button = loadImage("assets/images/exit_button.png");
   //println(m.exit.pressed);
   if(m.back.pressed()) m.back.pressed = true;
-  if(m.back.pressed()) m.back.button = loadImage("assets/images/pressed_back_button.png");
+  if(m.back.pressed()) m.back.button = loadImage("assets/images/back_button.png");
   //println("state butao back "+m.back.pressed);//debug
   //println("state menu "+m.state);//debug
 }
