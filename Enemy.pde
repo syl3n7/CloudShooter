@@ -29,13 +29,12 @@ class Enemy {
 //fazer enimigo andar pelo canvas variando velocidade horizontal e posicao vertical aleatoria
   void move() {
     //tam = randomGaussian();
-    //tam = tam * dp + mediaY; 
+    //tam = tam * dp + mediaY;
     tsmoothed = noise(trand); //posicao vertical dinamica, dificuldade 0
     tsmoothed = map(tsmoothed, 0, 1, tam, width-tam);
     posY = tsmoothed;
 
     if (posX < 0) {
-      delay(250);
       posX = width + tam;
     } else {
       posX -= vel;
