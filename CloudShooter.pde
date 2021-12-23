@@ -1,6 +1,7 @@
 // Importar tudo da library GCP
 import org.gamecontrolplus.*;
 import net.java.games.input.*;
+import java.awt.*;
 
 //inicializar objetos
 ControlIO control; //objeto para ler controlos
@@ -16,28 +17,43 @@ Enemy e1;
 public int score = 0;
 public int lives = 3;
 float bgc = 0;
+int center_x, center_y;
 
 //codigo apenas corrido 1x (inicio do programa)
 void setup() {  
 //https://forum.processing.org/one/topic/dynamic-screen-background-resize-need-guidance.html
 //vou provavelmente precisar do link acima para colocar o tamanho da imagem de fundo dinamica 
 
-  size(1920,1080,P2D); //utilizado para por o canvas em full screen
+//dinamic window size begin
+  fullScreen();
+  Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+  int screenHeight = screenSize.height;
+  int screenWidth = screenSize.width;
+  surface.setSize(1920, 1080);
+  center_x = screenWidth/2-width/2;
+  center_y = screenHeight/2-height/2;
+  surface.setLocation(center_x, center_y);
+  strokeWeight(10);
+  stroke(255, 0, 0);
+//dinamic window size end
 
+
+  //size(1920,1080,P2D); //utilizado para por o canvas em full screen
+  //surface.setLocation(0, 0); //set location of canvas to top left corner
   //rectMode(CENTER); //função usada para centrar os rectângulos
 
   frameRate(60); //especificar framerate a usar
-  //put a name on the window
+  
   surface.setTitle("CloudShooter by Catarina & Claudio"); //titulo da janela
-  // Initialise the ControlIO
-  control = ControlIO.getInstance(this);
-  // Find a gamepad that matches the configuration file. To match with any 
-  // connected device remove the call to filter.
-  gpad = control.filter(GCP.GAMEPAD).getMatchedDevice("BController"); // necessario importar as duas configuracoes (bluetooth+cabo)
-  if (gpad == null) {
-    println("No suitable device configured");
-    exit(); // End the program NOW!
-  }
+  // // Initialise the ControlIO
+  // control = ControlIO.getInstance(this);
+  // // Find a gamepad that matches the configuration file. To match with any 
+  // // connected device remove the call to filter.
+  // gpad = control.filter(GCP.GAMEPAD).getMatchedDevice("BController"); // necessario importar as duas configuracoes (bluetooth+cabo)
+  // if (gpad == null) {
+  //   println("No suitable device configured");
+  //   exit(); // End the program NOW!
+  // }
 
   m = new Menu(width/2, height/2);
   //nuvem 1
@@ -59,8 +75,7 @@ void setup() {
 void draw() {
   //calls menu 
   //testing dynamic background color
-  if(bgc < 256) background(bgc++, 0, 0, 0);
-  else background(bgc--, 0, 0, 0);
+  if(bgc >= 250) background(bgc--, 0, 0, 0);
 
   //quero adicionar um background que vai mudando a HUE de modo a ser dia/noite.
   m.start();
@@ -134,20 +149,29 @@ void score() {
 }
 
 void mousePressed() { // quando clicar no botao do rato dentro das condicoes especificadas(dentro dos limites do "canvas" da imagem do botao), iniciar jogo ou sair do jogo
-  if(m.start.pressed()) m.start.button = loadImage("assets/images/pressed_start_button.png");
-  if(m.exit.pressed()) m.exit.button = loadImage("assets/images/pressed_exit_button.png");
-  if(m.back.pressed()) m.back.button = loadImage("assets/images/pressed_back_button.png");
+  if(m.start.press()) m.start.button = loadImage("assets/images/pressed_start_button.png");
+  if(m.exit.press()) m.exit.button = loadImage("assets/images/pressed_exit_button.png");
+  if(m.back.press()) m.back.button = loadImage("assets/images/pressed_back_button.png");
 }
 
 void mouseReleased() {
-  if(m.start.pressed()) m.start.pressed = true;
-  if(m.start.pressed()) m.start.button = loadImage("assets/images/start_button.png");
+  if(m.start.press()) {
+    m.start.pressed = true;
+    m.start.button = loadImage("assets/images/start_button.png");
+    m.start.pressed = false;
+  }
   //println(m.start.pressed);
-  if(m.exit.pressed()) m.exit.pressed = true;
-  if(m.exit.pressed()) m.exit.button = loadImage("assets/images/exit_button.png");
+  if(m.exit.press()) {
+    m.exit.pressed = true;
+    m.exit.button = loadImage("assets/images/exit_button.png");
+    m.exit.pressed = false;
+  }
   //println(m.exit.pressed);
-  if(m.back.pressed()) m.back.pressed = true;
-  if(m.back.pressed()) m.back.button = loadImage("assets/images/back_button.png");
+  if(m.back.press()) {
+    m.back.pressed = true;
+    m.back.button = loadImage("assets/images/back_button.png");
+    m.back.pressed = false;
+  }
   //println("state butao back "+m.back.pressed);//debug
   //println("state menu "+m.state);//debug
 }
