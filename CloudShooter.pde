@@ -47,7 +47,7 @@ void setup() {
   //nuvem 3
   c3 = new CloudsGen("/assets/images/cloud3.png", 300, random(height));
   //player 1
-  p1 = new Player("/assets/images/f16.png", 0, 0, 20);
+  p1 = new Player("/assets/images/first_ship_cs.png", 0, 0, 20);
   //bullet 1
   b1 = new Bullets("/assets/images/bullet.png", -650, -650/2, 100);
   //enemy 1
