@@ -2,15 +2,15 @@ class Player {
   //Properties
   float altura, largura; //altura e largura da imagem
   PImage img; //sprite normal
-  //PImage img2; //sprite while moving up
+  String imgUp; //sprite while moving up
   //PImage img3; //sprite while moving down
   float posX, posY, tam, health;
   boolean moveUp, moveDown, moveLeft, moveRight; //booleanas para controlar o movimento do player
 
   //Constructor
   Player(String n, float x, float y, float t) {
-    img = loadImage(n);
-    //imgUp = loadimage(imgUp);
+    img = loadImage(n); //interligar isto ao playership menu
+    imgUp = "assets/images/first_ship_secondcs.png";
     //imgDown = loadimage(imgDown);
     //imgLeft = loadimage(imgLeft);
     //imgRight = loadimage(imgRight);
@@ -38,7 +38,7 @@ class Player {
   //check direction and change the sprite acordingly
   void checkDirection() {
     if(moveUp) {
-      //img = loadImage(imgUp); //missing the sprite
+      img = loadImage(imgUp); //missing the sprite
     }
     if(moveDown) {
       //img = loadImage(imgDown); //missing the sprite
