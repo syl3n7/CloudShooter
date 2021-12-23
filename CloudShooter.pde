@@ -27,7 +27,7 @@ void setup() {
   //rectMode(CENTER); //função usada para centrar os rectângulos
 
   frameRate(60); //especificar framerate a usar
-
+  //put a name on the window
   surface.setTitle("CloudShooter by Catarina & Claudio"); //titulo da janela
   // Initialise the ControlIO
   control = ControlIO.getInstance(this);
@@ -38,8 +38,7 @@ void setup() {
     println("No suitable device configured");
     exit(); // End the program NOW!
   }
-  
-  //menu 
+
   m = new Menu(width/2, height/2);
   //nuvem 1
   c1 = new CloudsGen("/assets/images/cloud1.png", 100, random(height));
