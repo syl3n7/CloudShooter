@@ -3,25 +3,23 @@ class PlayerShipMenu{
 //propriedades
 float posX, posY;
 boolean state;
-Button start, exit, back, highscorestable, instructions, credits;
-Highscore highscore;
+Button ship1, ship2;
 
     //construtor 
-    Menu(float x, float y) {
+    PlayerShipMenu(float x, float y) {
         //background = loadImage("assets/images/background.png");
         posX = x;
         posY = y;
-        state = true;
-        select1 = new Button("assets/images/start_button.png", width/2 - 500, height/2 - 100); //image to be changed in the near future
-        select2 = new Button("assets/images/exit_button.png", width/2 + 100, height/2 - 100);
-    }
+        state = false;
+        ship1 = new Button("assets/images/first_ship_cs.png", width/2 - 500, height/2 - 100); //image to be changed in the near future
+        ship2 = new Button("assets/images/first_ship_secondcs.png", width/2 + 100, height/2 - 100);    //método usado para desenhar os botões
+    } 
 
-    //método usado para desenhar os botões
     void drawme() {
         //background = loadImage("assets/images/background.png");
-        if (state){
-            select1.drawme();
-            select2.drawme();
+        if (m.state && state){
+            ship1.drawme();
+            ship1.drawme();
         }
     }
-} 
+}
