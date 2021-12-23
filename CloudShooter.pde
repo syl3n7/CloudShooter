@@ -16,11 +16,11 @@ public int lives = 3;
 //codigo apenas corrido 1x (inicio do programa)
 void setup() {  
 
-  fullScreen(P2D); //utilizado para por o canvas em full screen
+  size(1920,1080,P2D); //utilizado para por o canvas em full screen
 
-  rectMode(CENTER); //função usada para centrar os rectângulos
+  //rectMode(CENTER); //função usada para centrar os rectângulos
 
-  frameRate(30); //especificar framerate a usar
+  frameRate(60); //especificar framerate a usar
 
   //menu start
   m = new Menu(width/2, height/2);
@@ -39,21 +39,20 @@ void setup() {
 
 }
 
-//quero adicionar um background que vai mudando a HUE de modo a ser dia/noite.
-
 //desenhar os elementos do programa no ecra
 void draw() {
   //calls menu
-  background(0);
+  background(0); //quero adicionar um background que vai mudando a HUE de modo a ser dia/noite.
   m.start();
   if (m.state) {
-    m.button1.drawme();
-    m.button2.drawme();
+    m.start.drawme();
+    m.exit.drawme();
   }
-
+  
   if(m.state == false){
     //claudio fez esta parte do codigo
     background(0, 80, 255); //background azul temporario
+    m.back.drawme(); //desenhar o botão de pausa
     c1.drawme(); //desenhar nuvem1
     c2.drawme(); //desenhar nuvem2
     c3.drawme(); //desenhar nuvem3
@@ -67,8 +66,8 @@ void draw() {
     e1.drawme(); //desenhar o inimigo
     e1.move(); //Bmover o inimigo
     //  e1.healthcheck(); //verificar se o inimigo morreu ou nao
-    score();
-    b1.enemycheck(); //verificar se a bala atingiu o inimigo
+    score(); //"b1.enemycheck();" ou seja: verificar se a bala atingiu o inimigo e acrescentar valor ao score
+    
   }
 }
 
@@ -81,16 +80,13 @@ void keyPressed() {
   if(key == 'w'|| key == 'W') p1.moveUp = true;
   if(key == 'a'|| key == 'A') p1.moveLeft = true;
   if(key == 'd'|| key == 'D') p1.moveRight = true;
-
 }
 
 void keyReleased() {
-
   if(key == 's'|| key == 'S') p1.moveDown = false;
   if(key == 'w'|| key == 'W') p1.moveUp = false;
   if(key == 'a'|| key == 'A') p1.moveLeft = false;
   if(key == 'd'|| key == 'D') p1.moveRight = false;
-
 }
 
 //codigo importado do exemplo do professor em ordem a obter movimento suave
@@ -116,11 +112,22 @@ void score() {
 }
 
 void mousePressed() { // quando clicar no botao do rato dentro das condicoes especificadas(dentro dos limites do "canvas" da imagem do botao), iniciar jogo ou sair do jogo
-  if(m.button1.pressed()) m.button1.button = loadImage("assets/images/start_button.png");
-  if(m.button2.pressed()) m.button2.button = loadImage("assets/images/exit_button.png");
+  //if(m.start.pressed()) m.start.button = loadImage("assets/images/start_button.png");
+  //if(m.exit.pressed()) m.exit.button = loadImage("assets/images/exit_button.png");
+  //if(m.back.pressed()) m.back.button = loadImage("assets/images/exit_button.png");
+  //ignora o codigo acima por agora
+  
+  if(m.start.pressed()) m.start.pressed = true;
+  println(m.start.pressed);
+  if(m.exit.pressed()) m.exit.pressed = true;
+  //println(m.exit.pressed);
+  if(m.back.pressed()){
+    m.back.pressed = true;
+  }
+  //println("state butao back "+m.back.pressed);//debug
+  //println("state menu "+m.state);//debug
 }
 
 void mouseReleased() {
-  if(m.button1.pressed()) m.button1.pressed = true;
-  if(m.button2.pressed()) m.button2.pressed = true;
+
 }

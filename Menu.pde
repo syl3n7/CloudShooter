@@ -3,7 +3,7 @@ class Menu{
 //propriedades
 float posX, posY;
 boolean state;
-Button button1, button2;
+Button start, exit, back;
 Highscore highscore;
 
     //construtor 
@@ -11,21 +11,28 @@ Highscore highscore;
         posX = x;
         posY = y;
         state = true;
-        button1 = new Button("assets/images/refurbished_start_button.png", width/2 - 500, height/2 - 100); //image to be changed in the near future
-        button2 = new Button("assets/images/refurbished_exit_button.png", width/2 + 100, height/2 - 100);
+        start = new Button("assets/images/refurbished_start_button.png", width/2 - 500, height/2 - 100); //image to be changed in the near future
+        exit = new Button("assets/images/refurbished_exit_button.png", width/2 + 100, height/2 - 100);
+        back = new Button("assets/images/refurbished_exit_button.png", 1600, 10);
         highscore = new Highscore();
     }
 
     //método usado para desenhar os botões
     void start() {
-        //verficar estado pressed de cada botao / desenhar jogo by default
+        //verficar estado pressed de cada botao
         if(state){
-            if (button1.pressed == true) state = false;
-            if (button2.pressed == true) { ///pressionar botao exit guarda highscore e sai do jogo
+            if (start.pressed) state = false;
+            if (exit.pressed) { ///pressionar botao exit guarda highscore e sai do jogo
                 highscore.addData();
                 highscore.saveData();
                 exit();
             }
+        }
+        if(back.pressed) {
+            highscore.addData();
+            state = true;
+            start.pressed = false;
+            back.pressed = false;
         }
     }
 } 
