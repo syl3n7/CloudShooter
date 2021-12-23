@@ -22,7 +22,7 @@ boolean pressed;
     }
 
 //i want to use this so that i dont mess with the variable outside of the class
-    boolean pressed(){
+    boolean press(){
         if(mouseX > posX && mouseX < posX + tam1 && mouseY > posY && mouseY < posY + tam2*2 ){
             pressed = true;
         }

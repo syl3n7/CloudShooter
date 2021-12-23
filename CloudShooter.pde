@@ -29,15 +29,15 @@ void setup() {
   frameRate(60); //especificar framerate a usar
   //put a name on the window
   surface.setTitle("CloudShooter by Catarina & Claudio"); //titulo da janela
-  // Initialise the ControlIO
-  control = ControlIO.getInstance(this);
-  // Find a gamepad that matches the configuration file. To match with any 
-  // connected device remove the call to filter.
-  gpad = control.filter(GCP.GAMEPAD).getMatchedDevice("BController"); // necessario importar as duas configuracoes (bluetooth+cabo)
-  if (gpad == null) {
-    println("No suitable device configured");
-    exit(); // End the program NOW!
-  }
+  // // Initialise the ControlIO
+  // control = ControlIO.getInstance(this);
+  // // Find a gamepad that matches the configuration file. To match with any 
+  // // connected device remove the call to filter.
+  // gpad = control.filter(GCP.GAMEPAD).getMatchedDevice("BController"); // necessario importar as duas configuracoes (bluetooth+cabo)
+  // if (gpad == null) {
+  //   println("No suitable device configured");
+  //   exit(); // End the program NOW!
+  // }
 
   m = new Menu(width/2, height/2);
   //nuvem 1
@@ -134,20 +134,26 @@ void score() {
 }
 
 void mousePressed() { // quando clicar no botao do rato dentro das condicoes especificadas(dentro dos limites do "canvas" da imagem do botao), iniciar jogo ou sair do jogo
-  if(m.start.pressed()) m.start.button = loadImage("assets/images/pressed_start_button.png");
-  if(m.exit.pressed()) m.exit.button = loadImage("assets/images/pressed_exit_button.png");
-  if(m.back.pressed()) m.back.button = loadImage("assets/images/pressed_back_button.png");
+  if(m.start.press()) m.start.button = loadImage("assets/images/pressed_start_button.png");
+  if(m.exit.press()) m.exit.button = loadImage("assets/images/pressed_exit_button.png");
+  if(m.back.press()) m.back.button = loadImage("assets/images/pressed_back_button.png");
 }
 
 void mouseReleased() {
-  if(m.start.pressed()) m.start.pressed = true;
-  if(m.start.pressed()) m.start.button = loadImage("assets/images/start_button.png");
+  if(m.start.press()) {
+    m.start.pressed = true;
+    m.start.button = loadImage("assets/images/start_button.png");
+  }
   //println(m.start.pressed);
-  if(m.exit.pressed()) m.exit.pressed = true;
-  if(m.exit.pressed()) m.exit.button = loadImage("assets/images/exit_button.png");
+  if(m.exit.press()) {
+    m.exit.pressed = true;
+    m.exit.button = loadImage("assets/images/exit_button.png");
+  }
   //println(m.exit.pressed);
-  if(m.back.pressed()) m.back.pressed = true;
-  if(m.back.pressed()) m.back.button = loadImage("assets/images/back_button.png");
+  if(m.back.press()) {
+    m.back.pressed = true;
+    m.back.button = loadImage("assets/images/back_button.png");
+  }
   //println("state butao back "+m.back.pressed);//debug
   //println("state menu "+m.state);//debug
 }
