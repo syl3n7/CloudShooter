@@ -10,8 +10,10 @@ class Player {
   //Constructor
   Player(String n, float x, float y, float t) {
     img = loadImage(n);
-    //img2 = loadimage(n2);
-    //img3 = loadimage(n3);
+    //imgUp = loadimage(imgUp);
+    //imgDown = loadimage(imgDown);
+    //imgLeft = loadimage(imgLeft);
+    //imgRight = loadimage(imgRight);
     posX = x;
     posY = y;
     tam = t;
@@ -28,8 +30,25 @@ class Player {
   void drawme() {
     img.resize(650, 350);
     if(health > 0) {
-      image(img, posX, posY);
+      image(img, posX, posY); //missing the new sprite
     }
+    checkDirection();
+  }
+
+  //check direction and change the sprite acordingly
+  void checkDirection() {
+    if(moveUp) {
+      //img = loadImage(imgUp); //missing the sprite
+    }
+    if(moveDown) {
+      //img = loadImage(imgDown); //missing the sprite
+    }
+    if(moveLeft) {
+      //img = loadImage(imgLeft); //missing the sprite
+    }
+    if(moveRight) {
+      //img = loadImage(imgRight); //missing the sprite
+    } 
   }
 
   //damage radius

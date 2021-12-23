@@ -24,12 +24,11 @@ Table table;
         saveTable(table, "data/highscore.csv");
     }
 
-    //metodos
+    // tenho que por isto a funcionar para mostrar pelo botao highscore
     int top5(){
         int result = 0;
         //ler o ficheiro e determinar o top 5
         
         return result;
     }
-
 }
