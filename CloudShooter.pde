@@ -23,10 +23,10 @@ void setup() {
 //dinamic window size begin (without borders)
   fullScreen(P2D);
   Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-  int screenHeight = screenSize.height;
   int screenWidth = screenSize.width;
-  surface.setSize(1920, 1080);
-  smooth(8);
+  int screenHeight = screenSize.height;
+  surface.setSize(screenWidth, screenHeight);
+  smooth(4);
   center_x = screenWidth/2-width/2;
   center_y = screenHeight/2-height/2;
   surface.setLocation(center_x, center_y); //set location of canvas to center of screen resolution
