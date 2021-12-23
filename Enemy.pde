@@ -35,7 +35,6 @@ class Enemy {
     posY = tsmoothed;
 
     if (posX < 0) {
-      delay(250);
       posX = width + tam;
     } else {
       posX -= vel;
