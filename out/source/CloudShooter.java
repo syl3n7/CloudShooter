@@ -53,10 +53,10 @@ float bgc = 0;
   control = ControlIO.getInstance(this);
   // Find a gamepad that matches the configuration file. To match with any 
   // connected device remove the call to filter.
-  gpad = control.filter(GCP.GAMEPAD).getMatchedDevice("BController");
+  gpad = control.filter(GCP.GAMEPAD).getMatchedDevice("BController"); // necessario importar as duas configuracoes (bluetooth+cabo)
   if (gpad == null) {
     println("No suitable device configured");
-    System.exit(-1); // End the program NOW!
+    exit(); // End the program NOW!
   }
 
   m = new Menu(width/2, height/2);
@@ -227,8 +227,8 @@ boolean pressed;
 
      public void drawme(){
         image(button, posX, posY);//colocar isto na liunha 21 depois
-        //fill(255, 0, 0, 100); //manual debug
-        //rect(posX+60, posY+60, tam1, tam2); //manual debug
+        fill(255, 0, 0, 100); //manual debug
+        rect(posX+60, posY+60, tam1, tam2); //manual debug
     }
 
 //i want to use this so that i dont mess with the variable outside of the class
