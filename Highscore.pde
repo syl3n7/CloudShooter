@@ -25,7 +25,7 @@ Table table;
     }
 
     //metodos
-    int top5(){
+    int top5(){ // tenho que por isto a funcionar para mostrar pelo botao highscore
         int result = 0;
         //ler o ficheiro e determinar o top 5
         
