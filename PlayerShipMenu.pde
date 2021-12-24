@@ -4,10 +4,11 @@ class PlayerShipMenu{
 float posX, posY;
 boolean state;
 Button ship1, ship2;
+Background background;
 
     //construtor 
     PlayerShipMenu(float x, float y) {
-        //background = loadImage("assets/images/background.png");
+        background = new Background("assets/images/background.png", 0, 0);
         posX = x;
         posY = y;
         state = false;
@@ -16,7 +17,7 @@ Button ship1, ship2;
     } 
 
     void drawme() {
-        //background = loadImage("assets/images/background.png");
+        background.drawme();
         if (m.state && state){
             ship1.drawme();
             ship1.drawme();
