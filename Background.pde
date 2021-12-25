@@ -3,7 +3,7 @@ class Background {
     float posX, posY;
     PImage img;
     //construtor
-    Background(String n, floar x, float y) {
+    Background(String n, float x, float y) {
         img = loadImage(n);
         posX = x;
         posY = y;
