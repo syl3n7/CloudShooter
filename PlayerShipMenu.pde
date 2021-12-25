@@ -8,7 +8,7 @@ Background background;
 
     //construtor 
     PlayerShipMenu(float x, float y) {
-        background = new Background("assets/images/background.png", 0, 0);
+        //background = new Background("assets/images/background.png", 0, 0);
         posX = x;
         posY = y;
         state = false;
@@ -17,7 +17,7 @@ Background background;
     } 
 
     void drawme() {
-        background.drawme();
+        //background.drawme();
         if (m.state && state){
             ship1.drawme();
             ship1.drawme();
