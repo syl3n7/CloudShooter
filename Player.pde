@@ -1,25 +1,18 @@
 class Player {
   //Properties
-  float altura, largura; //altura e largura da imagem
   PImage img; //sprite normal
-  String imgUp; //sprite while moving up
-  //PImage img3; //sprite while moving down
   float posX, posY, tam, health;
   boolean moveUp, moveDown, moveLeft, moveRight; //booleanas para controlar o movimento do player
-
   //Constructor
-  Player(String n, float x, float y, float t) {
-    img = loadImage(n); //interligar isto ao playership menu
-    imgUp = "assets/images/first_ship_secondcs.png";
+  Player(String n, float x, float y) {
+    img = loadImage(n); //interligar isto ⬇️ ao playership menu
+    //imgUp = "assets/images/first_ship_secondcs.png";
     //imgDown = loadimage(imgDown);
     //imgLeft = loadimage(imgLeft);
     //imgRight = loadimage(imgRight);
     posX = x;
     posY = y;
-    tam = t;
     health = 100;
-    largura = img.width;
-    altura = img.height;
     moveDown  = false;
     moveLeft  = false;
     moveRight = false;
@@ -29,37 +22,45 @@ class Player {
   //spawn da imagem mediante parametros indicados + resize para tamanho pretendido
   void drawme() {
     img.resize(650, 350);
-    if(health > 0) {
-      image(img, posX, posY); //missing the new sprite
-    }
-    checkDirection();
+    if(health > 0); //check player health
+    image(img, posX, posY); //display sprite of player ship with position updated every tick
+    //checkDirection();
   }
 
+  //abandoned idea of changing sprite with direction, we instead opted for alowing the player to chose from sprites aka customization, unlocked with x amount of highscore.
   //check direction and change the sprite acordingly
-  void checkDirection() {
-    if(moveUp) {
-      img = loadImage(imgUp); //missing the sprite
-    }
-    if(moveDown) {
-      //img = loadImage(imgDown); //missing the sprite
-    }
-    if(moveLeft) {
-      //img = loadImage(imgLeft); //missing the sprite
-    }
-    if(moveRight) {
-      //img = loadImage(imgRight); //missing the sprite
-    } 
-  }
+  //  void checkDirection() {
+  //   if(moveUp) {
+  //     img = loadImage(imgUp); //missing the sprite
+  //   }
+  //   if(moveDown) {
+  //     //img = loadImage(imgDown); //missing the sprite
+  //   }
+  //   if(moveLeft) {
+  //     //img = loadImage(imgLeft); //missing the sprite
+  //   }
+  //   if(moveRight) {
+  //     //img = loadImage(imgRight); //missing the sprite
+  //   } 
+  // }
+
+//check decision on bullet type // should make this to work with score or dificulty. or both !
+  // void bulletChoice() {
+  //   if(buttonTBD.press) return = "/assets/images/bullet1.png";
+  //   if(buttonTBD.press) return = "/assets/images/bullet2.png";
+  //   if(buttonTBD.press) return "/assets/images/bullet3.png";
+  // }
 
   //damage radius
   void damage() {
     //http://jeffreythompson.org/collision-detection/rect-rect.php
-    //ler novamente o link acima. necessito de fazer a verificacao de colisao.
+    //ler novamente o link acima. necessito de fazer a verificacao de colisao. 
+    // i probably need to use the ellipse way to calculate this 
   }
 
   void shoot () {  
-    b1.posX = posX+largura/2.5;
-    b1.posY = posY+altura/3.4;
+    b1.posX = posX+img.width/2.5;
+    b1.posY = posY+img.height/3.7;
     b1.moveme();
   }
 

@@ -12,8 +12,8 @@ Enemy e1;
 public int score = 0;
 public int lives = 3;
 float bgc = 0;
-int center_x, center_y;
-boolean bgcUpperLimit = false;
+public int center_x, center_y;
+boolean bgcUpperLimit = false; //variavel de controlo para incremento/decremento da cor do background
 
 //codigo apenas corrido 1x (inicio do programa)
 void setup() {  
@@ -21,20 +21,20 @@ void setup() {
 //vou provavelmente precisar do link acima para colocar o tamanho da imagem de fundo dinamica 
 
 //dinamic window size begin (without borders)
+  surface.setTitle("CloudShooter by Catarina & Claudio"); //titulo da janela
   fullScreen(P2D);
+  frameRate(60); //especificar framerate a usar
   Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
   int screenWidth = screenSize.width;
   int screenHeight = screenSize.height;
-  surface.setSize(screenWidth, screenHeight);
+  surface.setSize(1920, 1080/*creenWidth, screenHeight*/);
   smooth(4);
   center_x = screenWidth/2-width/2;
   center_y = screenHeight/2-height/2;
   surface.setLocation(center_x, center_y); //set location of canvas to center of screen resolution
+  imageMode(CENTER); //funcao para centrar o spawn de imagens
+  rectMode(CENTER); //função para centrar o spawn de rectângulos
 //dinamic window size end
-
-  //rectMode(CENTER); //função usada para centrar os rectângulos
-  frameRate(60); //especificar framerate a usar
-  surface.setTitle("CloudShooter by Catarina & Claudio"); //titulo da janela
 
   /*Inicializar Objetos ⬇️*/
   //menu
@@ -48,9 +48,9 @@ void setup() {
   //nuvem 3
   c3 = new CloudsGen("/assets/images/cloud3.png", 300, random(height));
   //player 1
-  p1 = new Player("/assets/images/first_ship_cs.png", 0, 0, 20);
+  p1 = new Player("/assets/images/first_ship_cs.png", 0, 0);
   //bullet 1
-  b1 = new Bullets("/assets/images/bullet.png", -650, -650/2, 100);
+  b1 = new Bullets("assets/images/bullet_out_of_shell.png", -650, -650/2, 100);
   //enemy 1
   e1 = new Enemy("/assets/images/ovni.png", (width - 300), (height - 300), 150, 5, 100);
 }

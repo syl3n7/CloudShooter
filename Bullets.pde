@@ -5,8 +5,8 @@ class Bullets {
   float posX, posY, tam;
 
   //construtor
-  Bullets(String name, float x, float y, float t) {
-    bullet = loadImage(name);
+  Bullets(String n, float x, float y, float t) {
+    bullet = loadImage(n);
     posX = x;
     posY = y;
     tam = t;
