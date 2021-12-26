@@ -6,6 +6,7 @@ boolean state;
 Button start, exit, back, highscorestable, instructions, credits;
 Highscore highscore;
 Background background;
+Instructions i;
 
     //construtor 
     Menu(float x, float y) {
@@ -19,6 +20,7 @@ Background background;
         instructions = new Button("assets/images/instructions_button.png", width/2 - 500, height/2 + 200);
         highscorestable = new Button("assets/images/highscores_button.png", width/2 + 100, height/2 + 200);
         highscore = new Highscore();
+        i = new Instructions();
     }
 
     //método usado para desenhar os botões
@@ -37,6 +39,9 @@ Background background;
             state = true;
             start.pressed = false;
             back.pressed = false;
+        }
+        if(instructions.press()) {
+            i.active = true;
         }
     }
 } 

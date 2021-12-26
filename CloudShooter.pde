@@ -28,12 +28,14 @@ void setup() {
   int screenWidth = screenSize.width;
   int screenHeight = screenSize.height;
   surface.setSize(1920, 1080/*creenWidth, screenHeight*/);
-  smooth(4);
+  smooth(8);
   center_x = screenWidth/2-width/2;
   center_y = screenHeight/2-height/2;
   surface.setLocation(center_x, center_y); //set location of canvas to center of screen resolution
   imageMode(CENTER); //funcao para centrar o spawn de imagens
   rectMode(CENTER); //função para centrar o spawn de rectângulos
+  textAlign(CENTER);
+  noStroke();
 //dinamic window size end
 
   /*Inicializar Objetos ⬇️*/
@@ -67,6 +69,7 @@ void draw() {
   //calls menu
   m.start();
   if (m.state) {
+    if(m.i.active && pm.state == false) m.i.drawme();
     if(pm.state == false) {
       m.start.drawme(); //use loadtable to load the previous highscores
       m.exit.drawme();
