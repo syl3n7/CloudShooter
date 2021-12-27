@@ -59,24 +59,15 @@ void setup() {
 
 //desenhar os elementos do programa no ecra
 void draw() {
-   
-  //testing dynamic background color
-  if (bgc == 250) bgcUpperLimit = true;
-  if (bgcUpperLimit == false) background(bgc++, 0, bgc, 0); //se parar de dar update ao background, funciona como um botao de pausa, maybe later ?
-  if (bgc == 5) bgcUpperLimit = false; 
-  if (bgcUpperLimit == true) background(bgc--, 0, bgc, 0);
-
   //calls menu
-  m.start();
+  m.start(); //verifica presses
   if (m.state) {
-    if(m.i.active && pm.state == false) m.i.drawme();
-    if(pm.state == false) {
-      m.start.drawme(); //use loadtable to load the previous highscores
-      m.exit.drawme();
-      m.highscorestable.drawme();
-      m.instructions.drawme();
-    }
-    pm.drawme();
+    m.start.drawme(); //use loadtable to load the previous highscores
+    m.exit.drawme();
+    m.highscorestable.drawme();
+    m.instructions.drawme();
+    if(m.i.active == true && pm.state == false) m.i.drawme();
+    if(pm.state == true && pm.state == false) pm.drawme();
   } //add a button to acess the highscores // add a button to acess instructions
   
   if(m.state == false){

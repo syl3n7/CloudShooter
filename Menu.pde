@@ -20,7 +20,7 @@ Instructions i;
         instructions = new Button("assets/images/instructions_button.png", width/2 - 500, height/2 + 200);
         highscorestable = new Button("assets/images/highscores_button.png", width/2 + 100, height/2 + 200);
         highscore = new Highscore();
-        i = new Instructions();
+        i = new Instructions(center_x, center_y, false);
     }
 
     //método usado para desenhar os botões
@@ -28,7 +28,13 @@ Instructions i;
         //background.drawme();
         //verficar estado pressed de cada botao
         if(state){
-            if (start.pressed) state = false;
+              //testing dynamic background color
+            if (bgc == 250) bgcUpperLimit = true;
+            if (bgcUpperLimit == false) background(bgc++, 0, bgc, 0); //se parar de dar update ao background, funciona como um botao de pausa, maybe later ?
+            if (bgc == 5) bgcUpperLimit = false; 
+            if (bgcUpperLimit == true) background(bgc--, 0, bgc, 0);
+
+            if (start.pressed) state = false;//se o botao start nao estiver a ser pressionado entao o menu continua a ser mostrado.
             if (exit.pressed) { ///pressionar botao exit guarda highscore e sai do jogo
                 highscore.saveData();
                 exit();
@@ -40,7 +46,7 @@ Instructions i;
             start.pressed = false;
             back.pressed = false;
         }
-        if(instructions.press()) {
+        if(instructions.pressed) {
             i.active = true;
         }
     }

@@ -12,10 +12,10 @@ color white = color(#FBEAFF);
 color red = color(#FA0000);
 
 //construtor
-    Instructions(){
-        posX = center_x;
-        posY = center_y;
-        active = false;
+    Instructions(float x, float y, boolean b){
+        posX = x;
+        posY = y;
+        active = b;
     }
 
     void drawme(){
