@@ -28,7 +28,7 @@ Instructions i;
         //background.drawme();
         //verficar estado pressed de cada botao
         if(state){
-              //testing dynamic background color
+            //testing dynamic background color
             if (bgc == 250) bgcUpperLimit = true;
             if (bgcUpperLimit == false) background(bgc++, 0, bgc, 0); //se parar de dar update ao background, funciona como um botao de pausa, maybe later ?
             if (bgc == 5) bgcUpperLimit = false; 

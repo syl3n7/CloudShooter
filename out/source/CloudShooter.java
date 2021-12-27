@@ -26,8 +26,7 @@ CloudsGen c2;
 CloudsGen c3;
 PlayerShipMenu pm;
 public Player p1;
-Bullets b1;
-Enemy e1;
+public Enemy e1;
 public int score = 0;
 public int lives = 3;
 float bgc = 0;
@@ -70,8 +69,6 @@ boolean bgcUpperLimit = false; //variavel de controlo para incremento/decremento
   c3 = new CloudsGen("/assets/images/cloud3.png", 300, random(height));
   //player 1
   p1 = new Player("/assets/images/first_ship_cs.png", -200, height/2);//spawn fora do canvas para animar a entrada do player no jogo
-  //bullet 1
-  b1 = new Bullets("assets/images/bullet_out_of_shell.png", -650, -650/2, 100);
   //enemy 1
   e1 = new Enemy("/assets/images/ovni.png", (width - 300), (height - 300), 150, 5, 100);
 }
@@ -85,9 +82,15 @@ boolean bgcUpperLimit = false; //variavel de controlo para incremento/decremento
     m.exit.drawme();
     m.highscorestable.drawme();
     m.instructions.drawme();
-    if(m.i.active == true && pm.state == false) m.i.drawme();
-    if(pm.state == true && pm.state == false) pm.drawme();
-  } //add a button to acess the highscores // add a button to acess instructions
+  } 
+  if(m.i.active == true) {
+    m.i.drawme();
+    m.back.drawme();
+  }
+  if(pm.state == true) {
+    pm.drawme();
+    m.back.drawme();
+  }
   
   if(m.state == false){
     //claudio fez esta parte do codigo
@@ -104,10 +107,8 @@ boolean bgcUpperLimit = false; //variavel de controlo para incremento/decremento
     c3.move(); //mover a nuvem3
     p1.drawme(); //desenhar o player1
     p1.moveme(); //mover o player1 //this now includes an animation on START to introduce the player into the canvas.
-    b1.drawme(); //desenhar as balas
-    b1.moveme(); //mover as balas
     e1.drawme(); //desenhar o inimigo
-    e1.move(); //Bmover o inimigo
+    e1.move(); //mover o inimigo
     //  e1.healthcheck(); //verificar se o inimigo morreu ou nao
     score(); //calls"b1.enemycheck();" ou seja: verificar se a bala atingiu o inimigo e acrescentar valor ao score
   }
@@ -148,9 +149,9 @@ void keyReleased() {
 
 //acrescentar pontuacao na tabela
  public void score() {
-  if (b1.enemycheck()) {
-    score++;
-  }
+  textSize(32);
+  text("Score: "+score, m.i.posX, height/8);
+  if (p1.b1.enemycheck()) score++;
 }
 
  public void mousePressed() { // quando clicar no botao do rato dentro das condicoes especificadas(dentro dos limites do "canvas" da imagem do botao), iniciar jogo ou sair do jogo
@@ -224,7 +225,7 @@ class Bullets {
   }
   //verificar se a posicao X e Y do enimigo, corresponde a mesma posicao X e Y da bala, em ordem a contar como HIT
    public boolean enemycheck(){
-    if (dist(b1.posX+b1.tam/2, b1.posY+b1.tam/2, e1.posX+e1.tam/2, e1.posY+e1.tam/2) < tam) {
+    if (dist(posX+tam/2, posY+tam/2, e1.posX+e1.tam/2, e1.posY+e1.tam/2) < tam) {
       return true;
     }
     return false;
@@ -316,8 +317,8 @@ class Enemy {
     img.resize(PApplet.parseInt(tam), PApplet.parseInt(tam)); //redimensiona a imagem
     image(img, posX, posY);
   }
-
-//necessito de fazer com que o enimigo se multiplique a cada posY completo 
+//necessito de fazer com que o enimigo se multiplique a cada posX completo.
+//usar um array de objetos de enimigos onde vao dando spawn a cada posX completo.
 
 //fazer enimigo andar pelo canvas variando velocidade horizontal e posicao vertical aleatoria
    public void move() {
@@ -335,16 +336,12 @@ class Enemy {
     }
   }
 
-/* placeholder para verificar se foi atingiho pela bala*/
-  /* placeholder code 
+/* placeholder para verificar se foi atingiho pela bala
   void healthcheck() {
-
     if (health <= 0) {
       enemy.hide();
     }
-
-  }
-  */
+  }*/
 }
 class Highscore{
 
@@ -360,7 +357,12 @@ Table table;
         table.addColumn("score");
     }
 
-     public void addData(){
+    //carregar a tabela com os valores anteriores.
+     public void loadData(){
+        table = loadTable("data/highscore.csv");
+    }
+
+     public void addData(){ //adicionar dados na tabela
         TableRow newRow = table.addRow();
         //adicionar linhas na tabela
         newRow.setInt("id", table.lastRowIndex()+1);
@@ -451,7 +453,7 @@ Instructions i;
         //background.drawme();
         //verficar estado pressed de cada botao
         if(state){
-              //testing dynamic background color
+            //testing dynamic background color
             if (bgc == 250) bgcUpperLimit = true;
             if (bgcUpperLimit == false) background(bgc++, 0, bgc, 0); //se parar de dar update ao background, funciona como um botao de pausa, maybe later ?
             if (bgc == 5) bgcUpperLimit = false; 
@@ -482,6 +484,7 @@ class Player {
   PImage img; //sprite normal
   float posX, posY, tam, health;
   boolean moveUp, moveDown, moveLeft, moveRight, moveUnLock; //booleanas para controlar o movimento do player
+  Bullets b1; //bullets
   //Constructor
   Player(String n, float x, float y) {
     img = loadImage(n); //interligar isto ⬇️ ao playership menu
@@ -498,10 +501,14 @@ class Player {
     moveLeft  = false;
     moveRight = false;
     moveUp = false;
+    //bullet 1
+    b1 = new Bullets("assets/images/bullet_out_of_shell.png", -650, -650/2, 75);
   }
 
   //spawn da imagem mediante parametros indicados + resize para tamanho pretendido
    public void drawme() {
+    b1.drawme(); //desenhar as balas
+    b1.moveme(); //mover as balas
     img.resize(350, 225);
     if(health > 0) image(img, posX, posY); //display sprite of player ship with position and health check updated every tick
     //checkDirection();
@@ -539,8 +546,8 @@ class Player {
   }
 
    public void shoot () {  
-    b1.posX = posX+img.width/2.5f;
-    b1.posY = posY+img.height/3.7f;
+    b1.posX = posX-img.width/8.5f;
+    b1.posY = posY+img.height/5.8f;
     b1.moveme();
   }
 

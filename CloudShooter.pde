@@ -7,8 +7,7 @@ CloudsGen c2;
 CloudsGen c3;
 PlayerShipMenu pm;
 public Player p1;
-Bullets b1;
-Enemy e1;
+public Enemy e1;
 public int score = 0;
 public int lives = 3;
 float bgc = 0;
@@ -51,8 +50,6 @@ void setup() {
   c3 = new CloudsGen("/assets/images/cloud3.png", 300, random(height));
   //player 1
   p1 = new Player("/assets/images/first_ship_cs.png", -200, height/2);//spawn fora do canvas para animar a entrada do player no jogo
-  //bullet 1
-  b1 = new Bullets("assets/images/bullet_out_of_shell.png", -650, -650/2, 100);
   //enemy 1
   e1 = new Enemy("/assets/images/ovni.png", (width - 300), (height - 300), 150, 5, 100);
 }
@@ -66,9 +63,15 @@ void draw() {
     m.exit.drawme();
     m.highscorestable.drawme();
     m.instructions.drawme();
-    if(m.i.active == true && pm.state == false) m.i.drawme();
-    if(pm.state == true && pm.state == false) pm.drawme();
-  } //add a button to acess the highscores // add a button to acess instructions
+  } 
+  if(m.i.active == true) {
+    m.i.drawme();
+    m.back.drawme();
+  }
+  if(pm.state == true) {
+    pm.drawme();
+    m.back.drawme();
+  }
   
   if(m.state == false){
     //claudio fez esta parte do codigo
@@ -85,10 +88,8 @@ void draw() {
     c3.move(); //mover a nuvem3
     p1.drawme(); //desenhar o player1
     p1.moveme(); //mover o player1 //this now includes an animation on START to introduce the player into the canvas.
-    b1.drawme(); //desenhar as balas
-    b1.moveme(); //mover as balas
     e1.drawme(); //desenhar o inimigo
-    e1.move(); //Bmover o inimigo
+    e1.move(); //mover o inimigo
     //  e1.healthcheck(); //verificar se o inimigo morreu ou nao
     score(); //calls"b1.enemycheck();" ou seja: verificar se a bala atingiu o inimigo e acrescentar valor ao score
   }
@@ -129,9 +130,9 @@ void keyReleased() {
 
 //acrescentar pontuacao na tabela
 void score() {
-  if (b1.enemycheck()) {
-    score++;
-  }
+  textSize(32);
+  text("Score: "+score, m.i.posX, height/8);
+  if (p1.b1.enemycheck()) score++;
 }
 
 void mousePressed() { // quando clicar no botao do rato dentro das condicoes especificadas(dentro dos limites do "canvas" da imagem do botao), iniciar jogo ou sair do jogo

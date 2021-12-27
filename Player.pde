@@ -3,6 +3,7 @@ class Player {
   PImage img; //sprite normal
   float posX, posY, tam, health;
   boolean moveUp, moveDown, moveLeft, moveRight, moveUnLock; //booleanas para controlar o movimento do player
+  Bullets b1; //bullets
   //Constructor
   Player(String n, float x, float y) {
     img = loadImage(n); //interligar isto ⬇️ ao playership menu
@@ -19,10 +20,14 @@ class Player {
     moveLeft  = false;
     moveRight = false;
     moveUp = false;
+    //bullet 1
+    b1 = new Bullets("assets/images/bullet_out_of_shell.png", -650, -650/2, 75);
   }
 
   //spawn da imagem mediante parametros indicados + resize para tamanho pretendido
   void drawme() {
+    b1.drawme(); //desenhar as balas
+    b1.moveme(); //mover as balas
     img.resize(350, 225);
     if(health > 0) image(img, posX, posY); //display sprite of player ship with position and health check updated every tick
     //checkDirection();
@@ -60,8 +65,8 @@ class Player {
   }
 
   void shoot () {  
-    b1.posX = posX+img.width/2.5;
-    b1.posY = posY+img.height/3.7;
+    b1.posX = posX-img.width/8.5;
+    b1.posY = posY+img.height/5.8;
     b1.moveme();
   }
 
