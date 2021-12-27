@@ -467,6 +467,7 @@ Instructions i;
             highscore.addData();
             state = true;
             p1.posX = -300; //para o player ir para a posicao inicial e fazer novamente a animacao de entrada
+            p1.posY = height/2; //mesma coisa da linha de cima, mas para o eixo Y.
             p1.moveUnLock = false; //para a mesma coisa acima mencionada.
             start.pressed = false;
             back.pressed = false;
@@ -547,13 +548,14 @@ class Player {
    public void moveme(){
     //player animation from outside of the canvas to the "spawn" position where the player can take over the controls.
     if(posX < 200) posX += 10;
-    if (posX == 300) moveUnLock = true;
-    if(!moveUnLock); //lock player movement
+    if (posX == 200) moveUnLock = true;
     println(moveUnLock);
-    if (moveLeft) posX -= tam;  // "if(left == true)" igual a "if(left)"
-    else if (moveRight) posX += tam;
-    else if (moveUp) posY -= tam;
-    else if (moveDown) posY += tam;
+    if(moveUnLock){ //lock player movement
+      if (moveLeft) posX -= tam;  // "if(left == true)" igual a "if(left)"
+      else if (moveRight) posX += tam;
+      else if (moveUp) posY -= tam;
+      else if (moveDown) posY += tam;
+    }
   }
   
   //codigo importado do exemplo do professor em ordem a obter movimento + suave

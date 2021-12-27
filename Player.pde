@@ -69,13 +69,14 @@ class Player {
   void moveme(){
     //player animation from outside of the canvas to the "spawn" position where the player can take over the controls.
     if(posX < 200) posX += 10;
-    if (posX == 300) moveUnLock = true;
-    if(!moveUnLock); //lock player movement
+    if (posX == 200) moveUnLock = true;
     println(moveUnLock);
-    if (moveLeft) posX -= tam;  // "if(left == true)" igual a "if(left)"
-    else if (moveRight) posX += tam;
-    else if (moveUp) posY -= tam;
-    else if (moveDown) posY += tam;
+    if(moveUnLock){ //lock player movement
+      if (moveLeft) posX -= tam;  // "if(left == true)" igual a "if(left)"
+      else if (moveRight) posX += tam;
+      else if (moveUp) posY -= tam;
+      else if (moveDown) posY += tam;
+    }
   }
   
   //codigo importado do exemplo do professor em ordem a obter movimento + suave

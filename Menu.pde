@@ -44,6 +44,7 @@ Instructions i;
             highscore.addData();
             state = true;
             p1.posX = -300; //para o player ir para a posicao inicial e fazer novamente a animacao de entrada
+            p1.posY = height/2; //mesma coisa da linha de cima, mas para o eixo Y.
             p1.moveUnLock = false; //para a mesma coisa acima mencionada.
             start.pressed = false;
             back.pressed = false;
