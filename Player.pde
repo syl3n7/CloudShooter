@@ -2,7 +2,7 @@ class Player {
   //Properties
   PImage img; //sprite normal
   float posX, posY, tam, health;
-  boolean moveUp, moveDown, moveLeft, moveRight; //booleanas para controlar o movimento do player
+  boolean moveUp, moveDown, moveLeft, moveRight, moveUnLock; //booleanas para controlar o movimento do player
   //Constructor
   Player(String n, float x, float y) {
     img = loadImage(n); //interligar isto ⬇️ ao playership menu
@@ -12,18 +12,19 @@ class Player {
     //imgRight = loadimage(imgRight);
     posX = x;
     posY = y;
+    tam = 350/16;//tamanho = img resized / 8
     health = 100;
+    moveUnLock = true;
     moveDown  = false;
     moveLeft  = false;
     moveRight = false;
-    moveUp = false;  
+    moveUp = false;
   }
 
   //spawn da imagem mediante parametros indicados + resize para tamanho pretendido
   void drawme() {
-    img.resize(650, 350);
-    if(health > 0); //check player health
-    image(img, posX, posY); //display sprite of player ship with position updated every tick
+    img.resize(350, 225);
+    if(health > 0) image(img, posX, posY); //display sprite of player ship with position and health check updated every tick
     //checkDirection();
   }
 
@@ -66,6 +67,11 @@ class Player {
 
   //validar posicao e incremento da mesma caso tecla seja pressionada
   void moveme(){
+    //player animation from outside of the canvas to the "spawn" position where the player can take over the controls.
+    if(posX < 200) posX += 10;
+    if (posX == 300) moveUnLock = true;
+    if(!moveUnLock); //lock player movement
+    println(moveUnLock);
     if (moveLeft) posX -= tam;  // "if(left == true)" igual a "if(left)"
     else if (moveRight) posX += tam;
     else if (moveUp) posY -= tam;

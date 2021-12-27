@@ -14,9 +14,9 @@ Instructions i;
         posY = y;
         state = true;
         //background = new Background("assets/menu.png", 0, 0);
-        start = new Button("assets/images/start_button.png", width/2 - 500, height/2 - 100); //image to be changed in the near future
+        start = new Button("assets/images/start_button.png", width/2 - 500, height/2 - 100);
         exit = new Button("assets/images/exit_button.png", width/2 + 100, height/2 - 100);
-        back = new Button("assets/images/exit_button.png", 1600, 10);
+        back = new Button("assets/images/back_button.png", width-250, 10);
         instructions = new Button("assets/images/instructions_button.png", width/2 - 500, height/2 + 200);
         highscorestable = new Button("assets/images/highscores_button.png", width/2 + 100, height/2 + 200);
         highscore = new Highscore();
@@ -43,6 +43,8 @@ Instructions i;
         if(back.pressed) {
             highscore.addData();
             state = true;
+            p1.posX = -300; //para o player ir para a posicao inicial e fazer novamente a animacao de entrada
+            p1.moveUnLock = false; //para a mesma coisa acima mencionada.
             start.pressed = false;
             back.pressed = false;
         }

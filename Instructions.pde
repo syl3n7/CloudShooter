@@ -10,12 +10,14 @@ String text5 = "5. If you get to certain highscore milestones, you unlock more t
 color purple = color(#CE0FFA);
 color white = color(#FBEAFF);
 color red = color(#FA0000);
+Button back;
 
 //construtor
     Instructions(float x, float y, boolean b){
         posX = x;
         posY = y;
         active = b;
+        back = new Button("assets/images/back_button.png", width-250, 10);
     }
 
     void drawme(){
@@ -32,5 +34,8 @@ color red = color(#FA0000);
         text(text3, posX, height/2 + 100);
         text(text4, posX, height/2 + 150);
         text(text5, posX, height/2 + 200);
+        if(m.back.pressed){
+            active = false;
+        }
     }
 }

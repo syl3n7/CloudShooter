@@ -6,7 +6,7 @@ CloudsGen c1;
 CloudsGen c2;
 CloudsGen c3;
 PlayerShipMenu pm;
-Player p1;
+public Player p1;
 Bullets b1;
 Enemy e1;
 public int score = 0;
@@ -50,7 +50,7 @@ void setup() {
   //nuvem 3
   c3 = new CloudsGen("/assets/images/cloud3.png", 300, random(height));
   //player 1
-  p1 = new Player("/assets/images/first_ship_cs.png", 0, 0);
+  p1 = new Player("/assets/images/first_ship_cs.png", -200, height/2);//spawn fora do canvas para animar a entrada do player no jogo
   //bullet 1
   b1 = new Bullets("assets/images/bullet_out_of_shell.png", -650, -650/2, 100);
   //enemy 1
@@ -72,12 +72,10 @@ void draw() {
   
   if(m.state == false){
     //claudio fez esta parte do codigo
-    //quero adicionar um background que vai mudando a HUE de modo a ser dia/noite.
-    //testing dynamic background color
-    if (bgc == 250) bgcUpperLimit = true;
+    if (bgc == 250) bgcUpperLimit = true;//dynamic background start
     if (bgcUpperLimit == false) background(0, 20, bgc++, 0); //se parar de dar update ao background, funciona como um botao de pausa, maybe later ?
     if (bgc == 25) bgcUpperLimit = false; 
-    if (bgcUpperLimit == true) background(0, 20, bgc--, 0);
+    if (bgcUpperLimit == true) background(0, 20, bgc--, 0);//end of dynamic background
     m.back.drawme(); //desenhar o botão de pausa
     c1.drawme(); //desenhar nuvem1
     c2.drawme(); //desenhar nuvem2
@@ -86,7 +84,7 @@ void draw() {
     c2.move(); //mover a nuvem2
     c3.move(); //mover a nuvem3
     p1.drawme(); //desenhar o player1
-    p1.moveme(); //mover o player1
+    p1.moveme(); //mover o player1 //this now includes an animation on START to introduce the player into the canvas.
     b1.drawme(); //desenhar as balas
     b1.moveme(); //mover as balas
     e1.drawme(); //desenhar o inimigo
