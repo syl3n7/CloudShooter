@@ -12,7 +12,12 @@ Table table;
         table.addColumn("score");
     }
 
-    void addData(){
+    //carregar a tabela com os valores anteriores.
+    void loadData(){
+        table = loadTable("data/highscore.csv");
+    }
+
+    void addData(){ //adicionar dados na tabela
         TableRow newRow = table.addRow();
         //adicionar linhas na tabela
         newRow.setInt("id", table.lastRowIndex()+1);
