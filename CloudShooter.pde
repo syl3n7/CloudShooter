@@ -6,14 +6,13 @@ CloudsGen c1;
 CloudsGen c2;
 CloudsGen c3;
 PlayerShipMenu pm;
-Player p1;
-Bullets b1;
-Enemy e1;
+public Player p1;
+public Enemy e1;
 public int score = 0;
 public int lives = 3;
 float bgc = 0;
-int center_x, center_y;
-boolean bgcUpperLimit = false;
+public int center_x, center_y;
+boolean bgcUpperLimit = false; //variavel de controlo para incremento/decremento da cor do background
 
 //codigo apenas corrido 1x (inicio do programa)
 void setup() {  
@@ -21,20 +20,22 @@ void setup() {
 //vou provavelmente precisar do link acima para colocar o tamanho da imagem de fundo dinamica 
 
 //dinamic window size begin (without borders)
+  surface.setTitle("CloudShooter by Catarina & Claudio"); //titulo da janela
   fullScreen(P2D);
+  frameRate(60); //especificar framerate a usar
   Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
   int screenWidth = screenSize.width;
   int screenHeight = screenSize.height;
-  surface.setSize(screenWidth, screenHeight);
-  smooth(4);
+  surface.setSize(1920, 1080/*creenWidth, screenHeight*/);
+  smooth(8);
   center_x = screenWidth/2-width/2;
   center_y = screenHeight/2-height/2;
   surface.setLocation(center_x, center_y); //set location of canvas to center of screen resolution
+  imageMode(CENTER); //funcao para centrar o spawn de imagens
+  rectMode(CENTER); //função para centrar o spawn de rectângulos
+  textAlign(CENTER);
+  noStroke();
 //dinamic window size end
-
-  //rectMode(CENTER); //função usada para centrar os rectângulos
-  frameRate(60); //especificar framerate a usar
-  surface.setTitle("CloudShooter by Catarina & Claudio"); //titulo da janela
 
   /*Inicializar Objetos ⬇️*/
   //menu
@@ -48,42 +49,36 @@ void setup() {
   //nuvem 3
   c3 = new CloudsGen("/assets/images/cloud3.png", 300, random(height));
   //player 1
-  p1 = new Player("/assets/images/first_ship_cs.png", 0, 0, 20);
-  //bullet 1
-  b1 = new Bullets("/assets/images/bullet.png", -650, -650/2, 100);
+  p1 = new Player("/assets/images/first_ship_cs.png", -200, height/2);//spawn fora do canvas para animar a entrada do player no jogo
   //enemy 1
   e1 = new Enemy("/assets/images/ovni.png", (width - 300), (height - 300), 150, 5, 100);
 }
 
 //desenhar os elementos do programa no ecra
 void draw() {
-   
-  //testing dynamic background color
-  if (bgc == 250) bgcUpperLimit = true;
-  if (bgcUpperLimit == false) background(bgc++, 0, bgc, 0); //se parar de dar update ao background, funciona como um botao de pausa, maybe later ?
-  if (bgc == 5) bgcUpperLimit = false; 
-  if (bgcUpperLimit == true) background(bgc--, 0, bgc, 0);
-
   //calls menu
-  m.start();
+  m.start(); //verifica presses
   if (m.state) {
-    if(pm.state == false) {
-      m.start.drawme(); //use loadtable to load the previous highscores
-      m.exit.drawme();
-      m.highscorestable.drawme();
-      m.instructions.drawme();
-    }
+    m.start.drawme(); //use loadtable to load the previous highscores
+    m.exit.drawme();
+    m.highscorestable.drawme();
+    m.instructions.drawme();
+  } 
+  if(m.i.active == true) {
+    m.i.drawme();
+    m.back.drawme();
+  }
+  if(pm.state == true) {
     pm.drawme();
-  } //add a button to acess the highscores // add a button to acess instructions
+    m.back.drawme();
+  }
   
   if(m.state == false){
     //claudio fez esta parte do codigo
-    //quero adicionar um background que vai mudando a HUE de modo a ser dia/noite.
-    //testing dynamic background color
-    if (bgc == 250) bgcUpperLimit = true;
+    if (bgc == 250) bgcUpperLimit = true;//dynamic background start
     if (bgcUpperLimit == false) background(0, 20, bgc++, 0); //se parar de dar update ao background, funciona como um botao de pausa, maybe later ?
     if (bgc == 25) bgcUpperLimit = false; 
-    if (bgcUpperLimit == true) background(0, 20, bgc--, 0);
+    if (bgcUpperLimit == true) background(0, 20, bgc--, 0);//end of dynamic background
     m.back.drawme(); //desenhar o botão de pausa
     c1.drawme(); //desenhar nuvem1
     c2.drawme(); //desenhar nuvem2
@@ -92,11 +87,9 @@ void draw() {
     c2.move(); //mover a nuvem2
     c3.move(); //mover a nuvem3
     p1.drawme(); //desenhar o player1
-    p1.moveme(); //mover o player1
-    b1.drawme(); //desenhar as balas
-    b1.moveme(); //mover as balas
+    p1.moveme(); //mover o player1 //this now includes an animation on START to introduce the player into the canvas.
     e1.drawme(); //desenhar o inimigo
-    e1.move(); //Bmover o inimigo
+    e1.move(); //mover o inimigo
     //  e1.healthcheck(); //verificar se o inimigo morreu ou nao
     score(); //calls"b1.enemycheck();" ou seja: verificar se a bala atingiu o inimigo e acrescentar valor ao score
   }
@@ -137,9 +130,9 @@ void keyReleased() {
 
 //acrescentar pontuacao na tabela
 void score() {
-  if (b1.enemycheck()) {
-    score++;
-  }
+  textSize(32);
+  text("Score: "+score, m.i.posX, height/8);
+  if (p1.b1.enemycheck()) score++;
 }
 
 void mousePressed() { // quando clicar no botao do rato dentro das condicoes especificadas(dentro dos limites do "canvas" da imagem do botao), iniciar jogo ou sair do jogo

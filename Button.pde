@@ -18,8 +18,8 @@ boolean pressed;
     void drawme(){
         image(button, posX, posY);//colocar isto na liunha 21 depois
         //this code below is to check the hitboxes of the buttons
-        //fill(255, 0, 0, 100); //manual debug
-        //rect(posX+60, posY+60, tam1, tam2); //manual debug
+        fill(255, 0, 0, 100); //manual debug
+        rect(posX, posY, tam1, tam2); //manual debug
     }
 
     //check mousepress on button, return value for pressed button
