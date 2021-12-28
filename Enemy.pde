@@ -23,8 +23,8 @@ class Enemy {
     img.resize(int(tam), int(tam)); //redimensiona a imagem
     image(img, posX, posY);
   }
-
-//necessito de fazer com que o enimigo se multiplique a cada posY completo 
+//necessito de fazer com que o enimigo se multiplique a cada posX completo.
+//usar um array de objetos de enimigos onde vao dando spawn a cada posX completo.
 
 //fazer enimigo andar pelo canvas variando velocidade horizontal e posicao vertical aleatoria
   void move() {
@@ -42,14 +42,10 @@ class Enemy {
     }
   }
 
-/* placeholder para verificar se foi atingiho pela bala*/
-  /* placeholder code 
+/* placeholder para verificar se foi atingiho pela bala
   void healthcheck() {
-
     if (health <= 0) {
       enemy.hide();
     }
-
-  }
-  */
+  }*/
 }
