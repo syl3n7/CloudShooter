@@ -12,7 +12,7 @@ Background background;
         posX = x;
         posY = y;
         state = true;
-        background = new Background("assets/menu.png", 0, 0);
+        //background = new Background("assets/menu.png", 0, 0);
         start = new Button("assets/images/start_button.png", width/2 - 500, height/2 - 100); //image to be changed in the near future
         exit = new Button("assets/images/exit_button.png", width/2 + 100, height/2 - 100);
         back = new Button("assets/images/exit_button.png", 1600, 10);
@@ -23,7 +23,7 @@ Background background;
 
     //método usado para desenhar os botões
     void start() {
-        background.drawme();
+        //background.drawme();
         //verficar estado pressed de cada botao
         if(state){
             if (start.pressed) state = false;
