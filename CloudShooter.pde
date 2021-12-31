@@ -1,5 +1,4 @@
 import java.awt.*;
-
 //declarar objetos
 Menu m;
 boolean displayGame = false;
@@ -11,22 +10,19 @@ public Player p1;
 public ArrayList<Enemy> e1; //tornar isto num array em condicoes
 public int score = 0;
 public int lives = 3;
-float bgc = 0;
 public int center_x, center_y;
-boolean bgcUpperLimit = false; //variavel de controlo para incremento/decremento da cor do background
-
 //codigo apenas corrido 1x (inicio do programa)
 void setup() {  
 //https://forum.processing.org/one/topic/dynamic-screen-background-resize-need-guidance.html
 //dinamic window size begin (without borders)
   surface.setTitle("CloudShooter by Catarina & Claudio"); //titulo da janela
-  fullScreen(P2D);
+  fullScreen(0,P2D); //fullscreen
   frameRate(60); //especificar framerate a usar
   Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
   int screenWidth = screenSize.width;
   int screenHeight = screenSize.height;
-  surface.setSize(1920, 1080/*creenWidth, screenHeight*/);
-  smooth(8);
+  surface.setSize(1920, 1080/*screenWidth, screenHeight*/);
+  smooth(8);//funcao de antialiasing
   center_x = screenWidth/2-width/2;
   center_y = screenHeight/2-height/2;
   surface.setLocation(center_x, center_y); //set location of canvas to center of screen resolution
@@ -35,7 +31,6 @@ void setup() {
   //ellipseMode(CENTER);//funcao para centrar o spawn de elipses  //achei desnecessaria para proveito de desenhar melhor a hitbox para debug apenas.
   textAlign(CENTER);
   noStroke();
-
   /*Inicializar Objetos ⬇️*/
   //menu
   m = new Menu(width/2, height/2);
@@ -55,7 +50,6 @@ void setup() {
   e1.add(new Enemy("/assets/images/AlienSpaceship_secondcs.png", (width - 300), (height - 300), 150, 5, 100));
   e1.add(new Enemy("/assets/images/AlienSpaceship_thirdcs.png", (width - 300), (height - 300), 150, 5, 100));
 }
-
 //desenhar os elementos do programa no ecra
 void draw() {
   //calls menu
@@ -91,25 +85,21 @@ void draw() {
     score(); //calls"b1.enemycheck();" ou seja: verificar se a bala atingiu o inimigo e acrescentar valor ao score
   }
 }
-
 void keyPressed() {
   if (key == ' ') {
     p1.shoot();
   }
-
   if(key == 's'|| key == 'S') p1.moveDown = true;
   if(key == 'w'|| key == 'W') p1.moveUp = true;
   if(key == 'a'|| key == 'A') p1.moveLeft = true;
   if(key == 'd'|| key == 'D') p1.moveRight = true;
 }
-
 void keyReleased() {
   if(key == 's'|| key == 'S') p1.moveDown = false;
   if(key == 'w'|| key == 'W') p1.moveUp = false;
   if(key == 'a'|| key == 'A') p1.moveLeft = false;
   if(key == 'd'|| key == 'D') p1.moveRight = false;
 }
-
 //codigo importado do exemplo fornecido pelo professor para o movimento ser + suave
 /*void keyPressed() {
   if(key == 'j' || key == 'J') plane.left = true;
@@ -124,14 +114,12 @@ void keyReleased() {
   if(key == 'k' || key == 'K') plane.down = false;
 }
 */
-
 //acrescentar pontuacao na tabela
 void score() {
   textSize(32);
   text("Score: "+score, m.i.posX, height/8);
   if (p1.b1.get(p1.level).enemycheck()) score++;
 }
-
 void mousePressed() { // quando clicar no botao do rato dentro das condicoes especificadas(dentro dos limites do "canvas" da imagem do botao), iniciar jogo ou sair do jogo
   if(m.start.press()) m.start.pressed = true; //m.start.button = loadImage("assets/images/pressed_start_button.png");
   if(m.exit.press()) m.exit.pressed = true; //m.exit.button = loadImage("assets/images/pressed_exit_button.png");

@@ -54,5 +54,15 @@ Instructions i;
                 i.active = false;
             }
         }
+        if (highscorebttn.pressed) {
+            highscore.active = true;
+            highscorebttn.pressed = false;
+        }
+        if (highscorebttn.active) {
+            if (highscore.back.pressed) {
+                highscore.active = false;
+                highscore.back.pressed = false;
+            }
+        }
     }
 } 
