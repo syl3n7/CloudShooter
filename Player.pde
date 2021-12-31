@@ -86,7 +86,7 @@ class Player {
     if(posX > 1720) posX -= 10;
     if(posY > 980) posY -= 10;
     if (posX == 200) moveUnLock = true;
-    println(moveUnLock);
+    //println(moveUnLock); usei isto para debug apenas.
     if(moveUnLock){ //lock player movement
       if (moveLeft) posX -= tam;  // "if(left == true)" igual a "if(left)"
       else if (moveRight) posX += tam;

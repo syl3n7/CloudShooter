@@ -17,29 +17,25 @@ Button back;
         posX = x;
         posY = y;
         active = b;
-        back = new Button("assets/images/back_button.png", width-250, 10);
+        back = new Button("assets/images/back_button.png", width-250, 80);
     }
 
     void drawme(){
         if (active);
-            //testing dynamic background color
-            if (bgc == 250) bgcUpperLimit = true;
-            if (bgcUpperLimit == false) background(0, bgc++, bgc, 0); //se parar de dar update ao background, funciona como um botao de pausa, maybe later ?
-            if (bgc == 5) bgcUpperLimit = false; 
-            if (bgcUpperLimit == true) background(0, bgc--, bgc, 0);
-        fill(red);
-        textSize(64);
-        text("Instructions", posX, height/4);
-        textSize(32);
-        fill(white);
-        text(text1, posX, height/2);
-        text(text2, posX, height/2 + 50);
-        text(text3, posX, height/2 + 100);
-        text(text4, posX, height/2 + 150);
-        text(text5, posX, height/2 + 200);
-        if(m.back.pressed){
-            active = false;
-            m.state = true;
-        }
+                //testing dynamic background color
+                if (bgc == 250) bgcUpperLimit = true;
+                if (bgcUpperLimit == false) background(0, bgc++, bgc, 0); //se parar de dar update ao background, funciona como um botao de pausa, maybe later ?
+                if (bgc == 5) bgcUpperLimit = false; 
+                if (bgcUpperLimit == true) background(0, bgc--, bgc, 0);
+            fill(red);
+            textSize(64);
+            text("Instructions", posX, height/4);
+            textSize(32);
+            fill(white);
+            text(text1, posX, height/2);
+            text(text2, posX, height/2 + 50);
+            text(text3, posX, height/2 + 100);
+            text(text4, posX, height/2 + 150);
+            text(text5, posX, height/2 + 200);
     }
 }

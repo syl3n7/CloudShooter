@@ -1,6 +1,6 @@
 import java.awt.*;
 
-//inicializar objetos
+//declarar objetos
 Menu m;
 boolean displayGame = false;
 CloudsGen c1;
@@ -18,8 +18,6 @@ boolean bgcUpperLimit = false; //variavel de controlo para incremento/decremento
 //codigo apenas corrido 1x (inicio do programa)
 void setup() {  
 //https://forum.processing.org/one/topic/dynamic-screen-background-resize-need-guidance.html
-//vou provavelmente precisar do link acima para colocar o tamanho da imagem de fundo dinamica 
-
 //dinamic window size begin (without borders)
   surface.setTitle("CloudShooter by Catarina & Claudio"); //titulo da janela
   fullScreen(P2D);
@@ -34,10 +32,9 @@ void setup() {
   surface.setLocation(center_x, center_y); //set location of canvas to center of screen resolution
   imageMode(CENTER); //funcao para centrar o spawn de imagens
   rectMode(CENTER); //função para centrar o spawn de rectângulos
-  //ellipseMode(CENTER);//funcao para centrar o spawn de elipses  
+  //ellipseMode(CENTER);//funcao para centrar o spawn de elipses  //achei desnecessaria para proveito de desenhar melhor a hitbox para debug apenas.
   textAlign(CENTER);
   noStroke();
-//dinamic window size end
 
   /*Inicializar Objetos ⬇️*/
   //menu
@@ -63,23 +60,22 @@ void setup() {
 void draw() {
   //calls menu
   m.start(); //verifica presses
-  if(m.i.active == true && displayGame == false) {
+  if(m.i.active) {
     m.i.drawme();
-    m.back.drawme();
-  }else if(pm.state == true && displayGame == false) {
+    m.i.back.drawme();
+  }else if(pm.state) {
     pm.drawme();
-    m.back.drawme();
-  }else if (m.state) {
+    m.i.back.drawme();//trocar para m.pm.back.drawme();
+  }
+  if (m.state) {
     m.start.drawme(); //use loadtable to load the previous highscores
     m.exit.drawme();
-    m.highscorestable.drawme();
+    m.highscorebttn.drawme();
     m.instructions.drawme();
-  } else if(displayGame){
+  }
+  if(displayGame){
     //claudio fez esta parte do codigo
-    if (bgc == 250) bgcUpperLimit = true;//dynamic background start
-    if (bgcUpperLimit == false) background(0, 20, bgc++, 0); //se parar de dar update ao background, funciona como um botao de pausa, maybe later ?
-    if (bgc == 25) bgcUpperLimit = false; 
-    if (bgcUpperLimit == true) background(0, 20, bgc--, 0);//end of dynamic background
+    m.background.drawme();
     m.back.drawme(); //desenhar o botão de pausa
     c1.drawme(); //desenhar nuvem1
     c2.drawme(); //desenhar nuvem2
@@ -140,9 +136,10 @@ void mousePressed() { // quando clicar no botao do rato dentro das condicoes esp
   if(m.start.press()) m.start.pressed = true; //m.start.button = loadImage("assets/images/pressed_start_button.png");
   if(m.exit.press()) m.exit.pressed = true; //m.exit.button = loadImage("assets/images/pressed_exit_button.png");
   if(m.back.press()) m.back.pressed = true; //m.back.button = loadImage("assets/images/pressed_back_button.png");
-  if(m.instructions.press()) m.i.active = true; 
+  if(m.instructions.press()) m.instructions.pressed = true; //m.instructions.button = loadImage("assets/images/pressed_back_button.png");
+  if(m.i.back.press()) m.i.back.pressed = true; //m.i.back.button = loadImage("assets/images/pressed_back_button.png");
 }
-
+//nao vou mudar as sprites para pressed images por enquanto, talvez depois de resolver o resto do codigo.
 /*void mouseReleased() {
   if(m.start.press()) {
     m.start.pressed = true;
