@@ -1,26 +1,32 @@
 class Highscore{
 //propriedades
 Table table;
+boolean active;
+Button back;
 //construtor
     Highscore(){
+        active = false;
+        back = new Button("assets/images/back_button.png", width-250, 80);//botao para retroceder
         //inicializar a tabela para armazenar highscore
         table = new Table();
         //adicionar colunas na tabela
         table.addColumn("id");
         table.addColumn("score");
     }
+    void drawme(){
+        loadData();
+
+    }
     //carregar a tabela com os valores anteriores.
     void loadData(){
-        table = loadTable("data/highscore.csv");
-        
-        println(table.getRowCount() + " total rows in table");
-
-        for (TableRow row : table.rows()) {
-
-            int id = row.getInt("id");
-            String score = row.getString("score");
-            
-            println("ID: "+ id + " has a score of: " + score);
+        table = loadTable("data/highscore.csv", "header");
+        int pog = table.getRowCount();
+        //print all the data from csv
+        background(0);
+        fill(255, 0, 0);
+        textSize(34);
+        for(int i = 0; i < pog; i++){
+            text("ID: " + table.getRow(i).getInt("id")+" SCORE: " + table.getRow(i).getInt("score"), width/2, 35 + i*35);
         }
     }
     void addData(){ //adicionar dados na tabela

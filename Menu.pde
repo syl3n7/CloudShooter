@@ -1,5 +1,4 @@
 class Menu{
-
 //propriedades
 float posX, posY;
 boolean state;
@@ -7,7 +6,6 @@ Button start, exit, back, highscorebttn, instructionsbttn, credits;
 Highscore highscore;
 Background background;
 Instructions i;
-
     //construtor 
     Menu(float x, float y) {
         posX = x;
@@ -51,16 +49,17 @@ Instructions i;
                 i.active = false;
                 back.pressed = false;
                 state = true;
-                i.active = false;
             }
         }
         if (highscorebttn.pressed) {
+            state = false;
             highscore.active = true;
             highscorebttn.pressed = false;
         }
-        if (highscorebttn.active) {
+        if (highscorebttn.pressed) {
             if (highscore.back.pressed) {
                 highscore.active = false;
+                state = true;
                 highscore.back.pressed = false;
             }
         }
