@@ -71,7 +71,7 @@ void draw() {
     m.start.drawme(); //use loadtable to load the previous highscores
     m.exit.drawme();
     m.highscorebttn.drawme();
-    m.instructions.drawme();
+    m.instructionsbttn.drawme();
   }
   if(displayGame){
     //claudio fez esta parte do codigo
@@ -136,7 +136,7 @@ void mousePressed() { // quando clicar no botao do rato dentro das condicoes esp
   if(m.start.press()) m.start.pressed = true; //m.start.button = loadImage("assets/images/pressed_start_button.png");
   if(m.exit.press()) m.exit.pressed = true; //m.exit.button = loadImage("assets/images/pressed_exit_button.png");
   if(m.back.press()) m.back.pressed = true; //m.back.button = loadImage("assets/images/pressed_back_button.png");
-  if(m.instructions.press()) m.instructions.pressed = true; //m.instructions.button = loadImage("assets/images/pressed_back_button.png");
+  if(m.instructionsbttn.press()) m.instructionsbttn.pressed = true; //m.instructions.button = loadImage("assets/images/pressed_back_button.png");
   if(m.i.back.press()) m.i.back.pressed = true; //m.i.back.button = loadImage("assets/images/pressed_back_button.png");
 }
 //nao vou mudar as sprites para pressed images por enquanto, talvez depois de resolver o resto do codigo.

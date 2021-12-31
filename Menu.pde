@@ -3,7 +3,7 @@ class Menu{
 //propriedades
 float posX, posY;
 boolean state;
-Button start, exit, back, highscorebttn, instructions, credits;
+Button start, exit, back, highscorebttn, instructionsbttn, credits;
 Highscore highscore;
 Background background;
 Instructions i;
@@ -13,16 +13,15 @@ Instructions i;
         posX = x;
         posY = y;
         state = true;//estado ativo ou desativo do menu.
-        background = new Background("assets/background.png", 0, 0);
+        background = new Background("assets/images/background1080p.png", width/2, height/2);
         start = new Button("assets/images/start_button.png", width/2 - 350, height/2 - 100);//botao para comecar o jogo
         exit = new Button("assets/images/exit_button.png", width/2 + 250, height/2 - 100);//botao para sair do jogo.
         back = new Button("assets/images/back_button.png", width-250, 80);//botao para retroceder
-        instructions = new Button("assets/images/instructions_button.png", width/2 - 250, height/2 + 200);//botao para entrar nas instrucoes
+        instructionsbttn = new Button("assets/images/instructions_button.png", width/2 - 250, height/2 + 200);//botao para entrar nas instrucoes
         highscorebttn = new Button("assets/images/highscores_button.png", width/2 + 150, height/2 + 200);//botao para entrar na tabela de highscores
         highscore = new Highscore();//objeto que contem a informacao da tabela .csv Highscores
         i = new Instructions(center_x, center_y, false); //objeto contem o desenho (texto) das instructucoes.
     }
-
     //método usado para desenhar os botões
     void start() {
         background.drawme();
@@ -43,13 +42,17 @@ Instructions i;
             start.pressed = false; 
             back.pressed = false;
         }
-        if(instructions.pressed) {
+        if(instructionsbttn.pressed) {
             state = false;
             i.active = true;
         }
-        if(i.back.pressed){
-            i.active = false;
-            state = true;
+        if (i.active) {
+            if (i.back.pressed) {
+                i.active = false;
+                back.pressed = false;
+                state = true;
+                i.active = false;
+            }
         }
     }
 } 

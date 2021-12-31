@@ -14,7 +14,7 @@ class Player {
     //imgRight = loadimage(imgRight);
     posX = x;
     posY = y;
-    tam = 350/16; //tamanho = img resized / 16
+    tam = 350/32; //tamanho = img resized / 16 //isto tambem age como velocidade para movimentar a nave.
     health = 100;
     moveUnLock = true;
     moveDown  = false;
