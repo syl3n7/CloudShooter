@@ -13,7 +13,7 @@ class Player {
     //imgRight = loadimage(imgRight);
     posX = x;
     posY = y;
-    tam = 350/16;//tamanho = img resized / 8
+    tam = 350/16; //tamanho = img resized / 16
     health = 100;
     moveUnLock = true;
     moveDown  = false;
@@ -21,7 +21,7 @@ class Player {
     moveRight = false;
     moveUp = false;
     //bullet 1
-    b1 = new Bullets("assets/images/bullet_out_of_shell.png", -650, -650/2, 75);
+    b1 = new Bullets("assets/images/bullet_out_of_shell.png", -650, -650/2, 50);
   }
 
   //spawn da imagem mediante parametros indicados + resize para tamanho pretendido
@@ -31,6 +31,8 @@ class Player {
     img.resize(350, 225);
     if(health > 0) image(img, posX, posY); //display sprite of player ship with position and health check updated every tick
     //checkDirection();
+    fill(255, 0, 0, 100);
+    ellipse(posX+20, posY+10, 190, 80);
   }
 
   //abandoned idea of changing sprite with direction, we instead opted for alowing the player to chose from sprites aka customization, unlocked with x amount of highscore.

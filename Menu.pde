@@ -50,6 +50,7 @@ Instructions i;
             back.pressed = false;
         }
         if(instructions.pressed) {
+            background(0, 0, 0, 0);
             i.active = true;
         }
     }

@@ -33,6 +33,7 @@ void setup() {
   surface.setLocation(center_x, center_y); //set location of canvas to center of screen resolution
   imageMode(CENTER); //funcao para centrar o spawn de imagens
   rectMode(CENTER); //função para centrar o spawn de rectângulos
+  //ellipseMode(CENTER);//funcao para centrar o spawn de elipses  
   textAlign(CENTER);
   noStroke();
 //dinamic window size end
@@ -51,19 +52,13 @@ void setup() {
   //player 1
   p1 = new Player("/assets/images/first_ship_cs.png", -200, height/2);//spawn fora do canvas para animar a entrada do player no jogo
   //enemy 1
-  e1 = new Enemy("/assets/images/ovni.png", (width - 300), (height - 300), 150, 5, 100);
+  e1 = new Enemy("/assets/images/AlienSpaceship.png", (width - 300), (height - 300), 150, 5, 100);
 }
 
 //desenhar os elementos do programa no ecra
 void draw() {
   //calls menu
   m.start(); //verifica presses
-  if (m.state) {
-    m.start.drawme(); //use loadtable to load the previous highscores
-    m.exit.drawme();
-    m.highscorestable.drawme();
-    m.instructions.drawme();
-  } 
   if(m.i.active == true) {
     m.i.drawme();
     m.back.drawme();
@@ -72,6 +67,12 @@ void draw() {
     pm.drawme();
     m.back.drawme();
   }
+  if (m.state) {
+    m.start.drawme(); //use loadtable to load the previous highscores
+    m.exit.drawme();
+    m.highscorestable.drawme();
+    m.instructions.drawme();
+  } 
   
   if(m.state == false){
     //claudio fez esta parte do codigo
