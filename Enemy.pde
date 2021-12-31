@@ -22,6 +22,8 @@ class Enemy {
   void drawme() {
     img.resize(int(tam), int(tam)); //redimensiona a imagem
     image(img, posX, posY);
+    fill(255, 0, 0, 100);
+    ellipse(posX, posY+10, 150, 70);
   }
 //necessito de fazer com que o enimigo se multiplique a cada posX completo.
 //usar um array de objetos de enimigos onde vao dando spawn a cada posX completo.
@@ -38,7 +40,7 @@ class Enemy {
       posX = width + tam;
     } else {
       posX -= vel;
-      trand += 0.07;
+      trand += 0.0009;
     }
   }
 

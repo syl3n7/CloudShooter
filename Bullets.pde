@@ -15,9 +15,11 @@ class Bullets {
   //desenhar as balas no ecra
   void drawme() {
     //redimensionar a imagem da bala para o tamanho pretendido
-    bullet.resize(int(tam), 25);
+    bullet.resize(int(tam), 24);
     //desenhar imagem da bala no canvas
     image(bullet, posX, posY);
+    fill(255, 0, 0, 100);
+    ellipse(posX, posY, 21, 17);
   }
 
   //mover a bullet a partir da posicao do player
