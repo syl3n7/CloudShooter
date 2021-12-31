@@ -15,11 +15,9 @@ class Bullets {
   //desenhar as balas no ecra
   void drawme() {
     //redimensionar a imagem da bala para o tamanho pretendido
-    bullet.resize(int(tam), 24);
+    bullet.resize(int(tam), 25);
     //desenhar imagem da bala no canvas
     image(bullet, posX, posY);
-    fill(255, 0, 0, 100);
-    ellipse(posX, posY, 21, 17);
   }
 
   //mover a bullet a partir da posicao do player
@@ -30,8 +28,8 @@ class Bullets {
     }
   }
   //verificar se a posicao X e Y do enimigo, corresponde a mesma posicao X e Y da bala, em ordem a contar como HIT
-  boolean enemycheck(){
-    if (dist(posX+tam/2, posY+tam/2, e1.posX+e1.tam/2, e1.posY+e1.tam/2) < tam) {
+  public boolean enemycheck(){
+    if (dist(posX+tam/2, posY+tam/2, e1.get(p1.level).posX+e1.get(p1.level).tam/2, e1.get(p1.level).posY+e1.get(p1.level).tam/2) < tam) {
       return true;
     }
     return false;

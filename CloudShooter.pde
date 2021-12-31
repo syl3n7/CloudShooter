@@ -2,12 +2,13 @@ import java.awt.*;
 
 //inicializar objetos
 Menu m;
+boolean displayGame = false;
 CloudsGen c1;
 CloudsGen c2;
 CloudsGen c3;
 PlayerShipMenu pm;
 public Player p1;
-public Enemy e1;
+public ArrayList<Enemy> e1; //tornar isto num array em condicoes
 public int score = 0;
 public int lives = 3;
 float bgc = 0;
@@ -52,29 +53,28 @@ void setup() {
   //player 1
   p1 = new Player("/assets/images/first_ship_cs.png", -200, height/2);//spawn fora do canvas para animar a entrada do player no jogo
   //enemy 1
-  e1 = new Enemy("/assets/images/AlienSpaceship.png", (width - 300), (height - 300), 150, 5, 100);
+  e1 = new ArrayList<Enemy>();
+  e1.add(new Enemy("/assets/images/AlienSpaceship.png", (width - 300), (height - 300), 150, 5, 100));
+  e1.add(new Enemy("/assets/images/AlienSpaceship_secondcs.png", (width - 300), (height - 300), 150, 5, 100));
+  e1.add(new Enemy("/assets/images/AlienSpaceship_thirdcs.png", (width - 300), (height - 300), 150, 5, 100));
 }
 
 //desenhar os elementos do programa no ecra
 void draw() {
   //calls menu
   m.start(); //verifica presses
-  if(m.i.active == true) {
+  if(m.i.active == true && displayGame == false) {
     m.i.drawme();
     m.back.drawme();
-  }
-  if(pm.state == true) {
+  }else if(pm.state == true && displayGame == false) {
     pm.drawme();
     m.back.drawme();
-  }
-  if (m.state) {
+  }else if (m.state) {
     m.start.drawme(); //use loadtable to load the previous highscores
     m.exit.drawme();
     m.highscorestable.drawme();
     m.instructions.drawme();
-  } 
-  
-  if(m.state == false){
+  } else if(displayGame){
     //claudio fez esta parte do codigo
     if (bgc == 250) bgcUpperLimit = true;//dynamic background start
     if (bgcUpperLimit == false) background(0, 20, bgc++, 0); //se parar de dar update ao background, funciona como um botao de pausa, maybe later ?
@@ -89,8 +89,8 @@ void draw() {
     c3.move(); //mover a nuvem3
     p1.drawme(); //desenhar o player1
     p1.moveme(); //mover o player1 //this now includes an animation on START to introduce the player into the canvas.
-    e1.drawme(); //desenhar o inimigo
-    e1.move(); //mover o inimigo
+    e1.get(p1.level).drawme(); //desenhar o inimigo
+    e1.get(p1.level).move(); //mover o inimigo
     //  e1.healthcheck(); //verificar se o inimigo morreu ou nao
     score(); //calls"b1.enemycheck();" ou seja: verificar se a bala atingiu o inimigo e acrescentar valor ao score
   }
@@ -133,13 +133,14 @@ void keyReleased() {
 void score() {
   textSize(32);
   text("Score: "+score, m.i.posX, height/8);
-  if (p1.b1.enemycheck()) score++;
+  if (p1.b1.get(p1.level).enemycheck()) score++;
 }
 
 void mousePressed() { // quando clicar no botao do rato dentro das condicoes especificadas(dentro dos limites do "canvas" da imagem do botao), iniciar jogo ou sair do jogo
   if(m.start.press()) m.start.pressed = true; //m.start.button = loadImage("assets/images/pressed_start_button.png");
   if(m.exit.press()) m.exit.pressed = true; //m.exit.button = loadImage("assets/images/pressed_exit_button.png");
   if(m.back.press()) m.back.pressed = true; //m.back.button = loadImage("assets/images/pressed_back_button.png");
+  if(m.instructions.press()) m.i.active = true; 
 }
 
 /*void mouseReleased() {

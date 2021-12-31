@@ -22,8 +22,11 @@ Button back;
 
     void drawme(){
         if (active);
-        fill(purple);
-        rect(posX,posY,width,height);
+            //testing dynamic background color
+            if (bgc == 250) bgcUpperLimit = true;
+            if (bgcUpperLimit == false) background(0, bgc++, bgc, 0); //se parar de dar update ao background, funciona como um botao de pausa, maybe later ?
+            if (bgc == 5) bgcUpperLimit = false; 
+            if (bgcUpperLimit == true) background(0, bgc--, bgc, 0);
         fill(red);
         textSize(64);
         text("Instructions", posX, height/4);
@@ -36,6 +39,7 @@ Button back;
         text(text5, posX, height/2 + 200);
         if(m.back.pressed){
             active = false;
+            m.state = true;
         }
     }
 }
