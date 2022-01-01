@@ -30,10 +30,12 @@ Button back;
         }
     }
     void addData(){ //adicionar dados na tabela
-        TableRow newRow = table.addRow();
-        //adicionar linhas na tabela
-        newRow.setInt("id", table.lastRowIndex()+1);
-        newRow.setInt("score", score);
+        if (score > 0){
+            TableRow newRow = table.addRow();
+            //adicionar linhas na tabela
+            newRow.setInt("id", table.lastRowIndex()+1);
+            newRow.setInt("score", score);
+        } else println("no data to save");
     }
     void saveData(){
         //guardar os dados da tabela no ficheiro

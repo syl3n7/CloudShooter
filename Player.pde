@@ -1,7 +1,7 @@
 class Player {
   //Properties
   PImage img; //sprite normal
-  float posX, posY, tam, health;
+  float posX, posY, tam, vel, health;
   int level;
   boolean moveUp, moveDown, moveLeft, moveRight, moveUnLock; //booleanas para controlar o movimento do player
   public ArrayList<Bullets> b1; //bullets
@@ -14,15 +14,15 @@ class Player {
     //imgRight = loadimage(imgRight);
     posX = x;
     posY = y;
-    tam = 350/32; //tamanho = img resized / 16 //isto tambem age como velocidade para movimentar a nave.
+    tam = 350/16; //tamanho = img resized / 16 //isto tambem age como velocidade para movimentar a nave.
+    vel = 350/32;
     health = 100;
     moveUnLock = true;
     moveDown  = false;
     moveLeft  = false;
     moveRight = false;
     moveUp = false;
-    //nivel atual de dificuldade
-    level = 0;
+    level = 0; //nivel atual de dificuldade // de 0 a 2 (0 = facil, 1 = medio, 2 = dificil)
     //bullets
     b1 = new ArrayList<Bullets>();
     b1.add(new Bullets("assets/images/bullet_out_of_shell.png", -650, -650/2, 50));
@@ -88,10 +88,10 @@ class Player {
     if (posX == 200) moveUnLock = true;
     //println(moveUnLock); usei isto para debug apenas.
     if(moveUnLock){ //lock player movement
-      if (moveLeft) posX -= tam;  // "if(left == true)" igual a "if(left)"
-      else if (moveRight) posX += tam;
-      else if (moveUp) posY -= tam;
-      else if (moveDown) posY += tam;
+      if (moveLeft) posX -= vel;  // "if(left == true)" igual a "if(left)"
+      else if (moveRight) posX += vel;
+      else if (moveUp) posY -= vel;
+      else if (moveDown) posY += vel;
     }
   }
   
