@@ -34,13 +34,13 @@ class Player {
     b1.get(level).drawme(); //desenhar as balas
     b1.get(level).moveme(); //mover as balas
     img.resize(350, 225);
-    if(health > 0) image(img, posX, posY); //display sprite of player ship with position and health check updated every tick
+    if(health > 10) image(img, posX, posY); //display sprite of player ship with position and health check updated every tick
     //checkDirection();
     fill(255, 0, 0, 100);
     ellipse(posX+20, posY+10, 190, 80);
   }
 
-  //abandoned idea of changing sprite with direction, we instead opted for alowing the player to chose from sprites aka customization, unlocked with x amount of highscore.
+//abandoned idea of changing sprite with direction, we instead opted for alowing the player to chose from sprites aka customization, unlocked with x amount of highscore.
   //check direction and change the sprite acordingly
   //  void checkDirection() {
   //   if(moveUp) {
@@ -72,7 +72,6 @@ class Player {
   }
 
   void shoot () {
-      
     b1.get(level).posX = posX-img.width/8.5;
     b1.get(level).posY = posY+img.height/5.8;
     b1.get(level).moveme();

@@ -84,7 +84,7 @@ void draw() {
     p1.moveme(); //mover o player1 //this now includes an animation on START to introduce the player into the canvas.
     e1.get(p1.level).drawme(); //desenhar o inimigo
     e1.get(p1.level).move(); //mover o inimigo
-    //  e1.healthcheck(); //verificar se o inimigo morreu ou nao
+    healthcheck(); //verificar vida do player, do enimigo
     score(); //calls"b1.enemycheck();" ou seja: verificar se a bala atingiu o inimigo e acrescentar valor ao score
   }
 }
@@ -117,6 +117,13 @@ void keyReleased() {
   if(key == 'k' || key == 'K') plane.down = false;
 }
 */
+//verificar se o player colidiu com o inimigo
+void healthcheck(){
+  float distX = p1.posX - e1.get(p1.level).posX;
+  float distY = p1.posY - e1.get(p1.level).posY;
+  float distance = sqrt((distX*distX) + (distY*distY));
+  if(distance <= (PI * 190 * 80) + (PI * 150 * 70)) p1.health -= 10; //if distance is less than PI than the radius of the enemy, then the player loses health (10)
+}
 //acrescentar pontuacao na tabela
 void score() {
   textSize(32);
