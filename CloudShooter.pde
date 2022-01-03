@@ -54,36 +54,31 @@ void setup() {
 void draw() {
   //calls menu
   m.start(); //verifica presses
-  if(m.i.active) {
+  if (m.i.active) {
     m.i.drawme();
     m.i.back.drawme();
-  }else if(pm.state) {
+  } else if (pm.state) {
     pm.drawme();
-    m.i.back.drawme();//trocar para m.pm.back.drawme();
-  }else if(m.highscore.active) {
+    //m.pm.ship1.drawme();//trocar para m.pm.back.drawme();
+    //m.pm.ship2.drawme();
+    //m.pm.ship3.drawme();
+  } else if (m.highscore.active) {
     m.highscore.drawme();
     m.highscore.back.drawme();
-  }
-  if (m.state) {
+  } if (m.state) {
     m.start.drawme(); //use loadtable to load the previous highscores
     m.exit.drawme();
     m.highscorebttn.drawme();
     m.instructionsbttn.drawme();
-  }
-  if(displayGame){
+  } if (displayGame){
     //claudio fez esta parte do codigo
     m.background.drawme();
     m.back.drawme(); //desenhar o botão de pausa
-    c1.drawme(); //desenhar nuvem1
-    c2.drawme(); //desenhar nuvem2
-    c3.drawme(); //desenhar nuvem3
-    c1.move(); //mover a nuvem1
-    c2.move(); //mover a nuvem2
-    c3.move(); //mover a nuvem3
-    p1.drawme(); //desenhar o player1
-    p1.moveme(); //mover o player1 //this now includes an animation on START to introduce the player into the canvas.
-    e1.get(p1.level).drawme(); //desenhar o inimigo
-    e1.get(p1.level).move(); //mover o inimigo
+    c1.drawme(); //desenhar e mover nuvem1
+    c2.drawme(); //desenhar e mover nuvem2
+    c3.drawme(); //desenhar e mover nuvem3
+    p1.drawme(); //desenhar e mover o player1
+    e1.get(p1.level).drawme(); //desenhar e mover o inimigo
     healthcheck(); //verificar vida do player, do enimigo
     score(); //calls"b1.enemycheck();" ou seja: verificar se a bala atingiu o inimigo e acrescentar valor ao score
   }
@@ -121,14 +116,16 @@ void keyReleased() {
 void healthcheck(){
   float distX = p1.posX - e1.get(p1.level).posX;
   float distY = p1.posY - e1.get(p1.level).posY;
-  float distance = sqrt((distX*distX) + (distY*distY));
-  if(distance <= (PI * 190 * 80) + (PI * 150 * 70)) p1.health -= 10; //if distance is less than PI than the radius of the enemy, then the player loses health (10)
+  float distance = sqrt((distX*distX) + (distY*distY)); //(PI * (190/2) * (80/2)) + (PI * (150/2) * (70/2));
+  if (distance <= distX + distY) p1.health -= 10;//if distance is less than PI than the radius of the enemy, then the player loses health (10)
 }
 //acrescentar pontuacao na tabela
 void score() {
   textSize(32);
   text("Score: "+score, m.i.posX, height/8);
   if (p1.b1.get(p1.level).enemycheck()) score++;
+  if (score == 10) p1.level = 1;
+  if (score == 20) p1.level = 2;
 }
 void mousePressed() { // quando clicar no botao do rato dentro das condicoes especificadas(dentro dos limites do "canvas" da imagem do botao), iniciar jogo ou sair do jogo
   if(m.start.press()) m.start.pressed = true; //m.start.button = loadImage("assets/images/pressed_start_button.png");

@@ -19,12 +19,13 @@ Background background;
 
     void drawme() {
         //background.drawme();
-        if (m.state && state){
+        if (state){
             background.drawme();
             ship1.drawme();
             ship2.drawme();
             ship3.drawme();
             shipColor();
+            p1.drawme();
         }
     }
 
@@ -33,9 +34,9 @@ Background background;
     void shipColor() {
         //logica para escolha na nave + return da string correta para definir
         if(state && m.state){
-            if(ship1.press()) ship1.button = loadImage("assets/images/first_ship_cs_pressed.png");
-            if(ship2.press()) ship2.button = loadImage("assets/images/first_ship_secondcs_pressed.png");
-            if(ship3.press()) ship3.button = loadImage("assets/images/first_ship_thirdcs_pressed.png"); 
+            if(ship1.press()) p1.img = loadImage("assets/images/first_ship_cs_pressed.png");
+            if(ship2.press()) p1.img = loadImage("assets/images/first_ship_secondcs_pressed.png");
+            if(ship3.press()) p1.img = loadImage("assets/images/first_ship_thirdcs_pressed.png"); 
         }
     }
 }

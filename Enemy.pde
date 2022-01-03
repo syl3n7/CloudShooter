@@ -23,7 +23,7 @@ class Enemy {
     img.resize(int(tam), int(tam)); //redimensiona a imagem
     image(img, posX, posY);
     fill(255, 0, 0, 100);
-    ellipse(posX, posY+10, 150, 70);
+    rect(posX, posY+10, 150, 70);
   }
 //necessito de fazer com que o enimigo se multiplique a cada posX completo.
 //usar um array de objetos de enimigos onde vao dando spawn a cada posX completo.
@@ -35,8 +35,7 @@ class Enemy {
     tsmoothed = noise(trand); //posicao vertical dinamica, dificuldade 0
     tsmoothed = map(tsmoothed, 0, 1, tam, width-tam);
     posY = tsmoothed;
-
-    if (posX < 0) {
+    if (posX < 0 ) {
       posX = width + tam;
     } else {
       posX -= vel;

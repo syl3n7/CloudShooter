@@ -15,6 +15,7 @@ class CloudsGen {
 //method used to draw the objects on the canvas
   void drawme() {
     image(img, posX, posY); //function image to draw the image with three specified parameters inside
+    move(); //calling the method move
   }
 
 //method used to make the object run through X and randomly change height
