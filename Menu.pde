@@ -23,9 +23,8 @@ Instructions i;
     //método usado para desenhar os botões
     void start() {
         background.drawme();
-        //verficar estado pressed de cada botao
-        if(state){
-            if (start.pressed) displayGame = true;//se o botao start nao estiver a ser pressionado entao o menu continua a ser mostrado.
+        if(state){  //verficar estado pressed de cada botao
+            if (start.pressed) displayGame = true;  //se o botao start nao estiver a ser pressionado entao o menu continua a ser mostrado.
             if (exit.pressed) { ///pressionar botao exit guarda highscore e sai do jogo
                 highscore.saveData();
                 exit();

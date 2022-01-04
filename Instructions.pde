@@ -11,7 +11,6 @@ color purple = color(#CE0FFA);
 color white = color(#FBEAFF);
 color red = color(#FA0000);
 Button back;
-
 //construtor
     Instructions(float x, float y, boolean b){
         posX = x;
@@ -19,7 +18,6 @@ Button back;
         active = b;
         back = new Button("assets/images/back_button.png", width-250, 80);
     }
-
     void drawme(){
         if (active);
             m.background.drawme();
