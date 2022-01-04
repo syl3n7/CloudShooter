@@ -12,7 +12,7 @@ public int score = 0;
 public int lives = 3;
 public int center_x, center_y;
 //codigo apenas corrido 1x (inicio do programa)
-void setup() {  
+void setup() {
 //https://forum.processing.org/one/topic/dynamic-screen-background-resize-need-guidance.html
 //dinamic window size begin (without borders)
   surface.setTitle("CloudShooter by Catarina & Claudio"); //titulo da janela
@@ -28,7 +28,7 @@ void setup() {
   surface.setLocation(center_x, center_y); //set location of canvas to center of screen resolution
   imageMode(CENTER); //funcao para centrar o spawn de imagens
   rectMode(CENTER); //função para centrar o spawn de rectângulos
-  //ellipseMode(CENTER);//funcao para centrar o spawn de elipses  //achei desnecessaria para proveito de desenhar melhor a hitbox para debug apenas.
+  //ellipseMode(CENTER);//funcao para centrar o spawn de elipses
   textAlign(CENTER);
   noStroke();
   /*Inicializar Objetos ⬇️*/
@@ -54,37 +54,32 @@ void setup() {
 void draw() {
   //calls menu
   m.start(); //verifica presses
-  if(m.i.active) {
+  if (m.i.active) {
     m.i.drawme();
     m.i.back.drawme();
-  }else if(pm.state) {
+  } else if (pm.state) {
     pm.drawme();
-    m.i.back.drawme();//trocar para m.pm.back.drawme();
-  }else if(m.highscore.active) {
+    //m.pm.ship1.drawme();//trocar para m.pm.back.drawme();
+    //m.pm.ship2.drawme();
+    //m.pm.ship3.drawme();
+  } else if (m.highscore.active) {
     m.highscore.drawme();
     m.highscore.back.drawme();
-  }
-  if (m.state) {
+  } if (m.state) {
     m.start.drawme(); //use loadtable to load the previous highscores
     m.exit.drawme();
     m.highscorebttn.drawme();
     m.instructionsbttn.drawme();
-  }
-  if(displayGame){
+  } if (displayGame){
     //claudio fez esta parte do codigo
     m.background.drawme();
     m.back.drawme(); //desenhar o botão de pausa
-    c1.drawme(); //desenhar nuvem1
-    c2.drawme(); //desenhar nuvem2
-    c3.drawme(); //desenhar nuvem3
-    c1.move(); //mover a nuvem1
-    c2.move(); //mover a nuvem2
-    c3.move(); //mover a nuvem3
-    p1.drawme(); //desenhar o player1
-    p1.moveme(); //mover o player1 //this now includes an animation on START to introduce the player into the canvas.
-    e1.get(p1.level).drawme(); //desenhar o inimigo
-    e1.get(p1.level).move(); //mover o inimigo
-    //  e1.healthcheck(); //verificar se o inimigo morreu ou nao
+    c1.drawme(); //desenhar e mover nuvem1
+    c2.drawme(); //desenhar e mover nuvem2
+    c3.drawme(); //desenhar e mover nuvem3
+    p1.drawme(); //desenhar e mover o player1
+    e1.get(p1.level).drawme(); //desenhar e mover o inimigo
+    healthcheck(); //verificar vida do player, do enimigo
     score(); //calls"b1.enemycheck();" ou seja: verificar se a bala atingiu o inimigo e acrescentar valor ao score
   }
 }
@@ -117,37 +112,41 @@ void keyReleased() {
   if(key == 'k' || key == 'K') plane.down = false;
 }
 */
+//verificar se o player colidiu com o inimigo
+void healthcheck(){
+  //put here code for checking between bullet and enemy
+  // float distX = p1.posX - e1.get(p1.level).posX;
+  // float distY = p1.posY - e1.get(p1.level).posY;
+  // float distance = sqrt((distX*distX) + (distY*distY)); //(PI * (190/2) * (80/2)) + (PI * (150/2) * (70/2));
+  // if (distance <= distX + distY) p1.health -= 10;//if distance is less than PI than the radius of the enemy, then the player loses health (10)
+  // if (distance <= distX + distY) e1.health -= p1.b1.damage;
+}
 //acrescentar pontuacao na tabela
 void score() {
   textSize(32);
   text("Score: "+score, m.i.posX, height/8);
   if (p1.b1.get(p1.level).enemycheck()) score++;
+  if (score == 10 && e1.get(p1.level).health < 10) p1.level = 1;
+  if (score == 20 && e1.get(p1.level).health < 10) p1.level = 2;
 }
 void mousePressed() { // quando clicar no botao do rato dentro das condicoes especificadas(dentro dos limites do "canvas" da imagem do botao), iniciar jogo ou sair do jogo
-  if(m.start.press()) m.start.pressed = true; //m.start.button = loadImage("assets/images/pressed_start_button.png");
-  if(m.exit.press()) m.exit.pressed = true; //m.exit.button = loadImage("assets/images/pressed_exit_button.png");
-  if(m.back.press()) m.back.pressed = true; //m.back.button = loadImage("assets/images/pressed_back_button.png");
-  if(m.instructionsbttn.press()) m.instructionsbttn.pressed = true; //m.instructions.button = loadImage("assets/images/pressed_back_button.png");
-  if(m.i.back.press()) m.i.back.pressed = true; //m.i.back.button = loadImage("assets/images/pressed_back_button.png");
-  if(m.highscorebttn.press()) m.highscorebttn.pressed = true; //m.i.instructions.button = loadImage("assets/images/pressed_back_button.png");
-  if(m.highscore.back.press()) m.highscore.back.pressed = true; //m.i.instructions.button = loadImage("assets/images/pressed_back_button.png");
+  if(m.start.press()) m.start.button = loadImage("assets/images/pressed_start_button.png");
+  if(m.exit.press()) m.exit.button = loadImage("assets/images/pressed_exit_button.png");
+  if(m.back.press()) m.back.button = loadImage("assets/images/pressed_back_button.png");
+  if(m.instructionsbttn.press()) m.instructionsbttn.button = loadImage("assets/images/pressed_instructions_button.png");
+  if(m.i.back.press()) m.i.back.button = loadImage("assets/images/pressed_back_button.png");
+  if(m.highscorebttn.press()) m.highscorebttn.button = loadImage("assets/images/pressed_highscores_button.png");
+  if(m.highscore.back.press()) m.highscore.back.button = loadImage("assets/images/pressed_back_button.png");
 }
 //nao vou mudar as sprites para pressed images por enquanto, talvez depois de resolver o resto do codigo.
-/*void mouseReleased() {
-  if(m.start.press()) {
-    m.start.pressed = true;
-    m.start.button = loadImage("assets/images/start_button.png");
-  }
-  //println(m.start.pressed);
-  if(m.exit.press()) {
-    m.exit.pressed = true;
-    m.exit.button = loadImage("assets/images/exit_button.png");
-  }
-  //println(m.exit.pressed);
-  if(m.back.press()) {
-    m.back.pressed = true;
-    m.back.button = loadImage("assets/images/back_button.png");
-  }
-  //println("state butao back "+m.back.pressed);//debug
-  //println("state menu "+m.state);//debug
-}*/
+void mouseReleased() {
+  if(m.start.press()) m.start.pressed = true;
+  if(m.exit.press()) m.exit.pressed = true;
+  if(m.back.press()) m.back.pressed = true;
+  if(m.instructionsbttn.press()) m.instructionsbttn.pressed = true;
+  if(m.i.back.press()) m.i.back.pressed = true;
+  if(m.highscorebttn.press()) m.highscorebttn.pressed = true;
+  if(m.highscore.back.press()) m.highscore.back.pressed = true;
+  //println("state butao back "+m.back.pressed);  //debug
+  //println("state menu "+m.state); //debug
+}

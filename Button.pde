@@ -1,4 +1,4 @@
-class Button{
+class Button {
 //properties
 PImage button;
 float posX, posY, tam1, tam2;
@@ -13,7 +13,6 @@ boolean pressed;
         posY = y;
         pressed = false;
     }
-
     void drawme(){
         image(button, posX, posY);//colocar isto na liunha 21 depois
         //this code below is to check the hitboxes of the buttons
