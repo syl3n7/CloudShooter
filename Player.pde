@@ -36,8 +36,8 @@ class Player {
     img.resize(350, 225);
     if(health > 10) image(img, posX, posY); //display sprite of player ship with position and health check updated every tick
     //checkDirection();
-    fill(255, 0, 0, 100);
-    rect(posX+20, posY+10, 190, 80);
+    fill(255, 0, 0, 200);
+    //rect(posX+20, posY+10, 190, 80);
     textSize(24);
     text("Health: " + health, posX+20, posY+10);
     moveme();//mover o player1 //this now includes an animation on START to introduce the player into the canvas.

@@ -22,8 +22,10 @@ class Enemy {
   void drawme() {
     img.resize(int(tam), int(tam)); //redimensiona a imagem
     image(img, posX, posY);
-    fill(255, 0, 0, 100);
-    rect(posX, posY+10, 150, 70);
+    fill(255, 0, 0, 200);
+    //rect(posX, posY+10, 150, 70);
+    textSize(24);
+    text("Health: " + health, posX, posY+10);
     move();
   }
 //necessito de fazer com que o enimigo se multiplique a cada posX completo.
@@ -55,5 +57,7 @@ class Enemy {
         }
         img.updatePixels();
     }
+    if (p1.level == 1) health = 200;
+    if (p1.level == 2) health = 300;
   }
 }
