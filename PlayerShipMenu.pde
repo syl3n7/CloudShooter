@@ -15,7 +15,6 @@ Background background;
         ship3 = new Button("assets/images/first_ship_thirdcs.png", width/2 + 300, height/2 - 100);
     } 
     void drawme() {
-        //background.drawme();
         if (state){
             background.drawme();
             ship1.drawme();
@@ -25,8 +24,7 @@ Background background;
             p1.drawme();
         }
     }
-    //adicionar aqui metodo para escolher a nave e a bala do player
-    //desbloqueaveis com highscore 
+    //adicionar aqui metodo para escolher a nave e a bala do player // desbloqueaveis com highscore 
     void shipColor() {
         //logica para escolha na nave + return da string correta para definir
         if(state && m.state){

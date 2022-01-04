@@ -15,7 +15,6 @@ Button back;
     }
     void drawme(){
         loadData();
-
     }
     //carregar a tabela com os valores anteriores.
     void loadData(){

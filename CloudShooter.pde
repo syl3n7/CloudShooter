@@ -12,7 +12,7 @@ public int score = 0;
 public int lives = 3;
 public int center_x, center_y;
 //codigo apenas corrido 1x (inicio do programa)
-void setup() {  
+void setup() {
 //https://forum.processing.org/one/topic/dynamic-screen-background-resize-need-guidance.html
 //dinamic window size begin (without borders)
   surface.setTitle("CloudShooter by Catarina & Claudio"); //titulo da janela
@@ -28,7 +28,7 @@ void setup() {
   surface.setLocation(center_x, center_y); //set location of canvas to center of screen resolution
   imageMode(CENTER); //funcao para centrar o spawn de imagens
   rectMode(CENTER); //função para centrar o spawn de rectângulos
-  //ellipseMode(CENTER);//funcao para centrar o spawn de elipses  //achei desnecessaria para proveito de desenhar melhor a hitbox para debug apenas.
+  //ellipseMode(CENTER);//funcao para centrar o spawn de elipses
   textAlign(CENTER);
   noStroke();
   /*Inicializar Objetos ⬇️*/
@@ -126,8 +126,8 @@ void score() {
   textSize(32);
   text("Score: "+score, m.i.posX, height/8);
   if (p1.b1.get(p1.level).enemycheck()) score++;
-  if (score == 10 && e1.health < 10) p1.level = 1;
-  if (score == 20 && e1.health < 10) p1.level = 2;
+  if (score == 10 && e1.get(p1.level).health < 10) p1.level = 1;
+  if (score == 20 && e1.get(p1.level).health < 10) p1.level = 2;
 }
 void mousePressed() { // quando clicar no botao do rato dentro das condicoes especificadas(dentro dos limites do "canvas" da imagem do botao), iniciar jogo ou sair do jogo
   if(m.start.press()) m.start.button = loadImage("assets/images/pressed_start_button.png");
@@ -149,4 +149,4 @@ void mouseReleased() {
   if(m.highscore.back.press()) m.highscore.back.pressed = true;
   //println("state butao back "+m.back.pressed);  //debug
   //println("state menu "+m.state); //debug
-}*/
+}

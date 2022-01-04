@@ -1,5 +1,4 @@
 class Enemy {
-
   //propriedades
   float dp = 37;
   float trand = 5;

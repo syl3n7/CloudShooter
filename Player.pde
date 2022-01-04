@@ -1,7 +1,7 @@
 class Player {
   //Properties
   PImage img; //sprite normal
-  float posX, posY, tam, health;
+  float posX, posY, tam, vel, health;
   int level;
   boolean moveUp, moveDown, moveLeft, moveRight, moveUnLock; //booleanas para controlar o movimento do player
   public ArrayList<Bullets> b1; //bullets
@@ -14,7 +14,8 @@ class Player {
     //imgRight = loadimage(imgRight);
     posX = x;
     posY = y;
-    tam = 350/32; //tamanho = img resized / 16 //isto tambem age como velocidade para movimentar a nave.
+    tam = 350/32; //tamanho = img resized
+    vel = 350/16; //velocidade para movimentar a nave
     health = 100;
     moveUnLock = true;
     moveDown  = false;
@@ -86,10 +87,10 @@ class Player {
     if (posX == 200) moveUnLock = true;
     //println(moveUnLock); usei isto para debug apenas.
     if(moveUnLock){ //lock player movement
-      if (moveLeft) posX -= tam;  // "if(left == true)" igual a "if(left)"
-      else if (moveRight) posX += tam;
-      else if (moveUp) posY -= tam;
-      else if (moveDown) posY += tam;
+      if (moveLeft) posX -= vel;  // "if(left == true)" igual a "if(left)"
+      else if (moveRight) posX += vel;
+      else if (moveUp) posY -= vel;
+      else if (moveDown) posY += vel;
     }
   }
 //codigo importado do exemplo do professor para movimento + suave
