@@ -12,7 +12,7 @@ class Enemy {
   Enemy(String nome, float x, float y, int t, float v, float d) {
     img = loadImage(nome);
     posX = width-tam;
-    posY = 0;
+    posY = height/2;
     tam = t;
     vel = v;
     damage = d;
@@ -24,6 +24,7 @@ class Enemy {
     image(img, posX, posY);
     fill(255, 0, 0, 100);
     rect(posX, posY+10, 150, 70);
+    move();
   }
 //necessito de fazer com que o enimigo se multiplique a cada posX completo.
 //usar um array de objetos de enimigos onde vao dando spawn a cada posX completo.
@@ -42,11 +43,17 @@ class Enemy {
       trand += 0.0009;
     }
   }
-
-/* placeholder para verificar se foi atingiho pela bala
-  void healthcheck() {
-    if (health <= 0) {
-      enemy.hide();
+  void healthcheck() { //when it, turns red
+    if(p1.health < 25){
+        img.loadPixels();
+        for(int x = 0; x < width; x++) {
+            for(int y = 0; y < height; y++) {
+                if(blue(img.pixels[x+y*img.width]) > 128) {
+                    img.pixels[x+y*img.width] = color(128, 0, 0);
+                }
+            }
+        }
+        img.updatePixels();
     }
-  }*/
+  }
 }
