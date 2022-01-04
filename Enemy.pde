@@ -21,7 +21,7 @@ class Enemy {
 //necessito de chamar recursivamente esta funcao para que o jogador possa eliminar o inimigo e ele continue a dar spawn
   void drawme() {
     img.resize(int(tam), int(tam)); //redimensiona a imagem
-    image(img, posX, posY);
+    if(health > 0) image(img, posX, posY);
     fill(255, 0, 0, 200);
     //rect(posX, posY+10, 150, 70);
     textSize(24);
@@ -42,11 +42,11 @@ class Enemy {
       posX = width + tam;
     } else {
       posX -= vel;
-      trand += 0.0009;
+      trand += 0.0019;
     }
   }
   void healthcheck() { //when it, turns red
-    if(p1.health < 25){
+    if(health < health/2){
         img.loadPixels();
         for(int x = 0; x < width; x++) {
             for(int y = 0; y < height; y++) {

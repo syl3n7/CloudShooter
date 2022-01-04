@@ -34,7 +34,7 @@ class Player {
     b1.get(level).drawme(); //desenhar as balas
     b1.get(level).moveme(); //mover as balas
     img.resize(350, 225);
-    if(health > 10) image(img, posX, posY); //display sprite of player ship with position and health check updated every tick
+    if(health > 0) image(img, posX, posY); //display sprite of player ship with position and health check updated every tick
     //checkDirection();
     fill(255, 0, 0, 200);
     //rect(posX+20, posY+10, 190, 80);
@@ -42,7 +42,6 @@ class Player {
     text("Health: " + health, posX+20, posY+10);
     moveme();//mover o player1 //this now includes an animation on START to introduce the player into the canvas.
   }
-
 //abandoned idea of changing sprite with direction, we instead opted for alowing the player to chose from sprites aka customization, unlocked with x amount of highscore.
   //check direction and change the sprite acordingly
   //  void checkDirection() {
@@ -66,8 +65,7 @@ class Player {
   //   if(buttonTBD.press) return = "/assets/images/bullet2.png";
   //   if(buttonTBD.press) return "/assets/images/bullet3.png";
   // }
-
-  //damage radius
+//damage radius
   void damage() {
     //http://jeffreythompson.org/collision-detection/rect-rect.php
     //ler novamente o link acima. necessito de fazer a verificacao de colisao. 
@@ -76,9 +74,9 @@ class Player {
   void shoot () {
     b1.get(level).posX = posX-img.width/8.5;
     b1.get(level).posY = posY+img.height/5.8;
-    b1.get(level).moveme();
+    b1.get(level).drawme();
   }
-  //validar posicao e incremento da mesma caso tecla seja pressionada
+//validar posicao e incremento da mesma caso tecla seja pressionada
   void moveme(){
     //player animation from outside of the canvas to the "spawn" position where the player can take over the controls.//tambem verifica se o player saiu de qq coordenada, x, -x, y, -y para retomar o player a sua area de jogo.
     if(posX < 200) posX += 10;
@@ -94,7 +92,7 @@ class Player {
       else if (moveDown) posY += tam;
     }
   }
-  //codigo importado do exemplo do professor em ordem a obter movimento + suave
+//codigo importado do exemplo do professor para movimento + suave
   /*  void show() {
     if (die) {
       posY += 3*speed;   

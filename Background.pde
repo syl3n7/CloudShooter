@@ -1,16 +1,16 @@
 class Background {
-    //propriedades
+//propriedades
     float posX, posY;
     PImage img;
-    //construtor
+//construtor
     Background(String n, float x, float y) {
         img = loadImage(n);
         posX = x;
         posY = y;
     }
-    //metodo desenhar para o canvas
-    void drawme() {
-        if(p1.health < 25){
+//metodo desenhar para o canvas
+    void drawme() { 
+        if(p1.health < 25) {
             img.loadPixels();
             for(int x = 0; x < width; x++) {
                 for(int y = 0; y < height; y++) {

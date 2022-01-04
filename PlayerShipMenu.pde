@@ -1,14 +1,12 @@
 class PlayerShipMenu{
-
 //propriedades
 float posX, posY;
 boolean state;
 Button ship1, ship2, ship3;
 Background background;
-
     //construtor 
     PlayerShipMenu(float x, float y) {
-        //background = new Background("assets/images/background.png", 0, 0);
+        background = new Background("assets/images/background.png", 0, 0);
         posX = x;
         posY = y;
         state = false;
@@ -16,7 +14,6 @@ Background background;
         ship2 = new Button("assets/images/first_ship_secondcs.png", width/2 + 100, height/2 - 100);    //método usado para desenhar os botões
         ship3 = new Button("assets/images/first_ship_thirdcs.png", width/2 + 300, height/2 - 100);
     } 
-
     void drawme() {
         //background.drawme();
         if (state){
@@ -28,7 +25,6 @@ Background background;
             p1.drawme();
         }
     }
-
     //adicionar aqui metodo para escolher a nave e a bala do player
     //desbloqueaveis com highscore 
     void shipColor() {

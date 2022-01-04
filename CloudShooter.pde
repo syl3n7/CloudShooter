@@ -114,44 +114,39 @@ void keyReleased() {
 */
 //verificar se o player colidiu com o inimigo
 void healthcheck(){
-  float distX = p1.posX - e1.get(p1.level).posX;
-  float distY = p1.posY - e1.get(p1.level).posY;
-  float distance = sqrt((distX*distX) + (distY*distY)); //(PI * (190/2) * (80/2)) + (PI * (150/2) * (70/2));
-  if (distance <= distX + distY) p1.health -= 10;//if distance is less than PI than the radius of the enemy, then the player loses health (10)
+  //put here code for checking between bullet and enemy
+  // float distX = p1.posX - e1.get(p1.level).posX;
+  // float distY = p1.posY - e1.get(p1.level).posY;
+  // float distance = sqrt((distX*distX) + (distY*distY)); //(PI * (190/2) * (80/2)) + (PI * (150/2) * (70/2));
+  // if (distance <= distX + distY) p1.health -= 10;//if distance is less than PI than the radius of the enemy, then the player loses health (10)
+  // if (distance <= distX + distY) e1.health -= p1.b1.damage;
 }
 //acrescentar pontuacao na tabela
 void score() {
   textSize(32);
   text("Score: "+score, m.i.posX, height/8);
   if (p1.b1.get(p1.level).enemycheck()) score++;
-  if (score == 10) p1.level = 1;
-  if (score == 20) p1.level = 2;
+  if (score == 10 && e1.health < 10) p1.level = 1;
+  if (score == 20 && e1.health < 10) p1.level = 2;
 }
 void mousePressed() { // quando clicar no botao do rato dentro das condicoes especificadas(dentro dos limites do "canvas" da imagem do botao), iniciar jogo ou sair do jogo
-  if(m.start.press()) m.start.pressed = true; //m.start.button = loadImage("assets/images/pressed_start_button.png");
-  if(m.exit.press()) m.exit.pressed = true; //m.exit.button = loadImage("assets/images/pressed_exit_button.png");
-  if(m.back.press()) m.back.pressed = true; //m.back.button = loadImage("assets/images/pressed_back_button.png");
-  if(m.instructionsbttn.press()) m.instructionsbttn.pressed = true; //m.instructions.button = loadImage("assets/images/pressed_back_button.png");
-  if(m.i.back.press()) m.i.back.pressed = true; //m.i.back.button = loadImage("assets/images/pressed_back_button.png");
-  if(m.highscorebttn.press()) m.highscorebttn.pressed = true; //m.i.instructions.button = loadImage("assets/images/pressed_back_button.png");
-  if(m.highscore.back.press()) m.highscore.back.pressed = true; //m.i.instructions.button = loadImage("assets/images/pressed_back_button.png");
+  if(m.start.press()) m.start.button = loadImage("assets/images/pressed_start_button.png");
+  if(m.exit.press()) m.exit.button = loadImage("assets/images/pressed_exit_button.png");
+  if(m.back.press()) m.back.button = loadImage("assets/images/pressed_back_button.png");
+  if(m.instructionsbttn.press()) m.instructionsbttn.button = loadImage("assets/images/pressed_instructions_button.png");
+  if(m.i.back.press()) m.i.back.button = loadImage("assets/images/pressed_back_button.png");
+  if(m.highscorebttn.press()) m.highscorebttn.button = loadImage("assets/images/pressed_highscores_button.png");
+  if(m.highscore.back.press()) m.highscore.back.button = loadImage("assets/images/pressed_back_button.png");
 }
 //nao vou mudar as sprites para pressed images por enquanto, talvez depois de resolver o resto do codigo.
-/*void mouseReleased() {
-  if(m.start.press()) {
-    m.start.pressed = true;
-    m.start.button = loadImage("assets/images/start_button.png");
-  }
-  //println(m.start.pressed);
-  if(m.exit.press()) {
-    m.exit.pressed = true;
-    m.exit.button = loadImage("assets/images/exit_button.png");
-  }
-  //println(m.exit.pressed);
-  if(m.back.press()) {
-    m.back.pressed = true;
-    m.back.button = loadImage("assets/images/back_button.png");
-  }
-  //println("state butao back "+m.back.pressed);//debug
-  //println("state menu "+m.state);//debug
+void mouseReleased() {
+  if(m.start.press()) m.start.pressed = true;
+  if(m.exit.press()) m.exit.pressed = true;
+  if(m.back.press()) m.back.pressed = true;
+  if(m.instructionsbttn.press()) m.instructionsbttn.pressed = true;
+  if(m.i.back.press()) m.i.back.pressed = true;
+  if(m.highscorebttn.press()) m.highscorebttn.pressed = true;
+  if(m.highscore.back.press()) m.highscore.back.pressed = true;
+  //println("state butao back "+m.back.pressed);  //debug
+  //println("state menu "+m.state); //debug
 }*/
