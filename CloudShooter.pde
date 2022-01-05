@@ -1,4 +1,4 @@
-import java.awt.*;
+import java.awt.*;//importar libraria grafica
 //declarar objetos
 Menu m;
 boolean displayGame = false;
@@ -18,13 +18,13 @@ void setup() {
   surface.setTitle("CloudShooter by Catarina & Claudio"); //titulo da janela
   fullScreen(0,P2D); //fullscreen
   frameRate(60); //especificar framerate a usar
-  Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-  int screenWidth = screenSize.width;
-  int screenHeight = screenSize.height;
+  Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize(); //ir buscar a dimensao da tela
+  int screenWidth = screenSize.width; //ir buscar a largura da tela
+  int screenHeight = screenSize.height; //ir buscar a largura da tela
   surface.setSize(1920, 1080/*screenWidth, screenHeight*/);
   smooth(8);//funcao de antialiasing
-  center_x = screenWidth/2-width/2;
-  center_y = screenHeight/2-height/2;
+  center_x = screenWidth/2-width/2; //ir buscar o meio do eixo X
+  center_y = screenHeight/2-height/2; //ir buscar o meio do eixo Y
   surface.setLocation(center_x, center_y); //set location of canvas to center of screen resolution
   imageMode(CENTER); //funcao para centrar o spawn de imagens
   rectMode(CENTER); //função para centrar o spawn de rectângulos
@@ -57,12 +57,12 @@ void draw() {
   if (m.i.active) {
     m.i.drawme();
     m.i.back.drawme();
-  } else if (pm.state) {
+  } if (pm.state) {
     pm.drawme();
     //m.pm.ship1.drawme();//trocar para m.pm.back.drawme();
     //m.pm.ship2.drawme();
     //m.pm.ship3.drawme();
-  } else if (m.highscore.active) {
+  } if (m.highscore.active) {
     m.highscore.drawme();
     m.highscore.back.drawme();
   } if (m.state) {

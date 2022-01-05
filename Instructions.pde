@@ -9,6 +9,7 @@ String text4 = "4. If you run out of lives, you lose";
 String text5 = "5. If you get to certain highscore milestones, you unlock more types of bullets that deal more damage.";
 color purple = color(#CE0FFA);
 color white = color(#FBEAFF);
+color black = color(0);
 color red = color(#FA0000);
 Button back;
 //construtor
@@ -25,7 +26,7 @@ Button back;
             textSize(64);
             text("Instructions", posX, height/4);
             textSize(32);
-            fill(white);
+            fill(black);
             text(text1, posX, height/2);
             text(text2, posX, height/2 + 50);
             text(text3, posX, height/2 + 100);

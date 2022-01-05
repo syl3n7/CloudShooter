@@ -1,7 +1,7 @@
 class Player {
   //Properties
   PImage img; //sprite normal
-  float posX, posY, tam, vel, health;
+  float posX, posY, tam, vel, health, dmg;
   int level;
   boolean moveUp, moveDown, moveLeft, moveRight, moveUnLock; //booleanas para controlar o movimento do player
   public ArrayList<Bullets> b1; //bullets
@@ -17,6 +17,7 @@ class Player {
     tam = 350/32; //tamanho = img resized
     vel = 350/16; //velocidade para movimentar a nave
     health = 100;
+    dmg = 10;
     moveUnLock = true;
     moveDown  = false;
     moveLeft  = false;
@@ -40,8 +41,9 @@ class Player {
     fill(255, 0, 0, 200);
     //rect(posX+20, posY+10, 190, 80);
     textSize(24);
-    text("Health: " + health, posX+20, posY+10);
+    text("Health: " + health, posX+20, posY-40);
     moveme();//mover o player1 //this now includes an animation on START to introduce the player into the canvas.
+    damage(); //check if player hit the enemy and apply damage to enemy
   }
 //abandoned idea of changing sprite with direction, we instead opted for alowing the player to chose from sprites aka customization, unlocked with x amount of highscore.
   //check direction and change the sprite acordingly
@@ -60,7 +62,7 @@ class Player {
   //   } 
   // }
 
-//check decision on bullet type // should make this to work with score or dificulty. or both !
+//abandoned idea because bullet choice is based of level//check decision on bullet type // should make this to work with score or dificulty. or both !
   // void bulletChoice() {
   //   if(buttonTBD.press) return = "/assets/images/bullet1.png";
   //   if(buttonTBD.press) return = "/assets/images/bullet2.png";
@@ -69,13 +71,24 @@ class Player {
 //damage radius
   void damage() {
     //http://jeffreythompson.org/collision-detection/rect-rect.php
-    //ler novamente o link acima. necessito de fazer a verificacao de colisao. 
-    // i probably need to use the ellipse way to calculate this 
+    if(dist(e1.get(level).posX, e1.get(level).posY, b1.get(level).posX, b1.get(level).posY) < b1.get(level).tam) {
+      if (level == 1) dmg = 20;
+      if (level == 2) dmg = 30;
+      e1.get(level).health -= dmg;
+    }
   }
   void shoot () {
     b1.get(level).posX = posX-img.width/8.5;
     b1.get(level).posY = posY+img.height/5.8;
     b1.get(level).drawme();
+  }
+  void lives (){
+    if (lives == 0) {
+      //game over
+    } else if (health <= 0){
+        lives--;
+        health = 100;
+      }
   }
 //validar posicao e incremento da mesma caso tecla seja pressionada
   void moveme(){

@@ -3,8 +3,10 @@ class Highscore{
 Table table;
 boolean active;
 Button back;
+Background background;
 //construtor
     Highscore(){
+        background = new Background("/assets/images/background1080p.png", width/2, height/2);
         active = false;
         back = new Button("assets/images/back_button.png", width-250, 80);//botao para retroceder
         //inicializar a tabela para armazenar highscore
@@ -14,14 +16,16 @@ Button back;
         table.addColumn("score");
     }
     void drawme(){
+        if(active);
+        background.drawme();
         loadData();
     }
     //carregar a tabela com os valores anteriores.
     void loadData(){
+        
         table = loadTable("data/highscore.csv", "header");
         int pog = table.getRowCount();
         //print all the data from csv
-        background(0);
         fill(255, 0, 0);
         textSize(34);
         for(int i = 0; i < pog; i++){
