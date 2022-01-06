@@ -58,10 +58,13 @@ void draw() {
     m.i.drawme();
     m.i.back.drawme();
   } if (pm.state) {
+    if (score >= 25) {
     pm.drawme();
-    //m.pm.ship1.drawme();//trocar para m.pm.back.drawme();
-    //m.pm.ship2.drawme();
-    //m.pm.ship3.drawme();
+    pm.back.drawme();
+    pm.ship1.drawme();
+    pm.ship2.drawme();
+    pm.ship3.drawme();
+    }
   } if (m.highscore.active) {
     m.highscore.drawme();
     m.highscore.back.drawme();
@@ -79,7 +82,7 @@ void draw() {
     c3.drawme(); //desenhar e mover nuvem3
     p1.drawme(); //desenhar e mover o player1
     e1.get(p1.level).drawme(); //desenhar e mover o inimigo
-    healthcheck(); //verificar vida do player, do enimigo
+    healthcheck(); //verificar vida do player, do inimigo
     score(); //calls"b1.enemycheck();" ou seja: verificar se a bala atingiu o inimigo e acrescentar valor ao score
   }
 }

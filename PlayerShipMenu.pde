@@ -4,12 +4,14 @@ float posX, posY;
 boolean state;
 Button ship1, ship2, ship3;
 Background background;
+Button back;
     //construtor 
     PlayerShipMenu(float x, float y) {
         background = new Background("assets/images/background.png", 0, 0);
         posX = x;
         posY = y;
         state = false;
+        back = new Button("assets/images/back_button.png", width - 250, 80); //botão para voltar atrás
         ship1 = new Button("assets/images/first_ship_cs.png", width/2 - 500, height/2 - 100); //image to be changed in the near future
         ship2 = new Button("assets/images/first_ship_secondcs.png", width/2 + 100, height/2 - 100);    //método usado para desenhar os botões
         ship3 = new Button("assets/images/first_ship_thirdcs.png", width/2 + 300, height/2 - 100);
