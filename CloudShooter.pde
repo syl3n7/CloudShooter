@@ -57,8 +57,7 @@ void draw() {
   if (m.i.active) {
     m.i.drawme();
     m.i.back.drawme();
-  } if (pm.state) {
-    if (score >= 25) {
+  } if (pm.state && score >= 25) {
     pm.drawme();
     pm.back.drawme();
     pm.ship1.drawme();

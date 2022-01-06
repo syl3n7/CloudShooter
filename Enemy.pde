@@ -45,9 +45,13 @@ class Enemy {
       posX = width + tam;
     } else {
       posX -= vel;
-      trand += 0.0019;
-      if (p1.level == 0) )
-
+      if (p1.level == 0) {
+        trand += 0.002;
+      }else if (p1.level == 1) {
+        trand += 0.09;
+      }else if (p1.level == 2) {
+        trand += 0.3;
+      }
     }
   }
   void healthcheck() { //when it, turns red
