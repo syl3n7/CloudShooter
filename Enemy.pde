@@ -22,7 +22,7 @@ class Enemy {
     img.resize(int(tam), int(tam)); //redimensiona a imagem
     if(health > 0) image(img, posX, posY);
     fill(255, 0, 0, 200);
-    //rect(posX, posY+10, 150, 70);
+    //rect(posX, posY+10, 150, 70); //hitbox debug only 
     textSize(24);
     text("Health: " + health, posX, posY+10);
     move();
@@ -37,11 +37,17 @@ class Enemy {
     tsmoothed = noise(trand); //posicao vertical dinamica, dificuldade 0
     tsmoothed = map(tsmoothed, 0, 1, tam, width-tam);
     posY = tsmoothed;
+
+    if (posY < 90) posY += vel; //nao sair do canvas para baixo
+    if (posY > 980) posY -= vel; //nao sair do canvas para cima
+    
     if (posX < 0 ) {
       posX = width + tam;
     } else {
       posX -= vel;
       trand += 0.0019;
+      if (p1.level == 0) )
+
     }
   }
   void healthcheck() { //when it, turns red
