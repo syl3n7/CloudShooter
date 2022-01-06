@@ -1,77 +1,112 @@
 class Player {
   //Properties
-  float altura, largura; //altura e largura da imagem
   PImage img; //sprite normal
-  //PImage img2; //sprite while moving up
-  //PImage img3; //sprite while moving down
-  float posX, posY, tam, health;
-  boolean moveUp, moveDown, moveLeft, moveRight; //booleanas para controlar o movimento do player
-
+  float posX, posY, tam, vel, health, dmg;
+  int level;
+  boolean moveUp, moveDown, moveLeft, moveRight, moveUnLock; //booleanas para controlar o movimento do player
+  public ArrayList<Bullets> b1; //bullets
   //Constructor
-  Player(String n, float x, float y, float t) {
-    img = loadImage(n);
-    //imgUp = loadimage(imgUp);
+  Player(String n, float x, float y) {
+    img = loadImage(n); //carrega imagem especificada
+    //imgUp = "assets/images/first_ship_secondcs.png";
     //imgDown = loadimage(imgDown);
     //imgLeft = loadimage(imgLeft);
     //imgRight = loadimage(imgRight);
     posX = x;
     posY = y;
-    tam = t;
+    tam = 350/32; //tamanho = img resized
+    vel = 350/16; //velocidade para movimentar a nave
     health = 100;
-    largura = img.width;
-    altura = img.height;
+    dmg = 10;
+    moveUnLock = true;
     moveDown  = false;
     moveLeft  = false;
     moveRight = false;
-    moveUp = false;  
+    moveUp = false;
+    //nivel atual de dificuldade
+    level = 0;
+    //bullets
+    b1 = new ArrayList<Bullets>();
+    b1.add(new Bullets("assets/images/bullet_out_of_shell.png", -650, -650/2, 50));
+    b1.add(new Bullets("assets/images/second_bullet_out_of_casing.png", -650, -650/2, 50));
+    b1.add(new Bullets("assets/images/third_bullet_out_of_casing.png", -650, -650/2, 50));
   }
-
   //spawn da imagem mediante parametros indicados + resize para tamanho pretendido
   void drawme() {
-    img.resize(650, 350);
-    if(health > 0) {
-      image(img, posX, posY); //missing the new sprite
-    }
-    checkDirection();
+    b1.get(level).drawme(); //desenhar as balas
+    b1.get(level).moveme(); //mover as balas
+    img.resize(350, 225);
+    if(health > 0) image(img, posX, posY); //display sprite of player ship with position and health check updated every tick
+    //checkDirection();
+    fill(255, 0, 0, 200);
+    //rect(posX+20, posY+10, 190, 80);
+    textSize(24);
+    text("Health: " + health, posX+20, posY-40);
+    moveme();//mover o player1 //this now includes an animation on START to introduce the player into the canvas.
+    damage(); //check if player hit the enemy and apply damage to enemy
   }
-
+//abandoned idea of changing sprite with direction, we instead opted for alowing the player to chose from sprites aka customization, unlocked with x amount of highscore.
   //check direction and change the sprite acordingly
-  void checkDirection() {
-    if(moveUp) {
-      //img = loadImage(imgUp); //missing the sprite
-    }
-    if(moveDown) {
-      //img = loadImage(imgDown); //missing the sprite
-    }
-    if(moveLeft) {
-      //img = loadImage(imgLeft); //missing the sprite
-    }
-    if(moveRight) {
-      //img = loadImage(imgRight); //missing the sprite
-    } 
-  }
+  //  void checkDirection() {
+  //   if(moveUp) {
+  //     img = loadImage(imgUp); //missing the sprite
+  //   }
+  //   if(moveDown) {
+  //     //img = loadImage(imgDown); //missing the sprite
+  //   }
+  //   if(moveLeft) {
+  //     //img = loadImage(imgLeft); //missing the sprite
+  //   }
+  //   if(moveRight) {
+  //     //img = loadImage(imgRight); //missing the sprite
+  //   } 
+  // }
 
-  //damage radius
+//abandoned idea because bullet choice is based of level//check decision on bullet type // should make this to work with score or dificulty. or both !
+  // void bulletChoice() {
+  //   if(buttonTBD.press) return = "/assets/images/bullet1.png";
+  //   if(buttonTBD.press) return = "/assets/images/bullet2.png";
+  //   if(buttonTBD.press) return "/assets/images/bullet3.png";
+  // }
+//damage radius
   void damage() {
     //http://jeffreythompson.org/collision-detection/rect-rect.php
-    //ler novamente o link acima. necessito de fazer a verificacao de colisao.
+    if(dist(e1.get(level).posX, e1.get(level).posY, b1.get(level).posX, b1.get(level).posY) < b1.get(level).tam) {
+      if (level == 1) dmg = 20;
+      if (level == 2) dmg = 30;
+      e1.get(level).health -= dmg;
+    }
   }
-
-  void shoot () {  
-    b1.posX = posX+largura/2.5;
-    b1.posY = posY+altura/3.4;
-    b1.moveme();
+  void shoot () {
+    b1.get(level).posX = posX-img.width/8.5;
+    b1.get(level).posY = posY+img.height/5.8;
+    b1.get(level).drawme();
   }
-
-  //validar posicao e incremento da mesma caso tecla seja pressionada
+  void lives (){
+    if (lives == 0) {
+      //game over
+    } else if (health <= 0){
+        lives--;
+        health = 100;
+      }
+  }
+//validar posicao e incremento da mesma caso tecla seja pressionada
   void moveme(){
-    if (moveLeft) posX -= tam;  // "if(left == true)" igual a "if(left)"
-    else if (moveRight) posX += tam;
-    else if (moveUp) posY -= tam;
-    else if (moveDown) posY += tam;
+    //player animation from outside of the canvas to the "spawn" position where the player can take over the controls.//tambem verifica se o player saiu de qq coordenada, x, -x, y, -y para retomar o player a sua area de jogo.
+    if(posX < 200) posX += 10;
+    if(posY < 100) posY += 10;
+    if(posX > 1720) posX -= 10;
+    if(posY > 980) posY -= 10;
+    if (posX == 200) moveUnLock = true;
+    //println(moveUnLock); usei isto para debug apenas.
+    if(moveUnLock){ //lock player movement
+      if (moveLeft) posX -= vel;  // "if(left == true)" igual a "if(left)"
+      else if (moveRight) posX += vel;
+      else if (moveUp) posY -= vel;
+      else if (moveDown) posY += vel;
+    }
   }
-  
-  //codigo importado do exemplo do professor em ordem a obter movimento + suave
+//codigo importado do exemplo do professor para movimento + suave
   /*  void show() {
     if (die) {
       posY += 3*speed;   
@@ -84,5 +119,4 @@ class Player {
     image(img, posX, posY);
   }
   */
-
 }
