@@ -63,7 +63,6 @@ void draw() {
     pm.ship1.drawme();
     pm.ship2.drawme();
     pm.ship3.drawme();
-    }
   } if (m.highscore.active) {
     m.highscore.drawme();
     m.highscore.back.drawme();
