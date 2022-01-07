@@ -11,6 +11,7 @@ public ArrayList<Enemy> e1; //tornar isto num array em condicoes
 public int score = 0;
 public int lives = 3;
 public int center_x, center_y;
+public float hits;
 //codigo apenas corrido 1x (inicio do programa)
 void setup() {
 //https://forum.processing.org/one/topic/dynamic-screen-background-resize-need-guidance.html
@@ -57,7 +58,7 @@ void draw() {
   if (m.i.active) {
     m.i.drawme();
     m.i.back.drawme();
-  } if (pm.state && score >= 25) {
+  } if (pm.state && score >= hits) {
     pm.drawme();
     pm.back.drawme();
     pm.ship1.drawme();
@@ -71,8 +72,7 @@ void draw() {
     m.exit.drawme();
     m.highscorebttn.drawme();
     m.instructionsbttn.drawme();
-  } if (displayGame){
-    //claudio fez esta parte do codigo
+  } if (displayGame){    //claudio fez esta parte do codigo
     m.background.drawme();
     m.back.drawme(); //desenhar o botão de pausa
     c1.drawme(); //desenhar e mover nuvem1
@@ -126,21 +126,14 @@ void healthcheck(){
 void score() {
   textSize(32);
   text("Score: "+score, m.i.posX, height/8);
+  hits = e1.get(p1.level).health/p1.dmg;
   if (p1.b1.get(p1.level).enemycheck()) score++;
   if (score == 10 && e1.get(p1.level).health < 10) p1.level = 1;
+  hits = e1.get(p1.level).health/p1.dmg;
   if (score == 20 && e1.get(p1.level).health < 10) p1.level = 2;
+  hits = e1.get(p1.level).health/p1.dmg;
 }
-void mousePressed() { // quando clicar no botao do rato dentro das condicoes especificadas(dentro dos limites do "canvas" da imagem do botao), iniciar jogo ou sair do jogo
-  if(m.start.press()) m.start.button = loadImage("assets/images/pressed_start_button.png");
-  if(m.exit.press()) m.exit.button = loadImage("assets/images/pressed_exit_button.png");
-  if(m.back.press()) m.back.button = loadImage("assets/images/pressed_back_button.png");
-  if(m.instructionsbttn.press()) m.instructionsbttn.button = loadImage("assets/images/pressed_instructions_button.png");
-  if(m.i.back.press()) m.i.back.button = loadImage("assets/images/pressed_back_button.png");
-  if(m.highscorebttn.press()) m.highscorebttn.button = loadImage("assets/images/pressed_highscores_button.png");
-  if(m.highscore.back.press()) m.highscore.back.button = loadImage("assets/images/pressed_back_button.png");
-}
-//nao vou mudar as sprites para pressed images por enquanto, talvez depois de resolver o resto do codigo.
-void mouseReleased() {
+void mousePressed() { // quando clicar no botao do rato dentro das condicoes especificadas(dentro dos limites da imagem do botao)
   if(m.start.press()) m.start.pressed = true;
   if(m.exit.press()) m.exit.pressed = true;
   if(m.back.press()) m.back.pressed = true;
@@ -148,6 +141,4 @@ void mouseReleased() {
   if(m.i.back.press()) m.i.back.pressed = true;
   if(m.highscorebttn.press()) m.highscorebttn.pressed = true;
   if(m.highscore.back.press()) m.highscore.back.pressed = true;
-  //println("state butao back "+m.back.pressed);  //debug
-  //println("state menu "+m.state); //debug
 }

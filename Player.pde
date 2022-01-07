@@ -68,7 +68,7 @@ class Player {
   //   if(buttonTBD.press) return = "/assets/images/bullet2.png";
   //   if(buttonTBD.press) return "/assets/images/bullet3.png";
   // }
-//damage radius
+//damage radius 
   void damage() {
     //http://jeffreythompson.org/collision-detection/rect-rect.php
     if(dist(e1.get(level).posX, e1.get(level).posY, b1.get(level).posX, b1.get(level).posY) < b1.get(level).tam) {
