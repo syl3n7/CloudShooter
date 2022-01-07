@@ -90,7 +90,6 @@ public float hits;
     c5.drawme(); //desenhar e mover nuvem5
     p1.drawme(); //desenhar e mover o player1
     e1.get(p1.level).drawme(); //desenhar e mover o inimigo
-    healthcheck(); //verificar vida do player, do inimigo
     score(); //incrementar score
   }
 }
@@ -265,7 +264,7 @@ class Enemy {
     posX = width-tam;
     posY = height/2;
     tam = t;
-    vel = v;
+    vel = 5;
     damage = 5;
     health = 100;
   }
@@ -298,6 +297,7 @@ class Enemy {
         trand += 0.3f;
       }
     }
+    healthcheck(); //verificar a cada movimento a vida do inimigo
   }
    public void healthcheck() { //when it, turns red
     if(health < health/2){
@@ -550,6 +550,7 @@ class Player {
       else if (moveDown) posY += vel;
     }
   }
+}
 class PlayerShipMenu {
 //propriedades
 float posX, posY;

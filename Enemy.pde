@@ -11,7 +11,7 @@ class Enemy {
     posX = width-tam;
     posY = height/2;
     tam = t;
-    vel = v;
+    vel = 5;
     damage = 5;
     health = 100;
   }

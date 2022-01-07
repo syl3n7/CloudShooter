@@ -72,3 +72,4 @@ class Player {
       else if (moveDown) posY += vel;
     }
   }
+}
