@@ -45,29 +45,6 @@ class Player {
     moveme();//mover o player1 //this now includes an animation on START to introduce the player into the canvas.
     damage(); //check if player hit the enemy and apply damage to enemy
   }
-//abandoned idea of changing sprite with direction, we instead opted for alowing the player to chose from sprites aka customization, unlocked with x amount of highscore.
-  //check direction and change the sprite acordingly
-  //  void checkDirection() {
-  //   if(moveUp) {
-  //     img = loadImage(imgUp); //missing the sprite
-  //   }
-  //   if(moveDown) {
-  //     //img = loadImage(imgDown); //missing the sprite
-  //   }
-  //   if(moveLeft) {
-  //     //img = loadImage(imgLeft); //missing the sprite
-  //   }
-  //   if(moveRight) {
-  //     //img = loadImage(imgRight); //missing the sprite
-  //   } 
-  // }
-
-//abandoned idea because bullet choice is based of level//check decision on bullet type // should make this to work with score or dificulty. or both !
-  // void bulletChoice() {
-  //   if(buttonTBD.press) return = "/assets/images/bullet1.png";
-  //   if(buttonTBD.press) return = "/assets/images/bullet2.png";
-  //   if(buttonTBD.press) return "/assets/images/bullet3.png";
-  // }
 //damage radius 
   void damage() {
     //http://jeffreythompson.org/collision-detection/rect-rect.php
