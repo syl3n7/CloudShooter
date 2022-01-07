@@ -13,10 +13,10 @@ color black = color(0);
 color red = color(#FA0000);
 Button back;
 //construtor
-    Instructions(float x, float y, boolean b){
+    Instructions(float x, float y){
         posX = x;
         posY = y;
-        active = b;
+        active = false;
         back = new Button("assets/images/back_button.png", width-250, 80);
     }
     void drawme(){

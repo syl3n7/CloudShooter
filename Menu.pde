@@ -18,7 +18,7 @@ Instructions i;
         instructionsbttn = new Button("assets/images/instructions_button.png", width/2 - 250, height/2 + 200);//botao para entrar nas instrucoes
         highscorebttn = new Button("assets/images/highscores_button.png", width/2 + 150, height/2 + 200);//botao para entrar na tabela de highscores
         highscore = new Highscore();//objeto que contem a informacao da tabela .csv Highscores
-        i = new Instructions(center_x, center_y, false); //objeto contem o desenho (texto) das instructucoes.
+        i = new Instructions(width/2, center_y); //objeto contem o desenho (texto) das instructucoes.
     }
     //método usado para desenhar os botões
     void start() {
