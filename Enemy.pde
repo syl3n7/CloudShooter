@@ -45,11 +45,11 @@ class Enemy {
       }
     }
   }
-  void healthcheck() { //when it gets damaged, turns red
-    if(health < health/4){
+  void healthcheck() { //when it, turns red
+    if(health < health/2){
         img.loadPixels();
-        for(int x = 0; x < width; x++) {
-            for(int y = 0; y < height; y++) {
+        for(int x = 0; x < img.width; x++) {
+            for(int y = 0; y < img.height; y++) {
                 if(blue(img.pixels[x+y*img.width]) > 128) {
                     img.pixels[x+y*img.width] = color(128, 0, 0);
                 }
