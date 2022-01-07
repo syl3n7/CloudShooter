@@ -1,21 +1,19 @@
 import java.awt.*;//importar libraria grafica
-//declarar objetos
-Menu m;
-boolean displayGame = false;
-CloudsGen c1;
-CloudsGen c2;
-CloudsGen c3;
-PlayerShipMenu pm;
-public Player p1;
-public ArrayList<Enemy> e1; //tornar isto num array em condicoes
-public int score = 0;
-public int lives = 3;
-public int center_x, center_y;
-public float hits;
+//declarar objetos ⬇️ */
+  Menu m;
+  boolean displayGame = false;
+  CloudsGen c1;
+  CloudsGen c2;
+  CloudsGen c3;
+  PlayerShipMenu pm;
+  public Player p1;
+  public ArrayList<Enemy> e1; //tornar isto num array em condicoes
+  public int score = 0;
+  public int lives = 3;
+  public int center_x, center_y;
+  public float hits;
 //codigo apenas corrido 1x (inicio do programa)
-void setup() {
-//https://forum.processing.org/one/topic/dynamic-screen-background-resize-need-guidance.html
-//dinamic window size begin (without borders)
+  void setup() { //https://forum.processing.org/one/topic/dynamic-screen-background-resize-need-guidance.html //dinamic window size begin (without borders)
   surface.setTitle("CloudShooter by Catarina & Claudio"); //titulo da janela
   fullScreen(0,P2D); //fullscreen
   frameRate(60); //especificar framerate a usar
@@ -32,43 +30,35 @@ void setup() {
   //ellipseMode(CENTER);//funcao para centrar o spawn de elipses
   textAlign(CENTER);
   noStroke();
-  /*Inicializar Objetos ⬇️*/
-  //menu
-  m = new Menu(width/2, height/2);
-  //menu para escolha de "nave" usa bala e imagem diferente
-  pm = new PlayerShipMenu(width/2, height/2);
-  //nuvem 1
-  c1 = new CloudsGen("/assets/images/cloud1.png", 100, random(height));
-  //nuvem 2
-  c2 = new CloudsGen("/assets/images/cloud2.png", 200, random(height));
-  //nuvem 3
-  c3 = new CloudsGen("/assets/images/cloud3.png", 300, random(height));
-  //player 1
-  p1 = new Player("/assets/images/first_ship_cs.png", -200, height/2);//spawn fora do canvas para animar a entrada do player no jogo
-  //enemy 1
-  e1 = new ArrayList<Enemy>();
+/*Inicializar Objetos ⬇️*/
+  m = new Menu(width/2, height/2);  //menu
+  pm = new PlayerShipMenu(width/2, height/2);  //menu para escolha de "nave" usa bala e imagem diferente
+  c1 = new CloudsGen("/assets/images/cloud1.png", 100, random(height)); //nuvem 1
+  c2 = new CloudsGen("/assets/images/cloud2.png", 200, random(height)); //nuvem 2
+  c3 = new CloudsGen("/assets/images/cloud3.png", 300, random(height)); //nuvem 3
+  p1 = new Player("/assets/images/first_ship_cs.png", -200, height/2); //player 1 //spawn fora do canvas para animar a entrada do player no jogo
+  e1 = new ArrayList<Enemy>();//enemy 1
   e1.add(new Enemy("/assets/images/AlienSpaceship.png", (width - 300), (height - 300), 150, 5, 100));
   e1.add(new Enemy("/assets/images/AlienSpaceship_secondcs.png", (width - 300), (height - 300), 150, 5, 100));
   e1.add(new Enemy("/assets/images/AlienSpaceship_thirdcs.png", (width - 300), (height - 300), 150, 5, 100));
 }
-//desenhar os elementos do programa no ecra
-void draw() {
-  //calls menu
+  void draw() {//desenhar os elementos do programa no ecra mediante condicoes especificadas
   m.start(); //verifica presses
-  if (m.i.active) {
+  if (m.i.active) { //instrucoes ativos
     m.i.drawme();
     m.i.back.drawme();
-  } if (pm.state && score >= hits) {
+  } if (pm.state && score >= hits) { //player menu = escolha de cor para a nave ( desbloqueia com score x Score)
     pm.drawme();
     pm.back.drawme();
     pm.ship1.drawme();
     pm.ship2.drawme();
     pm.ship3.drawme();
-  } if (m.highscore.active) {
+  } if (m.highscore.active) { //highscore ativos
     m.highscore.drawme();
     m.highscore.back.drawme();
-  } if (m.state) {
-    m.start.drawme(); //use loadtable to load the previous highscores
+  } if (m.state) { 
+    //m.highscore.loadPreviousData();
+    m.start.drawme();
     m.exit.drawme();
     m.highscorebttn.drawme();
     m.instructionsbttn.drawme();
@@ -87,7 +77,7 @@ void draw() {
 void keyPressed() {
   if (key == ' ') {
     p1.shoot();
-  }
+  } //codigo importado do exemplo fornecido pelo professor para o movimento ser + suave
   if(key == 's'|| key == 'S') p1.moveDown = true;
   if(key == 'w'|| key == 'W') p1.moveUp = true;
   if(key == 'a'|| key == 'A') p1.moveLeft = true;
@@ -99,20 +89,6 @@ void keyReleased() {
   if(key == 'a'|| key == 'A') p1.moveLeft = false;
   if(key == 'd'|| key == 'D') p1.moveRight = false;
 }
-//codigo importado do exemplo fornecido pelo professor para o movimento ser + suave
-/*void keyPressed() {
-  if(key == 'j' || key == 'J') plane.left = true;
-  if(key == 'l' || key == 'L') plane.right = true;
-  if(key == 'i' || key == 'I') plane.up = true;
-  if(key == 'k' || key == 'K') plane.down = true;
-}
-void keyReleased() {
-  if(key == 'j' || key == 'J') plane.left = false;
-  if(key == 'l' || key == 'L') plane.right = false;
-  if(key == 'i' || key == 'I') plane.up = false;
-  if(key == 'k' || key == 'K') plane.down = false;
-}
-*/
 //verificar se o player colidiu com o inimigo
 void healthcheck(){
   //put here code for checking between bullet and enemy

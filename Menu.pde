@@ -19,6 +19,10 @@ Instructions i;
         highscorebttn = new Button("assets/images/highscores_button.png", width/2 + 150, height/2 + 200);//botao para entrar na tabela de highscores
         highscore = new Highscore();//objeto que contem a informacao da tabela .csv Highscores
         i = new Instructions(width/2, center_y); //objeto contem o desenho (texto) das instructucoes.
+        highscore.loadData();
+    }
+    void loadPreviousData(){ //carregar dados do ficheiro .csv
+        
     }
     //método usado para desenhar os botões
     void start() {

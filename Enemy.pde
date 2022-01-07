@@ -1,12 +1,10 @@
 class Enemy {
   //propriedades
-  float dp = 37;
   float trand = 5;
   float tsmoothed;
   PImage img;
   float posX, posY, vel, damage, tam;
   int health;
-  float mediaY = height/2;
   //constructor
   Enemy(String nome, float x, float y, int t, float v, float d) {
     img = loadImage(nome);
@@ -30,17 +28,13 @@ class Enemy {
 //necessito de fazer com que o enimigo se multiplique a cada posX completo.
 //usar um array de objetos de enimigos onde vao dando spawn a cada posX completo.
 
-//fazer inimigo andar pelo canvas variando velocidade horizontal e posicao vertical aleatoria
-  void move() {
-    //tam = randomGaussian();
-    //tam = tam * dp + mediaY;
+
+  void move() { //fazer inimigo andar pelo canvas variando velocidade horizontal e posicao vertical aleatoria
     tsmoothed = noise(trand); //posicao vertical dinamica, dificuldade 0
     tsmoothed = map(tsmoothed, 0, 1, tam, width-tam);
     posY = tsmoothed;
-
     if (posY < 90) posY += vel; //nao sair do canvas para baixo
     if (posY > 980) posY -= vel; //nao sair do canvas para cima
-    
     if (posX < 0 ) {
       posX = width + tam;
     } else {

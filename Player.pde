@@ -8,10 +8,6 @@ class Player {
   //Constructor
   Player(String n, float x, float y) {
     img = loadImage(n); //carrega imagem especificada
-    //imgUp = "assets/images/first_ship_secondcs.png";
-    //imgDown = loadimage(imgDown);
-    //imgLeft = loadimage(imgLeft);
-    //imgRight = loadimage(imgRight);
     posX = x;
     posY = y;
     tam = 350/32; //tamanho = img resized
@@ -75,7 +71,8 @@ class Player {
     if(posX > 1720) posX -= 10;
     if(posY > 980) posY -= 10;
     if (posX == 200) moveUnLock = true;
-    //println(moveUnLock); usei isto para debug apenas.
+    //println(moveUnLock); usei isto para debug apenas. 
+    //codigo da linha 80 a 84 importado do exemplo do professor para movimento + suave
     if(moveUnLock){ //lock player movement
       if (moveLeft) posX -= vel;  // "if(left == true)" igual a "if(left)"
       else if (moveRight) posX += vel;
@@ -83,17 +80,3 @@ class Player {
       else if (moveDown) posY += vel;
     }
   }
-//codigo importado do exemplo do professor para movimento + suave
-  /*  void show() {
-    if (die) {
-      posY += 3*speed;   
-    } else {
-      if (left) posX -= speed;  // "if(left == true)" igual a "if(left)"
-      else if (right) posX += speed;
-      else if (up) posY -= speed;
-      else if (down) posY += speed;
-    }
-    image(img, posX, posY);
-  }
-  */
-}
