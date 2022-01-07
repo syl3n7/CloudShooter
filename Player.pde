@@ -27,8 +27,7 @@ class Player {
     b1.add(new Bullets("assets/images/second_bullet_out_of_casing.png", -650, -650/2, 50));
     b1.add(new Bullets("assets/images/third_bullet_out_of_casing.png", -650, -650/2, 50));
   }
-  //spawn da imagem mediante parametros indicados + resize para tamanho pretendido
-  void drawme() {
+  void drawme() { //spawn da imagem mediante parametros indicados + resize para tamanho pretendido
     b1.get(level).drawme(); //desenhar as balas
     b1.get(level).moveme(); //mover as balas
     img.resize(350, 225);
@@ -40,9 +39,8 @@ class Player {
     text("Health: " + health, posX+20, posY-40);
     moveme();//mover o player1 //this now includes an animation on START to introduce the player into the canvas.
     damage(); //check if player hit the enemy and apply damage to enemy
-  }
-//damage radius 
-  void damage() {
+  } 
+  void damage() { //damage radius
     //http://jeffreythompson.org/collision-detection/rect-rect.php
     if(dist(e1.get(level).posX, e1.get(level).posY, b1.get(level).posX, b1.get(level).posY) < b1.get(level).tam) {
       if (level == 1) dmg = 20;
@@ -50,21 +48,19 @@ class Player {
       e1.get(level).health -= dmg;
     }
   }
-  void shoot () {
+  void shoot () { // mover a bala, desenhar a bala posicionar a imagem da bala
     b1.get(level).posX = posX-img.width/8.5;
     b1.get(level).posY = posY+img.height/5.8;
     b1.get(level).drawme();
   }
   void lives (){
-    if (lives == 0) {
-      //game over
+    if (lives == 0) { //game over
     } else if (health <= 0){
         lives--;
         health = 100;
       }
   }
-//validar posicao e incremento da mesma caso tecla seja pressionada
-  void moveme(){
+  void moveme(){  //validar posicao e incremento da mesma caso tecla seja pressionada
     //player animation from outside of the canvas to the "spawn" position where the player can take over the controls.//tambem verifica se o player saiu de qq coordenada, x, -x, y, -y para retomar o player a sua area de jogo.
     if(posX < 200) posX += 10;
     if(posY < 100) posY += 10;

@@ -1,23 +1,23 @@
 import java.awt.*;//importar libraria grafica
-//declarar objetos ⬇️ */
-  Menu m;
-  boolean displayGame = false;
-  CloudsGen c1;
-  CloudsGen c2;
-  CloudsGen c3;
-  PlayerShipMenu pm;
-  public Player p1;
-  public ArrayList<Enemy> e1; //tornar isto num array em condicoes
-  public int score = 0;
-  public int lives = 3;
-  public int center_x, center_y;
-  public float hits;
-//codigo apenas corrido 1x (inicio do programa)
-  void setup() { //https://forum.processing.org/one/topic/dynamic-screen-background-resize-need-guidance.html //dinamic window size begin (without borders)
+//declarar objetos
+Menu m;
+boolean displayGame = false;
+CloudsGen c1;
+CloudsGen c2;
+CloudsGen c3;
+PlayerShipMenu pm;
+public Player p1;
+public ArrayList<Enemy> e1; //tornar isto num array em condicoes
+public int score = 0;
+public int lives = 3;
+public int center_x, center_y;
+public float hits;
+
+void setup() { //codigo apenas executado no inicio do programa
   surface.setTitle("CloudShooter by Catarina & Claudio"); //titulo da janela
   fullScreen(0,P2D); //fullscreen
   frameRate(60); //especificar framerate a usar
-  Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize(); //ir buscar a dimensao da tela
+  Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize(); //https://forum.processing.org/one/topic/dynamic-screen-background-resize-need-guidance.html //dinamic window size begin (without borders) //ir buscar a dimensao da tela
   int screenWidth = screenSize.width; //ir buscar a largura da tela
   int screenHeight = screenSize.height; //ir buscar a largura da tela
   surface.setSize(/*1920, 1080*/screenWidth, screenHeight);
@@ -27,22 +27,22 @@ import java.awt.*;//importar libraria grafica
   surface.setLocation(center_x, center_y); //set location of canvas to center of screen resolution
   imageMode(CENTER); //funcao para centrar o spawn de imagens
   rectMode(CENTER); //função para centrar o spawn de rectângulos
-  //ellipseMode(CENTER);//funcao para centrar o spawn de elipses
+//ellipseMode(CENTER);//funcao para centrar o spawn de elipses
   textAlign(CENTER);
   noStroke();
-/*Inicializar Objetos ⬇️*/
+//Inicializar Objetos
   m = new Menu(width/2, height/2);  //menu
   pm = new PlayerShipMenu(width/2, height/2);  //menu para escolha de "nave" usa bala e imagem diferente
   c1 = new CloudsGen("/assets/images/cloud1.png", 100, random(height)); //nuvem 1
   c2 = new CloudsGen("/assets/images/cloud2.png", 200, random(height)); //nuvem 2
   c3 = new CloudsGen("/assets/images/cloud3.png", 300, random(height)); //nuvem 3
   p1 = new Player("/assets/images/first_ship_cs.png", -200, height/2); //player 1 //spawn fora do canvas para animar a entrada do player no jogo
-  e1 = new ArrayList<Enemy>();//enemy 1
+  e1 = new ArrayList<Enemy>();  //enemy 1(necessario tornar isto num array list de waves para attack)
   e1.add(new Enemy("/assets/images/AlienSpaceship.png", (width - 300), (height - 300), 150, 5, 100));
   e1.add(new Enemy("/assets/images/AlienSpaceship_secondcs.png", (width - 300), (height - 300), 150, 5, 100));
   e1.add(new Enemy("/assets/images/AlienSpaceship_thirdcs.png", (width - 300), (height - 300), 150, 5, 100));
 }
-  void draw() {//desenhar os elementos do programa no ecra mediante condicoes especificadas
+  void draw() { //desenhar os elementos do programa no ecra mediante condicoes especificadas
   m.start(); //verifica presses
   if (m.i.active) { //instrucoes ativos
     m.i.drawme();
@@ -57,12 +57,12 @@ import java.awt.*;//importar libraria grafica
     m.highscore.drawme();
     m.highscore.back.drawme();
   } if (m.state) { 
-    //m.highscore.loadPreviousData();
+    m.highscore.loadPreviousData();
     m.start.drawme();
     m.exit.drawme();
     m.highscorebttn.drawme();
     m.instructionsbttn.drawme();
-  } if (displayGame){    //claudio fez esta parte do codigo
+  } if (displayGame){ //claudio fez esta parte do codigo
     m.background.drawme();
     m.back.drawme(); //desenhar o botão de pausa
     c1.drawme(); //desenhar e mover nuvem1
@@ -75,9 +75,8 @@ import java.awt.*;//importar libraria grafica
   }
 }
 void keyPressed() {
-  if (key == ' ') {
-    p1.shoot();
-  } //codigo importado do exemplo fornecido pelo professor para o movimento ser + suave
+  if (key == ' ') p1.shoot(); // disparar a bala ate width, se pressionado novamente, da reset a posicao da bala e volta a desenhar ate width
+//codigo para movimento importado do exemplo fornecido pelo professor
   if(key == 's'|| key == 'S') p1.moveDown = true;
   if(key == 'w'|| key == 'W') p1.moveUp = true;
   if(key == 'a'|| key == 'A') p1.moveLeft = true;
@@ -89,8 +88,7 @@ void keyReleased() {
   if(key == 'a'|| key == 'A') p1.moveLeft = false;
   if(key == 'd'|| key == 'D') p1.moveRight = false;
 }
-//verificar se o player colidiu com o inimigo
-void healthcheck(){
+void healthcheck(){ //verificar se o player colidiu com o inimigo // passar isto para o codigo do player noutra funcao e correr dentro da funcao movimento. // tambem preciso de colocar as colisoes a funcionar em forma de retangulo (mais simples de implementar do que poligonos ou ellipse)
   //put here code for checking between bullet and enemy
   // float distX = p1.posX - e1.get(p1.level).posX;
   // float distY = p1.posY - e1.get(p1.level).posY;
@@ -100,7 +98,7 @@ void healthcheck(){
 }
 //acrescentar pontuacao na tabela
 void score() {
-  textSize(32);
+  textSize(32); // era fixe colocar isto numa funcao propria para mostrar no ecra, em vez de estar aqui perdido 
   text("Score: "+score, m.i.posX, height/8);
   hits = e1.get(p1.level).health/p1.dmg;
   if (p1.b1.get(p1.level).enemycheck()) score++;
