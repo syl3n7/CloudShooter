@@ -21,7 +21,7 @@ void setup() {
   Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize(); //ir buscar a dimensao da tela
   int screenWidth = screenSize.width; //ir buscar a largura da tela
   int screenHeight = screenSize.height; //ir buscar a largura da tela
-  surface.setSize(1920, 1080/*screenWidth, screenHeight*/);
+  surface.setSize(/*1920, 1080*/screenWidth, screenHeight);
   smooth(8);//funcao de antialiasing
   center_x = screenWidth/2-width/2; //ir buscar o meio do eixo X
   center_y = screenHeight/2-height/2; //ir buscar o meio do eixo Y
@@ -57,14 +57,12 @@ void draw() {
   if (m.i.active) {
     m.i.drawme();
     m.i.back.drawme();
-  } if (pm.state) {
-    if (score >= 25) {
+  } if (pm.state && score >= 25) {
     pm.drawme();
     pm.back.drawme();
     pm.ship1.drawme();
     pm.ship2.drawme();
     pm.ship3.drawme();
-    }
   } if (m.highscore.active) {
     m.highscore.drawme();
     m.highscore.back.drawme();

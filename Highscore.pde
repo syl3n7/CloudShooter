@@ -16,13 +16,12 @@ Background background;
         table.addColumn("score");
     }
     void drawme(){
-        if(active);
         background.drawme();
+        if(active);
         loadData();
     }
     //carregar a tabela com os valores anteriores.
     void loadData(){
-        
         table = loadTable("data/highscore.csv", "header");
         int pog = table.getRowCount();
         //print all the data from csv
