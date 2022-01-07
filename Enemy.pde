@@ -44,6 +44,7 @@ class Enemy {
         trand += 0.3;
       }
     }
+    healthcheck(); //verificar a cada movimento a vida do inimigo
   }
   void healthcheck() { //when it, turns red
     if(health < health/2){

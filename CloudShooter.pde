@@ -71,7 +71,6 @@ void draw() { //desenhar os elementos do programa no ecra mediante condicoes esp
     c5.drawme(); //desenhar e mover nuvem5
     p1.drawme(); //desenhar e mover o player1
     e1.get(p1.level).drawme(); //desenhar e mover o inimigo
-  //healthcheck(); //verificar vida do player, do inimigo
     score(); //incrementar score
   }
 }
