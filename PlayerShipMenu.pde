@@ -6,7 +6,7 @@ Button ship1, ship2, ship3;
 Background background;
     //construtor 
     PlayerShipMenu(float x, float y) {
-        background = new Background("assets/images/background.png", 0, 0);
+        background = new Background("assets/images/background1080p.png", width/2, height/2);
         posX = x;
         posY = y;
         state = false;
