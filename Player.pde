@@ -35,7 +35,8 @@ class Player {
     b1.get(level).drawme(); //desenhar as balas
     b1.get(level).moveme(); //mover as balas
     img.resize(350, 225);
-    if(health > 0) image(img, posX, posY); //display sprite of player ship with position and health check updated every tick
+    //if ()
+    if (health >= 0) image(img, posX, posY); //display sprite of player ship with position and health check updated every tick
     //checkDirection();
     fill(255, 0, 0, 200);
     //rect(posX+20, posY+10, 190, 80);
