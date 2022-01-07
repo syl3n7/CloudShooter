@@ -32,6 +32,7 @@ Instructions i;
         }
         if(back.pressed) {
             highscore.addData();
+            highscore.saveData();
             displayGame = false;
             p1.posX = -300; //para o player ir para a posicao inicial e fazer novamente a animacao de entrada
             p1.posY = height/2; //mesma coisa da linha de cima, mas para o eixo Y.
