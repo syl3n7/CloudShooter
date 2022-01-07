@@ -2,15 +2,11 @@ import java.awt.*;//importar libraria grafica
 //declarar objetos
 Menu m;
 boolean displayGame = false;
-CloudsGen c1;
-CloudsGen c2;
-CloudsGen c3;
+CloudsGen c1, c2, c3, c4, c5;
 PlayerShipMenu pm;
 public Player p1;
-public ArrayList<Enemy> e1; //tornar isto num array em condicoes
-public int score = 0;
-public int lives = 3;
-public int center_x, center_y;
+public ArrayList<Enemy> e1; 
+public int score, lives, center_x, center_y;
 public float hits;
 
 void setup() { //codigo apenas executado no inicio do programa
@@ -20,34 +16,37 @@ void setup() { //codigo apenas executado no inicio do programa
   Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize(); //https://forum.processing.org/one/topic/dynamic-screen-background-resize-need-guidance.html //dinamic window size begin (without borders) //ir buscar a dimensao da tela
   int screenWidth = screenSize.width; //ir buscar a largura da tela
   int screenHeight = screenSize.height; //ir buscar a largura da tela
-  surface.setSize(/*1920, 1080*/screenWidth, screenHeight);
-  smooth(8);//funcao de antialiasing
-  center_x = screenWidth/2-width/2; //ir buscar o meio do eixo X
-  center_y = screenHeight/2-height/2; //ir buscar o meio do eixo Y
+  surface.setSize(screenWidth, screenHeight);
+  smooth(8);  //funcao de antialiasing
+  center_x = screenWidth/2-width/2; //centrar a janela no eixo X
+  center_y = screenHeight/2-height/2; //centrar a janela no eixo Y
   surface.setLocation(center_x, center_y); //set location of canvas to center of screen resolution
   imageMode(CENTER); //funcao para centrar o spawn de imagens
   rectMode(CENTER); //função para centrar o spawn de rectângulos
-//ellipseMode(CENTER);//funcao para centrar o spawn de elipses
-  textAlign(CENTER);
-  noStroke();
+  textAlign(CENTER); //funcao para alinhar o texto ao centro 
+  noStroke(); //funcao para retirar o Stroke das figuras geometricas
 //Inicializar Objetos
-  m = new Menu(width/2, height/2);  //menu
-  pm = new PlayerShipMenu(width/2, height/2);  //menu para escolha de "nave" usa bala e imagem diferente
+  score = 0;
+  lives = 3;
+  m = new Menu(width/2, height/2); //menu
+  pm = new PlayerShipMenu(width/2, height/2); //menu para escolha de "nave" usa bala e imagem diferente
   c1 = new CloudsGen("/assets/images/cloud1.png", 100, random(height)); //nuvem 1
   c2 = new CloudsGen("/assets/images/cloud2.png", 200, random(height)); //nuvem 2
   c3 = new CloudsGen("/assets/images/cloud3.png", 300, random(height)); //nuvem 3
+  c4 = new CloudsGen("/assets/images/cloud4.png", 400, random(height)); //nuvem 4
+  c5 = new CloudsGen("/assets/images/cloud5.png", 500, random(height)); //nuvem 5
   p1 = new Player("/assets/images/first_ship_cs.png", -200, height/2); //player 1 //spawn fora do canvas para animar a entrada do player no jogo
-  e1 = new ArrayList<Enemy>();  //enemy 1(necessario tornar isto num array list de waves para attack)
-  e1.add(new Enemy("/assets/images/AlienSpaceship.png", (width - 300), (height - 300), 150, 5, 100));
-  e1.add(new Enemy("/assets/images/AlienSpaceship_secondcs.png", (width - 300), (height - 300), 150, 5, 100));
-  e1.add(new Enemy("/assets/images/AlienSpaceship_thirdcs.png", (width - 300), (height - 300), 150, 5, 100));
+  e1 = new ArrayList<Enemy>(); //enemy 1 (necessario tornar isto num array list de waves para attack)
+  e1.add(new Enemy("/assets/images/AlienSpaceship.png", width-300, height-300, 150));
+  e1.add(new Enemy("/assets/images/AlienSpaceship_secondcs.png", width-300, height-300, 150));
+  e1.add(new Enemy("/assets/images/AlienSpaceship_thirdcs.png", width-300, height-300, 150));
 }
-  void draw() { //desenhar os elementos do programa no ecra mediante condicoes especificadas
+void draw() { //desenhar os elementos do programa no ecra mediante condicoes especificadas
   m.start(); //verifica presses
   if (m.i.active) { //instrucoes ativos
     m.i.drawme();
     m.i.back.drawme();
-  } if (pm.state && score >= hits) { //player menu = escolha de cor para a nave ( desbloqueia com score x Score)
+  } if (pm.state && score >= hits) { //player menu = escolha de cor para a nave (desbloqueia com x score)
     pm.drawme();
     pm.back.drawme();
     pm.ship1.drawme();
@@ -56,13 +55,12 @@ void setup() { //codigo apenas executado no inicio do programa
   } if (m.highscore.active) { //highscore ativos
     m.highscore.drawme();
     m.highscore.back.drawme();
-  } if (m.state) { 
-    m.highscore.loadPreviousData();
+  } if (m.state) { //menu ativo
     m.start.drawme();
     m.exit.drawme();
     m.highscorebttn.drawme();
     m.instructionsbttn.drawme();
-  } if (displayGame){ //claudio fez esta parte do codigo
+  } if (displayGame){ //jogo ativo
     m.background.drawme();
     m.back.drawme(); //desenhar o botão de pausa
     c1.drawme(); //desenhar e mover nuvem1
@@ -70,8 +68,8 @@ void setup() { //codigo apenas executado no inicio do programa
     c3.drawme(); //desenhar e mover nuvem3
     p1.drawme(); //desenhar e mover o player1
     e1.get(p1.level).drawme(); //desenhar e mover o inimigo
-    healthcheck(); //verificar vida do player, do inimigo
-    score(); //calls"b1.enemycheck();" ou seja: verificar se a bala atingiu o inimigo e acrescentar valor ao score
+  //healthcheck(); //verificar vida do player, do inimigo
+    score(); //incrementar score
   }
 }
 void keyPressed() {

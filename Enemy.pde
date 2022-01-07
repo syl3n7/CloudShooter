@@ -6,13 +6,13 @@ class Enemy {
   float posX, posY, vel, damage, tam;
   int health;
   //constructor
-  Enemy(String nome, float x, float y, int t, float v, float d) {
+  Enemy(String nome, float x, float y, int t) {
     img = loadImage(nome);
     posX = width-tam;
     posY = height/2;
     tam = t;
     vel = v;
-    damage = d;
+    damage = 5;
     health = 100;
   }
 //necessito de chamar recursivamente esta funcao para que o jogador possa eliminar o inimigo e ele continue a dar spawn

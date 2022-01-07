@@ -13,6 +13,7 @@ class CloudsGen {
   void drawme() {
     image(img, posX, posY); //function image to draw the image with three specified parameters inside
     move(); //calling the method move
+    reset(); //calling the method reset
   }
 //method used to make the object run through X and randomly change height
   void move() {
@@ -22,5 +23,10 @@ class CloudsGen {
       posX = width;
       posY = random(height);
     }
+  }
+  void reset() {//reset da posicao X e Y das nuvens quando o menu esta ativo
+    if (!m.state);
+    posX = width+img.width; 
+    posY = height+img.height;
   }
 }
