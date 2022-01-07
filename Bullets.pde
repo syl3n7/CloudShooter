@@ -28,7 +28,7 @@ class Bullets {
     }
   }
   //verificar se a posicao X e Y do enimigo, corresponde a mesma posicao X e Y da bala, em ordem a contar como HIT
-  public boolean enemycheck(){
+  public boolean enemycheck() {
     if (dist(posX+tam/2, posY+tam/2, e1.get(p1.level).posX+e1.get(p1.level).tam/2, e1.get(p1.level).posY+e1.get(p1.level).tam/2) < tam) {
       return true;
     }

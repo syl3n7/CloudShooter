@@ -9,7 +9,7 @@ class Background {
         posY = y;
     }
 //metodo desenhar para o canvas
-    void drawme() { 
+    void drawme() {
         if(p1.health < 25) {
             img.loadPixels();
             for(int x = 0; x < width; x++) {

@@ -1,11 +1,11 @@
 import java.awt.*;//importar libraria grafica
 //declarar objetos
-Menu m;
+public Menu m;
 boolean displayGame = false;
 CloudsGen c1, c2, c3, c4, c5;
 PlayerShipMenu pm;
 public Player p1;
-public ArrayList<Enemy> e1; 
+public ArrayList<Enemy> e1;
 public int score, lives, center_x, center_y;
 public float hits;
 
@@ -17,7 +17,7 @@ void setup() { //codigo apenas executado no inicio do programa
   int screenWidth = screenSize.width; //ir buscar a largura da tela
   int screenHeight = screenSize.height; //ir buscar a largura da tela
   surface.setSize(screenWidth, screenHeight);
-  smooth(8);  //funcao de antialiasing
+  smooth(8); //funcao de antialiasing
   center_x = screenWidth/2-width/2; //centrar a janela no eixo X
   center_y = screenHeight/2-height/2; //centrar a janela no eixo Y
   surface.setLocation(center_x, center_y); //set location of canvas to center of screen resolution
@@ -40,6 +40,7 @@ void setup() { //codigo apenas executado no inicio do programa
   e1.add(new Enemy("/assets/images/AlienSpaceship.png", width-300, height-300, 150));
   e1.add(new Enemy("/assets/images/AlienSpaceship_secondcs.png", width-300, height-300, 150));
   e1.add(new Enemy("/assets/images/AlienSpaceship_thirdcs.png", width-300, height-300, 150));
+  hits = e1.get(p1.level).health/p1.dmg;
 }
 void draw() { //desenhar os elementos do programa no ecra mediante condicoes especificadas
   m.start(); //verifica presses
@@ -60,12 +61,14 @@ void draw() { //desenhar os elementos do programa no ecra mediante condicoes esp
     m.exit.drawme();
     m.highscorebttn.drawme();
     m.instructionsbttn.drawme();
-  } if (displayGame){ //jogo ativo
+  } if (displayGame) { //jogo ativo
     m.background.drawme();
     m.back.drawme(); //desenhar o botão de pausa
     c1.drawme(); //desenhar e mover nuvem1
     c2.drawme(); //desenhar e mover nuvem2
     c3.drawme(); //desenhar e mover nuvem3
+    c4.drawme(); //desenhar e mover nuvem4
+    c5.drawme(); //desenhar e mover nuvem5
     p1.drawme(); //desenhar e mover o player1
     e1.get(p1.level).drawme(); //desenhar e mover o inimigo
   //healthcheck(); //verificar vida do player, do inimigo
@@ -98,12 +101,15 @@ void healthcheck(){ //verificar se o player colidiu com o inimigo // passar isto
 void score() {
   textSize(32); // era fixe colocar isto numa funcao propria para mostrar no ecra, em vez de estar aqui perdido 
   text("Score: "+score, m.i.posX, height/8);
-  hits = e1.get(p1.level).health/p1.dmg;
   if (p1.b1.get(p1.level).enemycheck()) score++;
-  if (score == 10 && e1.get(p1.level).health < 10) p1.level = 1;
-  hits = e1.get(p1.level).health/p1.dmg;
-  if (score == 20 && e1.get(p1.level).health < 10) p1.level = 2;
-  hits = e1.get(p1.level).health/p1.dmg;
+  if (score == 10 && e1.get(p1.level).health < 10) {
+    p1.level = 1;
+    hits = e1.get(p1.level).health/p1.dmg;
+  }
+  if (score == 20 && e1.get(p1.level).health < 10) {
+    p1.level = 2;
+    hits = e1.get(p1.level).health/p1.dmg;
+  }
 }
 void mousePressed() { // quando clicar no botao do rato dentro das condicoes especificadas(dentro dos limites da imagem do botao)
   if(m.start.press()) m.start.pressed = true;

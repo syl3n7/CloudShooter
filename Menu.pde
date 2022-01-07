@@ -7,11 +7,11 @@ class Menu{
     Background background;
     Instructions i;
 //construtor 
-    Menu(float x, float y) {
+Menu(float x, float y) {
     posX = x;
     posY = y;
     state = true;//estado ativo ou desativo do menu.
-    background = new Background("assets/images/background1080p.png", width/2, height/2);
+    background = new Background("assets/images/background1080p.png", width/2, height/2);//background do menu
     start = new Button("assets/images/start_button.png", width/2 - 350, height/2 - 100);//botao para comecar o jogo
     exit = new Button("assets/images/exit_button.png", width/2 + 250, height/2 - 100);//botao para sair do jogo.
     back = new Button("assets/images/back_button.png", width-250, 80);//botao para retroceder
@@ -19,8 +19,8 @@ class Menu{
     highscorebttn = new Button("assets/images/highscores_button.png", width/2 + 150, height/2 + 200);//botao para entrar na tabela de highscores
     highscore = new Highscore();//objeto que contem a informacao da tabela .csv Highscores
     i = new Instructions(width/2, center_y); //objeto contem o desenho (texto) das instructucoes.
-    //highscore.loadData();
-    }
+    highscore.loadData();
+}
     void start() { //desenhar e verificar estado dos botões
         background.drawme();
         if(state){  //verficar estado pressed de cada botao

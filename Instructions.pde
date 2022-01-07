@@ -13,13 +13,13 @@ color black = color(0);
 color red = color(#FA0000);
 Button back;
 //construtor
-    Instructions(float x, float y){
+    Instructions(float x, float y) {
         posX = x;
         posY = y;
         active = false;
         back = new Button("assets/images/back_button.png", width-250, 80);
     }
-    void drawme(){
+    void drawme() {
         if (active);
             m.background.drawme();
             fill(red);

@@ -15,20 +15,17 @@ class Enemy {
     damage = 5;
     health = 100;
   }
-//necessito de chamar recursivamente esta funcao para que o jogador possa eliminar o inimigo e ele continue a dar spawn
   void drawme() {
     img.resize(int(tam), int(tam)); //redimensiona a imagem
     if(health > 0) image(img, posX, posY);
     fill(255, 0, 0, 200);
     //rect(posX, posY+10, 150, 70); //hitbox debug only 
     textSize(24);
-    text("Health: " + health, posX, posY+10);
+    text("Health: " + health, posX, posY-40);
     move();
   }
 //necessito de fazer com que o enimigo se multiplique a cada posX completo.
 //usar um array de objetos de enimigos onde vao dando spawn a cada posX completo.
-
-
   void move() { //fazer inimigo andar pelo canvas variando velocidade horizontal e posicao vertical aleatoria
     tsmoothed = noise(trand); //posicao vertical dinamica, dificuldade 0
     tsmoothed = map(tsmoothed, 0, 1, tam, width-tam);
@@ -48,8 +45,8 @@ class Enemy {
       }
     }
   }
-  void healthcheck() { //when it, turns red
-    if(health < health/2){
+  void healthcheck() { //when it gets damaged, turns red
+    if(health < health/4){
         img.loadPixels();
         for(int x = 0; x < width; x++) {
             for(int y = 0; y < height; y++) {

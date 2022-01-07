@@ -26,7 +26,7 @@ class CloudsGen {
   }
   void reset() {//reset da posicao X e Y das nuvens quando o menu esta ativo
     if (!m.state);
-    posX = width+img.width; 
-    posY = height+img.height;
+    posX = width; 
+    posY = height;
   }
 }

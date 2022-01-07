@@ -13,7 +13,7 @@ class Player {
     tam = 350/32; //tamanho = img resized
     vel = 350/16; //velocidade para movimentar a nave
     health = 100;
-    dmg = 10; // dano da bala no nivel 0, se o level subir, tem ifs em baixo para mudar o valor desta variavel.
+    dmg = 10; //dano da bala no nivel 0, se o level subir, tem ifs em baixo para mudar o valor desta variavel.
     moveUnLock = true;
     moveDown  = false;
     moveLeft  = false;
@@ -56,7 +56,7 @@ class Player {
         health = 100;
       }
   }
-  void moveme(){  //validar posicao e incremento da mesma caso tecla seja pressionada
+  void moveme() {  //validar posicao e incremento da mesma caso tecla seja pressionada
     //verifica se o player saiu de qq coordenada, x,y,-x,-y para retomar o player a sua area de jogo.
     if(posX < 200) posX += 10;
     if(posY < 100) posY += 10;
@@ -65,7 +65,7 @@ class Player {
     if (posX == 200) moveUnLock = true; //animacao inicial para o player sair do spawn area e ir ate a area de jogo
     //println(moveUnLock); usei isto para debug apenas. 
     //codigo da linha 80 a 84 importado do exemplo do professor para movimento + suave
-    if(moveUnLock){ //lock player movement
+    if(moveUnLock) { //lock player movement
       if (moveLeft) posX -= vel;  // "if(left == true)" igual a "if(left)"
       else if (moveRight) posX += vel;
       else if (moveUp) posY -= vel;

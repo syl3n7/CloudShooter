@@ -1,4 +1,4 @@
-class PlayerShipMenu{
+class PlayerShipMenu {
 //propriedades
 float posX, posY;
 boolean state;
@@ -17,7 +17,7 @@ Button back;
         ship3 = new Button("assets/images/first_ship_thirdcs.png", width/2 + 300, height/2 - 100);
     } 
     void drawme() {
-        if (state){
+        if (state) {
             background.drawme();
             ship1.drawme();
             ship2.drawme();
@@ -29,7 +29,7 @@ Button back;
     //adicionar aqui metodo para escolher a nave e a bala do player // desbloqueaveis com highscore 
     void shipColor() {
         //logica para escolha na nave + return da string correta para definir
-        if(state && m.state){
+        if(state && m.state) {
             if(ship1.press()) p1.img = loadImage("assets/images/first_ship_cs_pressed.png");
             if(ship2.press()) p1.img = loadImage("assets/images/first_ship_secondcs_pressed.png");
             if(ship3.press()) p1.img = loadImage("assets/images/first_ship_thirdcs_pressed.png"); 
