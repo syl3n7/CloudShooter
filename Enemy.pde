@@ -18,8 +18,8 @@ class Enemy {
   void drawme() {
     img.resize(int(tam), int(tam)); //redimensiona a imagem
     if(health > 0) image(img, posX, posY);
-    fill(255, 0, 0, 200);
-    //rect(posX, posY+10, 150, 70); //hitbox debug only 
+    //fill(255, 0, 0, 200); //hitbox debug only
+    //rect(posX, posY+10, 150, 70); //hitbox debug only
     textSize(24);
     text("Health: " + health, posX, posY-40);
     move();
@@ -37,7 +37,7 @@ class Enemy {
     } else {
       posX -= vel;
       if (p1.level == 0) {
-        trand += 0.002;
+        trand += 0.005;
       }else if (p1.level == 1) {
         trand += 0.09;
       }else if (p1.level == 2) {
