@@ -1,92 +1,82 @@
-import java.awt.*;
+import java.awt.*;//importar libraria grafica
 //declarar objetos
-Menu m;
+public Menu m;
 boolean displayGame = false;
-CloudsGen c1;
-CloudsGen c2;
-CloudsGen c3;
+CloudsGen c1, c2, c3, c4, c5;
 PlayerShipMenu pm;
 public Player p1;
-public ArrayList<Enemy> e1; //tornar isto num array em condicoes
-public int score = 0;
-public int lives = 3;
-public int center_x, center_y;
-//codigo apenas corrido 1x (inicio do programa)
-void setup() {
-//https://forum.processing.org/one/topic/dynamic-screen-background-resize-need-guidance.html
-//dinamic window size begin (without borders)
+public ArrayList<Enemy> e1;
+public int score, lives, center_x, center_y;
+public float hits;
+
+void setup() { //codigo apenas executado no inicio do programa
   surface.setTitle("CloudShooter by Catarina & Claudio"); //titulo da janela
   fullScreen(0,P2D); //fullscreen
   frameRate(60); //especificar framerate a usar
-  Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-  int screenWidth = screenSize.width;
-  int screenHeight = screenSize.height;
-  surface.setSize(1920, 1080/*screenWidth, screenHeight*/);
-  smooth(8);//funcao de antialiasing
-  center_x = screenWidth/2-width/2;
-  center_y = screenHeight/2-height/2;
+  Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize(); //https://forum.processing.org/one/topic/dynamic-screen-background-resize-need-guidance.html //dinamic window size begin (without borders) //ir buscar a dimensao da tela
+  int screenWidth = screenSize.width; //ir buscar a largura da tela
+  int screenHeight = screenSize.height; //ir buscar a largura da tela
+  surface.setSize(1920, 1080 /*screenWidth, screenHeight*/);
+  smooth(8); //funcao de antialiasing
+  center_x = screenWidth/2-width/2; //centrar a janela no eixo X
+  center_y = screenHeight/2-height/2; //centrar a janela no eixo Y
   surface.setLocation(center_x, center_y); //set location of canvas to center of screen resolution
   imageMode(CENTER); //funcao para centrar o spawn de imagens
   rectMode(CENTER); //função para centrar o spawn de rectângulos
-  //ellipseMode(CENTER);//funcao para centrar o spawn de elipses
-  textAlign(CENTER);
-  noStroke();
-  /*Inicializar Objetos ⬇️*/
-  //menu
-  m = new Menu(width/2, height/2);
-  //menu para escolha de "nave" usa bala e imagem diferente
-  pm = new PlayerShipMenu(width/2, height/2);
-  //nuvem 1
-  c1 = new CloudsGen("/assets/images/cloud1.png", 100, random(height));
-  //nuvem 2
-  c2 = new CloudsGen("/assets/images/cloud2.png", 200, random(height));
-  //nuvem 3
-  c3 = new CloudsGen("/assets/images/cloud3.png", 300, random(height));
-  //player 1
-  p1 = new Player("/assets/images/first_ship_cs.png", -200, height/2);//spawn fora do canvas para animar a entrada do player no jogo
-  //enemy 1
-  e1 = new ArrayList<Enemy>();
-  e1.add(new Enemy("/assets/images/AlienSpaceship.png", (width - 300), (height - 300), 150, 5, 100));
-  e1.add(new Enemy("/assets/images/AlienSpaceship_secondcs.png", (width - 300), (height - 300), 150, 5, 100));
-  e1.add(new Enemy("/assets/images/AlienSpaceship_thirdcs.png", (width - 300), (height - 300), 150, 5, 100));
+  textAlign(CENTER); //funcao para alinhar o texto ao centro 
+  noStroke(); //funcao para retirar o Stroke das figuras geometricas
+//Inicializar Objetos
+  score = 0;
+  lives = 3;
+  m = new Menu(width/2, height/2); //menu
+  pm = new PlayerShipMenu(width/2, height/2); //menu para escolha de "nave" usa bala e imagem diferente
+  c1 = new CloudsGen("/assets/images/cloud1.png", 100, random(height)); //nuvem 1
+  c2 = new CloudsGen("/assets/images/cloud2.png", 200, random(height)); //nuvem 2
+  c3 = new CloudsGen("/assets/images/cloud3.png", 300, random(height)); //nuvem 3
+  c4 = new CloudsGen("/assets/images/cloud4.png", 400, random(height)); //nuvem 4
+  c5 = new CloudsGen("/assets/images/cloud5.png", 500, random(height)); //nuvem 5
+  p1 = new Player("/assets/images/first_ship_cs.png", -200, height/2); //player 1 //spawn fora do canvas para animar a entrada do player no jogo
+  e1 = new ArrayList<Enemy>(); //enemy 1 (necessario tornar isto num array list de waves para attack)
+  e1.add(new Enemy("/assets/images/AlienSpaceship.png", width-300, height-300, 150));
+  e1.add(new Enemy("/assets/images/AlienSpaceship_secondcs.png", width-300, height-300, 150));
+  e1.add(new Enemy("/assets/images/AlienSpaceship_thirdcs.png", width-300, height-300, 150));
+  hits = e1.get(p1.level).health/p1.dmg;
 }
-//desenhar os elementos do programa no ecra
-void draw() {
-  //calls menu
+void draw() { //desenhar os elementos do programa no ecra mediante condicoes especificadas
   m.start(); //verifica presses
-  if (m.i.active) {
+  if (m.i.active) { //instrucoes ativos
     m.i.drawme();
     m.i.back.drawme();
-  } else if (pm.state) {
+  } if (pm.state && score >= hits) { //player menu = escolha de cor para a nave (desbloqueia com x score)
     pm.drawme();
-    //m.pm.ship1.drawme();//trocar para m.pm.back.drawme();
-    //m.pm.ship2.drawme();
-    //m.pm.ship3.drawme();
-  } else if (m.highscore.active) {
+    pm.back.drawme();
+    pm.ship1.drawme();
+    pm.ship2.drawme();
+    pm.ship3.drawme();
+  } if (m.highscore.active) { //highscore ativos
     m.highscore.drawme();
     m.highscore.back.drawme();
-  } if (m.state) {
-    m.start.drawme(); //use loadtable to load the previous highscores
+  } if (m.state) { //menu ativo
+    m.start.drawme();
     m.exit.drawme();
     m.highscorebttn.drawme();
     m.instructionsbttn.drawme();
-  } if (displayGame){
-    //claudio fez esta parte do codigo
+  } if (displayGame) { //jogo ativo
     m.background.drawme();
     m.back.drawme(); //desenhar o botão de pausa
     c1.drawme(); //desenhar e mover nuvem1
     c2.drawme(); //desenhar e mover nuvem2
     c3.drawme(); //desenhar e mover nuvem3
+    c4.drawme(); //desenhar e mover nuvem4
+    c5.drawme(); //desenhar e mover nuvem5
     p1.drawme(); //desenhar e mover o player1
     e1.get(p1.level).drawme(); //desenhar e mover o inimigo
-    healthcheck(); //verificar vida do player, do enimigo
-   score(); //calls"b1.enemycheck();" ou seja: verificar se a bala atingiu o inimigo e acrescentar valor ao score
+    score(); //incrementar score
   }
 }
 void keyPressed() {
-  if (key == ' ') {
-    p1.shoot();
-  }
+  if (key == ' ') p1.shoot(); // disparar a bala ate width, se pressionado novamente, da reset a posicao da bala e volta a desenhar ate width
+//codigo para movimento importado do exemplo fornecido pelo professor
   if(key == 's'|| key == 'S') p1.moveDown = true;
   if(key == 'w'|| key == 'W') p1.moveUp = true;
   if(key == 'a'|| key == 'A') p1.moveLeft = true;
@@ -98,22 +88,7 @@ void keyReleased() {
   if(key == 'a'|| key == 'A') p1.moveLeft = false;
   if(key == 'd'|| key == 'D') p1.moveRight = false;
 }
-//codigo importado do exemplo fornecido pelo professor para o movimento ser + suave
-/*void keyPressed() {
-  if(key == 'j' || key == 'J') plane.left = true;
-  if(key == 'l' || key == 'L') plane.right = true;
-  if(key == 'i' || key == 'I') plane.up = true;
-  if(key == 'k' || key == 'K') plane.down = true;
-}
-void keyReleased() {
-  if(key == 'j' || key == 'J') plane.left = false;
-  if(key == 'l' || key == 'L') plane.right = false;
-  if(key == 'i' || key == 'I') plane.up = false;
-  if(key == 'k' || key == 'K') plane.down = false;
-}
-*/
-//verificar se o player colidiu com o inimigo
-void healthcheck(){
+void healthcheck(){ //verificar se o player colidiu com o inimigo // passar isto para o codigo do player noutra funcao e correr dentro da funcao movimento. // tambem preciso de colocar as colisoes a funcionar em forma de retangulo (mais simples de implementar do que poligonos ou ellipse)
   //put here code for checking between bullet and enemy
   // float distX = p1.posX - e1.get(p1.level).posX;
   // float distY = p1.posY - e1.get(p1.level).posY;
@@ -123,23 +98,19 @@ void healthcheck(){
 }
 //acrescentar pontuacao na tabela
 void score() {
-  textSize(32);
+  textSize(32); // era fixe colocar isto numa funcao propria para mostrar no ecra, em vez de estar aqui perdido 
   text("Score: "+score, m.i.posX, height/8);
   if (p1.b1.get(p1.level).enemycheck()) score++;
-  if (score == 10 && e1.get(p1.level).health < 10) p1.level = 1;
-  if (score == 20 && e1.get(p1.level).health < 10) p1.level = 2;
+  if (score == 10 && e1.get(p1.level).health < 10) {
+    p1.level = 1;
+    hits = e1.get(p1.level).health/p1.dmg;
+  }
+  if (score == 20 && e1.get(p1.level).health < 10) {
+    p1.level = 2;
+    hits = e1.get(p1.level).health/p1.dmg;
+  }
 }
-void mousePressed() { // quando clicar no botao do rato dentro das condicoes especificadas(dentro dos limites do "canvas" da imagem do botao), iniciar jogo ou sair do jogo
-  if(m.start.press()) m.start.button = loadImage("assets/images/pressed_start_button.png");
-  if(m.exit.press()) m.exit.button = loadImage("assets/images/pressed_exit_button.png");
-  if(m.back.press()) m.back.button = loadImage("assets/images/pressed_back_button.png");
-  if(m.instructionsbttn.press()) m.instructionsbttn.button = loadImage("assets/images/pressed_instructions_button.png");
-  if(m.i.back.press()) m.i.back.button = loadImage("assets/images/pressed_back_button.png");
-  if(m.highscorebttn.press()) m.highscorebttn.button = loadImage("assets/images/pressed_highscores_button.png");
-  if(m.highscore.back.press()) m.highscore.back.button = loadImage("assets/images/pressed_back_button.png");
-}
-//nao vou mudar as sprites para pressed images por enquanto, talvez depois de resolver o resto do codigo.
-void mouseReleased() {
+void mousePressed() { // quando clicar no botao do rato dentro das condicoes especificadas(dentro dos limites da imagem do botao)
   if(m.start.press()) m.start.pressed = true;
   if(m.exit.press()) m.exit.pressed = true;
   if(m.back.press()) m.back.pressed = true;
@@ -147,6 +118,4 @@ void mouseReleased() {
   if(m.i.back.press()) m.i.back.pressed = true;
   if(m.highscorebttn.press()) m.highscorebttn.pressed = true;
   if(m.highscore.back.press()) m.highscore.back.pressed = true;
-  //println("state butao back "+m.back.pressed);  //debug
-  //println("state menu "+m.state); //debug
 }

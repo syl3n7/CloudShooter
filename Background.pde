@@ -9,7 +9,7 @@ class Background {
         posY = y;
     }
 //metodo desenhar para o canvas
-    void drawme() { 
+    void drawme() {
         image(img, posX, posY);
     }
 }
