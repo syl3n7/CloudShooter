@@ -6,11 +6,11 @@ class Enemy {
   float posX, posY, vel, damage, tam;
   int health;
   //constructor
-  Enemy(String nome, float x, float y, int t) {
+  Enemy(String nome) {
     img = loadImage(nome);
     posX = width-tam;
     posY = height/2;
-    tam = t;
+    tam = 150;
     vel = 5;
     damage = 5;
     health = 100;

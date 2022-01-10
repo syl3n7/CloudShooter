@@ -37,9 +37,9 @@ void setup() { //codigo apenas executado no inicio do programa
   c5 = new CloudsGen("/assets/images/cloud5.png", 500, random(height)); //nuvem 5
   p1 = new Player("/assets/images/first_ship_cs.png", -200, height/2); //player 1 //spawn fora do canvas para animar a entrada do player no jogo
   e1 = new ArrayList<Enemy>(); //enemy 1 (necessario tornar isto num array list de waves para attack)
-  e1.add(new Enemy("/assets/images/AlienSpaceship.png", width-300, height-300, 150));
-  e1.add(new Enemy("/assets/images/AlienSpaceship_secondcs.png", width-300, height-300, 150));
-  e1.add(new Enemy("/assets/images/AlienSpaceship_thirdcs.png", width-300, height-300, 150));
+  e1.add(new Enemy("/assets/images/AlienSpaceship.png"));
+  e1.add(new Enemy("/assets/images/AlienSpaceship_secondcs.png"));
+  e1.add(new Enemy("/assets/images/AlienSpaceship_thirdcs.png"));
   hits = e1.get(p1.level).health/p1.dmg;
 }
 void draw() { //desenhar os elementos do programa no ecra mediante condicoes especificadas
