@@ -36,8 +36,8 @@ void setup() { //codigo apenas executado no inicio do programa
   c4 = new CloudsGen("/assets/images/cloud4.png", 400, random(height)); //nuvem 4
   c5 = new CloudsGen("/assets/images/cloud5.png", 500, random(height)); //nuvem 5
   p1 = new Player("/assets/images/first_ship_cs.png", -200, height/2); //player 1 //spawn fora do canvas para animar a entrada do player no jogo
-  e1 = new ArrayList<Enemy>((int(p1.level*10))); //enemy 1 (necessario tornar isto num array list de waves para attack)
-  for (int i = 0; i < int(p1.level*10); i++) { //
+  e1 = new ArrayList<Enemy>(30); //enemy 1 (necessario tornar isto num array list de waves para attack)
+  for (int i = 0; i < 10; i++) { //
     e1.add(new Enemy("/assets/images/AlienSpaceship.png")); //adicionar 10 inimigos ao array list, se a dificuldade for superior, ele aumenta o array.
   }
   hits = e1.get(p1.level).health/p1.dmg;
@@ -76,19 +76,21 @@ void draw() { //desenhar os elementos do programa no ecra mediante condicoes esp
   }
 }
 void changeArraySizeOnDifficultyChange() { // alterar tipo de inimigo ao aumentar wave.
-  if (p1.level == 1);
-  for (int i = 0; i < int(p1.level*10); i++) { //
-    e1.remove(new Enemy("/assets/images/AlienSpaceship.png")); //remover os 10 inimigos do array list
+  if (p1.level == 1){
+    for (int i = 0; i < 10; i++) { //
+      e1.remove(new Enemy("/assets/images/AlienSpaceship.png")); //remover os 10 inimigos do array list
+    }
+    for (int i = 0; i < 20; i++) { //
+      e1.add(new Enemy("/assets/images/AlienSpaceship_secondcs.png")); //adicionar 20 inimigos ao array list
+    }
   }
-  for (int i = 0; i < int(p1.level*10); i++) { //
-    e1.add(new Enemy("/assets/images/AlienSpaceship_secondcs.png")); //adicionar 20 inimigos ao array list
-  }
-  if(p1.level == 2);
-  for (int i = 0; i < int(p1.level*10); i++) { //
-    e1.remove(new Enemy("/assets/images/AlienSpaceship_thirdcs.png")); //remover os 20 inimigos do array list
-  }
-  for (int i = 0; i < int(p1.level*10); i++) { //
-    e1.add(new Enemy("/assets/images/AlienSpaceship_thirdcs.png")); //adicionar 30 inimigos ao array list
+  if(p1.level == 2){
+    for (int i = 0; i < 20; i++) { //
+      e1.remove(new Enemy("/assets/images/AlienSpaceship_thirdcs.png")); //remover os 20 inimigos do array list
+    }
+    for (int i = 0; i < 30; i++) { //
+      e1.add(new Enemy("/assets/images/AlienSpaceship_thirdcs.png")); //adicionar 30 inimigos ao array list
+    }
   }
 }
 void keyPressed() {

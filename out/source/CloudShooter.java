@@ -55,10 +55,10 @@ public float hits;
   c4 = new CloudsGen("/assets/images/cloud4.png", 400, random(height)); //nuvem 4
   c5 = new CloudsGen("/assets/images/cloud5.png", 500, random(height)); //nuvem 5
   p1 = new Player("/assets/images/first_ship_cs.png", -200, height/2); //player 1 //spawn fora do canvas para animar a entrada do player no jogo
-  e1 = new ArrayList<Enemy>(); //enemy 1 (necessario tornar isto num array list de waves para attack)
-  e1.add(new Enemy("/assets/images/AlienSpaceship.png", width-300, height-300, 150));
-  e1.add(new Enemy("/assets/images/AlienSpaceship_secondcs.png", width-300, height-300, 150));
-  e1.add(new Enemy("/assets/images/AlienSpaceship_thirdcs.png", width-300, height-300, 150));
+  e1 = new ArrayList<Enemy>(30); //enemy 1 (necessario tornar isto num array list de waves para attack)
+  for (int i = 0; i < 10; i++) { //
+    e1.add(new Enemy("/assets/images/AlienSpaceship.png")); //adicionar 10 inimigos ao array list, se a dificuldade for superior, ele aumenta o array.
+  }
   hits = e1.get(p1.level).health/p1.dmg;
 }
  public void draw() { //desenhar os elementos do programa no ecra mediante condicoes especificadas
@@ -91,6 +91,25 @@ public float hits;
     p1.drawme(); //desenhar e mover o player1
     e1.get(p1.level).drawme(); //desenhar e mover o inimigo
     score(); //incrementar score
+    changeArraySizeOnDifficultyChange(); //alterar tamanho do array list de inimigos
+  }
+}
+ public void changeArraySizeOnDifficultyChange() { // alterar tipo de inimigo ao aumentar wave.
+  if (p1.level == 1){
+    for (int i = 0; i < 10; i++) { //
+      e1.remove(new Enemy("/assets/images/AlienSpaceship.png")); //remover os 10 inimigos do array list
+    }
+    for (int i = 0; i < 20; i++) { //
+      e1.add(new Enemy("/assets/images/AlienSpaceship_secondcs.png")); //adicionar 20 inimigos ao array list
+    }
+  }
+  if(p1.level == 2){
+    for (int i = 0; i < 20; i++) { //
+      e1.remove(new Enemy("/assets/images/AlienSpaceship_thirdcs.png")); //remover os 20 inimigos do array list
+    }
+    for (int i = 0; i < 30; i++) { //
+      e1.add(new Enemy("/assets/images/AlienSpaceship_thirdcs.png")); //adicionar 30 inimigos ao array list
+    }
   }
 }
  public void keyPressed() {
@@ -260,11 +279,11 @@ class Enemy {
   float posX, posY, vel, damage, tam;
   int health;
   //constructor
-  Enemy(String nome, float x, float y, int t) {
+  Enemy(String nome) {
     img = loadImage(nome);
     posX = width-tam;
     posY = height/2;
-    tam = t;
+    tam = 150;
     vel = 5;
     damage = 5;
     health = 100;
@@ -272,8 +291,8 @@ class Enemy {
    public void drawme() {
     img.resize(PApplet.parseInt(tam), PApplet.parseInt(tam)); //redimensiona a imagem
     if(health > 0) image(img, posX, posY);
-    fill(255, 0, 0, 200);
-    //rect(posX, posY+10, 150, 70); //hitbox debug only 
+    //fill(255, 0, 0, 200); //hitbox debug only
+    //rect(posX, posY+10, 150, 70); //hitbox debug only
     textSize(24);
     text("Health: " + health, posX, posY-40);
     move();
@@ -291,7 +310,7 @@ class Enemy {
     } else {
       posX -= vel;
       if (p1.level == 0) {
-        trand += 0.002f;
+        trand += 0.005f;
       }else if (p1.level == 1) {
         trand += 0.09f;
       }else if (p1.level == 2) {
