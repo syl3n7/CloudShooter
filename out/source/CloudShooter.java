@@ -41,7 +41,7 @@ public float hits;
   center_y = screenHeight/2-height/2; //centrar a janela no eixo Y
   surface.setLocation(center_x, center_y); //set location of canvas to center of screen resolution
   imageMode(CENTER); //funcao para centrar o spawn de imagens
-  //rectMode(CENTER); //função para centrar o spawn de rectângulos
+  rectMode(CENTER); //função para centrar o spawn de rectângulos
   textAlign(CENTER); //funcao para alinhar o texto ao centro 
   noStroke(); //funcao para retirar o Stroke das figuras geometricas
 //Inicializar Objetos
@@ -199,21 +199,23 @@ boolean pressed;
     Button(String name, float x, float y) {
         button = loadImage(name);
         //button.resize(button.width/2, button.height/2);
-        tam1 = 100;
-        tam2 = 80;
+        tam1 = 102;
+        tam2 = 70;
         posX = x;
         posY = y;
         pressed = false;
     }
      public void drawme() {
-        image(button, posX, posY);//colocar isto na liunha 21 depois
+
+        
+
+        image(button, posX, posY); //colocar isto na liunha 21 depois
         //this code below is to check the hitboxes of the buttons
-        fill(250, 0, 0, 70); //manual debug
-        rect(posX-tam1, posY-tam2, tam1, tam2); //manual debug
+        //fill(250, 0, 0, 70); //manual debug
+        //rect(posX, posY, tam1, tam2); //manual debug
     }
-    //check mousepress on button, return value for pressed button
-     public boolean press() {
-        if(mouseX > posX-tam1 && mouseX < posX-tam1 + tam1 && mouseY > posY-tam2 && mouseY < posY-tam2 + tam2*2 ) {
+     public boolean press() { //check mousepress on button, return value for pressed button
+        if(mouseX > posX-tam1 && mouseX < posX + tam1 && mouseY > posY-tam2 && mouseY < posY + tam2) {
             pressed = true;
         }
         return pressed;
