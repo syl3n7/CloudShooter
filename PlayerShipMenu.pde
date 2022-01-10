@@ -7,7 +7,7 @@ Background background;
 Button back;
     //construtor 
     PlayerShipMenu(float x, float y) {
-        background = new Background("assets/images/background.png", 0, 0);
+        background = new Background("assets/images/background1080p.png", 0, 0);
         posX = x;
         posY = y;
         state = false;
