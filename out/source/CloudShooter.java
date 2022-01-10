@@ -236,7 +236,7 @@ class CloudsGen {
    public void drawme() {
     image(img, posX, posY); //function image to draw the image with three specified parameters inside
     move(); //calling the method move
-    reset(); //calling the method reset
+    if (!m.state) reset(); //calling the method reset
   }
 //method used to make the object run through X and randomly change height
    public void move() {
@@ -248,7 +248,6 @@ class CloudsGen {
     }
   }
    public void reset() {//reset da posicao X e Y das nuvens quando o menu esta ativo
-    if (!m.state);
     posX = width; 
     posY = height;
   }
@@ -457,12 +456,9 @@ Menu(float x, float y) {
             state = false;
             i.active = true;
         }
-        if (i.active) {
-            if (i.back.pressed) {
-                i.active = false;
-                back.pressed = false;
-                state = true;
-            }
+        if (i.back.pressed) {
+            i.active = false;
+            state = true;
         }
         if (highscorebttn.pressed) {
             state = false;

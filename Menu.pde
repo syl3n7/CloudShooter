@@ -44,12 +44,9 @@ Menu(float x, float y) {
             state = false;
             i.active = true;
         }
-        if (i.active) {
-            if (i.back.pressed) {
-                i.active = false;
-                back.pressed = false;
-                state = true;
-            }
+        if (i.back.pressed) {
+            i.active = false;
+            state = true;
         }
         if (highscorebttn.pressed) {
             state = false;
