@@ -56,12 +56,10 @@ Menu(float x, float y) {
             highscore.active = true;
             highscorebttn.pressed = false;
         }
-        if (highscorebttn.pressed) {
-            if (highscore.back.pressed) {
-                highscore.active = false;
-                state = true;
-                highscore.back.pressed = false;
-            }
+        if (highscore.back.pressed) {
+            highscore.active = false;
+            state = true;
+            highscore.back.pressed = false;
         }
     }
 }

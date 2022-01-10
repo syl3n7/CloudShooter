@@ -35,7 +35,7 @@ public float hits;
   Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize(); //https://forum.processing.org/one/topic/dynamic-screen-background-resize-need-guidance.html //dinamic window size begin (without borders) //ir buscar a dimensao da tela
   int screenWidth = screenSize.width; //ir buscar a largura da tela
   int screenHeight = screenSize.height; //ir buscar a largura da tela
-  surface.setSize(screenWidth, screenHeight);
+  surface.setSize(1920, 1080 /*screenWidth, screenHeight*/);
   /* smooth commented out by preprocessor */; //funcao de antialiasing
   center_x = screenWidth/2-width/2; //centrar a janela no eixo X
   center_y = screenHeight/2-height/2; //centrar a janela no eixo Y
@@ -469,12 +469,10 @@ Menu(float x, float y) {
             highscore.active = true;
             highscorebttn.pressed = false;
         }
-        if (highscorebttn.pressed) {
-            if (highscore.back.pressed) {
-                highscore.active = false;
-                state = true;
-                highscore.back.pressed = false;
-            }
+        if (highscore.back.pressed) {
+            highscore.active = false;
+            state = true;
+            highscore.back.pressed = false;
         }
     }
 }
