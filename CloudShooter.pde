@@ -76,6 +76,7 @@ void draw() { //desenhar os elementos do programa no ecra mediante condicoes esp
     score(); //incrementar score
     changeArraySizeOnDifficultyChange(); //alterar tamanho do array list de inimigos
     changeBulletSizeOnDifficultyChange(); //alterar tamanho da bala
+    displayBulletsCounter(); //mostrar numero de balas disponiveis
   }
 }
 void changeBulletSizeOnDifficultyChange(){ // mudar o tipo de bala consoante nivel de dificuldade
@@ -83,6 +84,7 @@ void changeBulletSizeOnDifficultyChange(){ // mudar o tipo de bala consoante niv
     for (int i = 0; i < 100; i++) { //remover os 10 inimigos do array list
       p1.b1.remove(new Bullets("assets/images/bullet_out_of_shell.png", -650, -650/2, 50)); 
     }
+    p1.counterB = 0; // reset ao counter de balas
     for (int i = 0; i < 200; i++) { //adicionar 20 inimigos ao array list
       p1.b1.add(new Bullets("assets/images/second_bullet_out_of_casing.png", -650, -650/2, 50)); 
     }
@@ -91,6 +93,7 @@ void changeBulletSizeOnDifficultyChange(){ // mudar o tipo de bala consoante niv
     for (int i = 0; i < 200; i++) { //remover os 20 inimigos do array list
       p1.b1.remove(new Bullets("assets/images/second_bullet_out_of_casing.png", -650, -650/2, 50)); 
     }
+    p1.counterB = 0; //reset ao counter de balas
     for (int i = 0; i < 300; i++) { //adicionar 30 inimigos ao array list
       p1.b1.add(new Bullets("assets/images/third_bullet_out_of_casing.png", -650, -650/2, 50)); 
     }
@@ -115,7 +118,11 @@ void changeArraySizeOnDifficultyChange() { // alterar tipo de inimigo ao aumenta
   }
 }
 void keyPressed() {
-  if (key == ' ') p1.shoot(); // disparar a bala ate width, se pressionado novamente, da reset a posicao da bala e volta a desenhar ate width
+  if (key == ' ') {
+    p1.shoot(); // disparar a bala ate width, se pressionado novamente, da reset a posicao da bala e volta a desenhar ate width
+    p1.counterB++;//incrementar o counter de balas
+  }
+  
 //codigo para movimento importado do exemplo fornecido pelo professor
   if(key == 's'|| key == 'S') p1.moveDown = true;
   if(key == 'w'|| key == 'W') p1.moveUp = true;
@@ -158,4 +165,8 @@ void mousePressed() { // quando clicar no botao do rato dentro das condicoes esp
   if(m.i.back.press()) m.i.back.pressed = true;
   if(m.highscorebttn.press()) m.highscorebttn.pressed = true;
   if(m.highscore.back.press()) m.highscore.back.pressed = true;
+}
+void displayBulletsCounter(){
+  textSize(24);
+  text("Bullets: "+(p1.b1.size() - p1.counterB), 350, height/8);
 }
