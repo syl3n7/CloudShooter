@@ -27,11 +27,9 @@ class Enemy {
 //necessito de fazer com que o enimigo se multiplique a cada posX completo.
 //usar um array de objetos de enimigos onde vao dando spawn a cada posX completo.
   void move() { //fazer inimigo andar pelo canvas variando velocidade horizontal e posicao vertical aleatoria
-    tsmoothed = noise(trand); //posicao vertical dinamica, dificuldade 0
+    tsmoothed = noise(random(trand)); //posicao vertical dinamica, dificuldade 0
     tsmoothed = map(tsmoothed, 0, 1, tam, width-tam);
     posY = tsmoothed;
-    if (posY < 500) posY += vel; //nao sair do canvas para baixo
-    if (posY > 600) posY -= vel; //nao sair do canvas para cima
     if (posX < 0 ) {
       posX = width + tam;
     } else {
@@ -43,6 +41,8 @@ class Enemy {
       }else if (p1.level == 2) {
         trand += 0.3;
       }
+      //if (posY < 500) posY += vel; //nao sair do canvas para baixo
+      //if (posY > 600) posY -= vel; //nao sair do canvas para cima
     }
     healthcheck(); //verificar a cada movimento a vida do inimigo
   }
