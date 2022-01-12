@@ -3,7 +3,7 @@ class Player {
   PImage img; //sprite normal
   float posX, posY, tam, vel, health, dmg;
   int level;
-  int counterB = -1;
+  int counterB = 0;
   boolean moveUp, moveDown, moveLeft, moveRight, moveUnLock; //booleanas para controlar o movimento do player
   public ArrayList<Bullets> b1; //bullets
 //Constructor
@@ -27,9 +27,6 @@ class Player {
     }
   }
   void drawme() { //spawn da imagem mediante parametros indicados + resize para tamanho pretendido
-    if (counterB >= 0) { //se o counter for 0 ou superior mover as balas
-      b1.get(counterB).moveme(); //mover as balas
-    }; 
     img.resize(350, 225); // redimensionar imagem das balas para tamanho do cano da nave
     if(health > 0) image(img, posX, posY); //display sprite of player ship with position and health check updated every tick
     fill(255, 0, 0, 200);
@@ -38,6 +35,7 @@ class Player {
     text("Health: " + health, posX+20, posY-40);
     moveme(); //mover o player1 //this now includes an animation on START to introduce the player into the canvas.
     damage(); //check if player hit the enemy and apply damage to enemy
+    lives(); //check if player is dead and remove life
   } 
   void damage() { //aplicar dano da bala da nave ao enimigo, consoante o nivel atual //http://jeffreythompson.org/collision-detection/rect-rect.php
     for (int i = 0; i < (level*10); i++){
@@ -52,11 +50,15 @@ class Player {
     if (counterB >= 0) { //se o counter for 0 ou superior disparar as balas
       b1.get(counterB).posX = posX-img.width/8.5;
       b1.get(counterB).posY = posY+img.height/5.8;
-      b1.get(counterB).drawme(); // desenhar a bala caso SPACE pressed
+      b1.get(counterB).drawme(); // desenhar a bala
     }
   }
   void lives (){
+    textSize(24);
+    text("Level: " + level, 500, height/8);
+    text("Lives: " + lives, 200, height/8);
     if (lives == 0) { //game over
+      exit();
     } else if (health <= 0){
         lives--;
         health = 100;
