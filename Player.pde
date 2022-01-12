@@ -20,14 +20,16 @@ class Player {
     moveRight = false;
     moveUp = false;
     level = 0;  //nivel atual de dificuldade
-    b1 = new ArrayList<Bullets>(); //bullets
-    b1.add(new Bullets("assets/images/bullet_out_of_shell.png", -650, -650/2, 50)); //bullet tipo 1
-    b1.add(new Bullets("assets/images/second_bullet_out_of_casing.png", -650, -650/2, 50)); //bullet tipo 2
-    b1.add(new Bullets("assets/images/third_bullet_out_of_casing.png", -650, -650/2, 50)); //bullet tipo 3
+    b1 = new ArrayList<Bullets>(300); //bullets
+    for (int i = 0; i < 100; i++) { //cria 10 bullets (tamanho depois alterado na classe principal consoante dificuldade)
+      b1.add(new Bullets("assets/images/bullet_out_of_shell.png", -650, -650/2, 50)); //adicionar 10 inimigos ao array list, se a dificuldade for superior, ele aumenta o array.
+    }
   }
   void drawme() { //spawn da imagem mediante parametros indicados + resize para tamanho pretendido
-    b1.get(level).drawme(); //desenhar as balas
-    b1.get(level).moveme(); //mover as balas
+    for (int i = 0; i < int(p1.level*100); i++) { //precorrer o tamanho do array de inimigos
+      b1.get(i).drawme(); //desenhar as balas
+      b1.get(i).moveme(); //mover as balas
+    }
     img.resize(350, 225); // redimensionar imagem das balas para tamanho do cano da nave
     if(health > 0) image(img, posX, posY); //display sprite of player ship with position and health check updated every tick
     fill(255, 0, 0, 200);

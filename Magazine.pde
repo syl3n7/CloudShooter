@@ -1,4 +1,4 @@
-//esta classe vai servir para colocar o array de balas para o jogador
+//esta classe serviria para colocar o array de balas
 class Magazine {
 //properties
     //ArrayList <Bullets> b;

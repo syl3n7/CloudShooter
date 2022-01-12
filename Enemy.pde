@@ -30,8 +30,8 @@ class Enemy {
     tsmoothed = noise(trand); //posicao vertical dinamica, dificuldade 0
     tsmoothed = map(tsmoothed, 0, 1, tam, width-tam);
     posY = tsmoothed;
-    if (posY < 90) posY += vel; //nao sair do canvas para baixo
-    if (posY > 980) posY -= vel; //nao sair do canvas para cima
+    if (posY < 500) posY += vel; //nao sair do canvas para baixo
+    if (posY > 600) posY -= vel; //nao sair do canvas para cima
     if (posX < 0 ) {
       posX = width + tam;
     } else {
