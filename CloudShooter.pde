@@ -36,10 +36,10 @@ void setup() { //codigo apenas executado no inicio do programa
   c4 = new CloudsGen("/assets/images/cloud4.png", 400, random(height)); //nuvem 4
   c5 = new CloudsGen("/assets/images/cloud5.png", 500, random(height)); //nuvem 5
   p1 = new Player("/assets/images/first_ship_cs.png", -200, height/2); //player 1 //spawn fora do canvas para animar a entrada do player no jogo
-  e1 = new ArrayList<Enemy>(); //enemy 1 (necessario tornar isto num array list de waves para attack)
-  e1.add(new Enemy("/assets/images/AlienSpaceship.png", width-300, height-300, 150));
-  e1.add(new Enemy("/assets/images/AlienSpaceship_secondcs.png", width-300, height-300, 150));
-  e1.add(new Enemy("/assets/images/AlienSpaceship_thirdcs.png", width-300, height-300, 150));
+  e1 = new ArrayList<Enemy>(30); //enemy 1 (necessario tornar isto num array list de waves para attack)
+  for (int i = 0; i < 10; i++) { //
+    e1.add(new Enemy("/assets/images/AlienSpaceship.png")); //adicionar 10 inimigos ao array list, se a dificuldade for superior, ele aumenta o array.
+  }
   hits = e1.get(p1.level).health/p1.dmg;
 }
 void draw() { //desenhar os elementos do programa no ecra mediante condicoes especificadas
@@ -70,12 +70,59 @@ void draw() { //desenhar os elementos do programa no ecra mediante condicoes esp
     c4.drawme(); //desenhar e mover nuvem4
     c5.drawme(); //desenhar e mover nuvem5
     p1.drawme(); //desenhar e mover o player1
-    e1.get(p1.level).drawme(); //desenhar e mover o inimigo
+    for (int i = 0; i < int(p1.level*10); i++) { //precorrer o tamanho do array de inimigos
+      e1.get(i).drawme(); //desenhar os inimigos do array list
+    }
     score(); //incrementar score
+    changeArraySizeOnDifficultyChange(); //alterar tamanho do array list de inimigos
+    changeBulletSizeOnDifficultyChange(); //alterar tamanho da bala
+    displayBulletsCounter(); //mostrar numero de balas disponiveis
+  }
+}
+void changeBulletSizeOnDifficultyChange(){ // mudar o tipo de bala consoante nivel de dificuldade
+  if (p1.level == 1){
+    for (int i = 0; i < 100; i++) { //remover os 10 inimigos do array list
+      p1.b1.remove(new Bullets("assets/images/bullet_out_of_shell.png", -650, -650/2, 50)); 
+    }
+    p1.counterB = 0; // reset ao counter de balas
+    for (int i = 0; i < 200; i++) { //adicionar 20 inimigos ao array list
+      p1.b1.add(new Bullets("assets/images/second_bullet_out_of_casing.png", -650, -650/2, 50)); 
+    }
+  }
+  if(p1.level == 2){
+    for (int i = 0; i < 200; i++) { //remover os 20 inimigos do array list
+      p1.b1.remove(new Bullets("assets/images/second_bullet_out_of_casing.png", -650, -650/2, 50)); 
+    }
+    p1.counterB = 0; //reset ao counter de balas
+    for (int i = 0; i < 300; i++) { //adicionar 30 inimigos ao array list
+      p1.b1.add(new Bullets("assets/images/third_bullet_out_of_casing.png", -650, -650/2, 50)); 
+    }
+  }
+}
+void changeArraySizeOnDifficultyChange() { // alterar tipo de inimigo ao aumentar wave.
+  if (p1.level == 1){
+    for (int i = 0; i < 10; i++) { //remover os 10 inimigos do array list
+      e1.remove(new Enemy("/assets/images/AlienSpaceship.png")); 
+    }
+    for (int i = 0; i < 20; i++) { //adicionar 20 inimigos ao array list
+      e1.add(new Enemy("/assets/images/AlienSpaceship_secondcs.png")); 
+    }
+  }
+  if(p1.level == 2){
+    for (int i = 0; i < 20; i++) { //remover os 20 inimigos do array list
+      e1.remove(new Enemy("/assets/images/AlienSpaceship_thirdcs.png")); 
+    }
+    for (int i = 0; i < 30; i++) { //adicionar 30 inimigos ao array list
+      e1.add(new Enemy("/assets/images/AlienSpaceship_thirdcs.png")); 
+    }
   }
 }
 void keyPressed() {
-  if (key == ' ') p1.shoot(); // disparar a bala ate width, se pressionado novamente, da reset a posicao da bala e volta a desenhar ate width
+  if (key == ' ') {
+    p1.shoot(); // disparar a bala ate width, se pressionado novamente, da reset a posicao da bala e volta a desenhar ate width
+    p1.counterB++;//incrementar o counter de balas
+  }
+  
 //codigo para movimento importado do exemplo fornecido pelo professor
   if(key == 's'|| key == 'S') p1.moveDown = true;
   if(key == 'w'|| key == 'W') p1.moveUp = true;
@@ -118,4 +165,8 @@ void mousePressed() { // quando clicar no botao do rato dentro das condicoes esp
   if(m.i.back.press()) m.i.back.pressed = true;
   if(m.highscorebttn.press()) m.highscorebttn.pressed = true;
   if(m.highscore.back.press()) m.highscore.back.pressed = true;
+}
+void displayBulletsCounter(){
+  textSize(24);
+  text("Bullets: "+(p1.b1.size() - p1.counterB), 350, height/8);
 }
