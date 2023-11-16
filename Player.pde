@@ -62,14 +62,19 @@ class Player {
     if(posY < 100) posY += 10;
     if(posX > 1720) posX -= 10;
     if(posY > 980) posY -= 10;
-    if (posX == 200) moveUnLock = true; //animacao inicial para o player sair do spawn area e ir ate a area de jogo
+    if(posX == 200) moveUnLock = true; //animacao inicial para o player sair do spawn area e ir ate a area de jogo
     //println(moveUnLock); usei isto para debug apenas. 
     //codigo da linha 80 a 84 importado do exemplo do professor para movimento + suave
-    if(moveUnLock) { //lock player movement
+    if(moveUnLock) 
+    { //lock player movement
       if (moveLeft) posX -= vel;  // "if(left == true)" igual a "if(left)"
-      else if (moveRight) posX += vel;
-      else if (moveUp) posY -= vel;
-      else if (moveDown) posY += vel;
+      if (moveRight) posX += vel;
+      if (moveUp) posY -= vel;
+      if (moveDown) posY += vel;
+      
+      posX = faces[0].x;
+      posY = faces[0].y;
+
     }
   }
 }
