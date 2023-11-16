@@ -71,10 +71,6 @@ class Player {
       if (moveRight) posX += vel;
       if (moveUp) posY -= vel;
       if (moveDown) posY += vel;
-      
-      posX = faces[0].x;
-      posY = faces[0].y;
-
     }
   }
 }

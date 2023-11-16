@@ -16,9 +16,9 @@ public float hits;
 
 void setup()
 { //codigo apenas executado no inicio do programa
-  video = new Capture(this, 640, 480, 30);
-  opencv = new OpenCV(this, 640, 480);
-  //opencv.loadCascade(OpenCV.CASCADE_FRONTALFACE);
+  video = new Capture(this, 160, 90, 30);
+  opencv = new OpenCV(this, 160, 90);
+  opencv.loadCascade(OpenCV.CASCADE_FRONTALFACE);
   video.start();
   surface.setTitle("CloudShooter by Catarina & Claudio"); //titulo da janela
   size(1920, 1080); //fullscreen
@@ -85,11 +85,10 @@ void draw()
     opencv.loadImage(video);
     image(video, 0, 0);
     Rectangle[] faces = opencv.detect();
-    println(faces.length);
-    for (int i = 0; i < faces.length; i++) 
+    if(p1.moveUnLock)
     {
-      println(faces[i].x + "," + faces[i].y);
-      rect(faces[i].x, faces[i].y, faces[i].width, faces[i].height);
+      p1.posX = map(faces[0].x, 0, 160, 0, height);
+      p1.posY = map(faces[0].y, 0, 90, 0, height);
     }
     m.background.drawme();
     m.back.drawme(); //desenhar o botão de pausa
