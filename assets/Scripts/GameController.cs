@@ -1,9 +1,11 @@
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour
+public class GameController : MonoBehaviour
 {
-    public static GameManager instance;
+    public static GameController instance;
     public GameManager gameManager = GameManager.Idle;
     private List<IGameStateController> gameStateControllers = new List<IGameStateController>();
 
@@ -14,8 +16,8 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        gameStateControllers.AddRange(FindObjectOfType<MonoBehaviour>().OfType<IGameStateController>());
-    }
+        gameStateControllers.AddRange(FindObjectsOfType<MonoBehaviour>().OfType<IGameStateController>());
+        }
 
     private void Update()
     {
