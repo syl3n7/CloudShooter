@@ -23,7 +23,7 @@ public class UIManager : MonoBehaviour
 
         exit_bttn.onClick.AddListener(delegate
         {
-            //guardar highscore antes de fechar
+            GameController.instance.SavePrefs();
             Application.Quit();
         });
 

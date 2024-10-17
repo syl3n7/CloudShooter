@@ -1,22 +1,34 @@
+using System;
+using UnityEditor.UI;
 using UnityEngine;
+using UnityEngine.Scripting.APIUpdating;
 
 public class PlayerController : MonoBehaviour, IGameStateController
 {
+    private ScoreManager smanager;
+    private bool up, down, left, right;
     public void Dead()
     {
-        throw new System.NotImplementedException();
+        GameController.instance.highscore = smanager.GetScore();
     }
 
     public void Idle()
     {
-        throw new System.NotImplementedException();
+
     }
 
     public void Playing()
     {
-        throw new System.NotImplementedException();
+        MoveMe();
     }
 
+    private void MoveMe()
+    {
 
+    }
 
+    void Start()
+    {
+        smanager = new ScoreManager(GameController.instance.highscore);
+    }
 }

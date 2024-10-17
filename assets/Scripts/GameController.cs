@@ -9,6 +9,10 @@ public class GameController : MonoBehaviour
     public GameManager gameManager = GameManager.Idle;
     private List<IGameStateController> gameStateControllers = new List<IGameStateController>();
 
+    public int gamevolume;
+    public int musicvolume;
+    public int highscore;
+
     private void Awake()
     {
         instance = this;
@@ -17,7 +21,8 @@ public class GameController : MonoBehaviour
     private void Start()
     {
         gameStateControllers.AddRange(FindObjectsOfType<MonoBehaviour>().OfType<IGameStateController>());
-        }
+        LoadPrefs();
+    }
 
     private void Update()
     {
@@ -41,5 +46,21 @@ public class GameController : MonoBehaviour
     public void ChangeState(GameManager gameManager)
     {
         this.gameManager = gameManager;
+    }
+
+    public void SavePrefs()
+    {
+        PlayerPrefs.SetInt("GameVolume", gamevolume);
+        PlayerPrefs.SetInt("MusicVolume", musicvolume);
+        PlayerPrefs.SetInt("HighScore", highscore);
+        PlayerPrefs.Save();
+    }
+
+    public void LoadPrefs()
+    {
+        gamevolume = PlayerPrefs.GetInt("GameVolume", gamevolume);
+        musicvolume = PlayerPrefs.GetInt("MusicVolume", musicvolume);
+        highscore = PlayerPrefs.GetInt("HighScore", highscore);
+
     }
 }
