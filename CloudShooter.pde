@@ -11,7 +11,7 @@ public float hits;
 
 void setup() { //codigo apenas executado no inicio do programa
   surface.setTitle("CloudShooter by Catarina & Claudio"); //titulo da janela
-  fullScreen(0,P2D); //fullscreen
+  //fullScreen(0,P2D); //fullscreen
   frameRate(60); //especificar framerate a usar
   Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize(); //https://forum.processing.org/one/topic/dynamic-screen-background-resize-need-guidance.html //dinamic window size begin (without borders) //ir buscar a dimensao da tela
   int screenWidth = screenSize.width; //ir buscar a largura da tela
