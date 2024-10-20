@@ -20,7 +20,9 @@ public class GameController : MonoBehaviour
 
     private void Start()
     {
+#pragma warning disable CS0618 // Type or member is obsolete
         gameStateControllers.AddRange(FindObjectsOfType<MonoBehaviour>().OfType<IGameStateController>());
+#pragma warning restore CS0618 // Type or member is obsolete
         LoadPrefs();
     }
 

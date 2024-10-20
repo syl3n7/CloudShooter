@@ -1,7 +1,5 @@
 using System;
-using UnityEditor.UI;
 using UnityEngine;
-using UnityEngine.Scripting.APIUpdating;
 
 public class PlayerController : MonoBehaviour, IGameStateController
 {

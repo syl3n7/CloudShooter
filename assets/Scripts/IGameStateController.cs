@@ -4,7 +4,8 @@ public enum GameManager
     Playing,
     Dead
 }
-public interface IGameStateController {
+public interface IGameStateController
+{
     public abstract void Idle();
     public abstract void Playing();
     public abstract void Dead();
