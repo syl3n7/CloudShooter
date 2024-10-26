@@ -11,6 +11,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject main_menu_panel;
     [SerializeField] private GameObject instructions_panel;
     [SerializeField] private GameObject highscore_panel;
+    [SerializeField] private GameObject InGame_panel;
 
     void Start()
     {
@@ -41,13 +42,17 @@ public class UIManager : MonoBehaviour
     void start_game()
     {
         main_menu_panel.SetActive(false);
+        InGame_panel.SetActive(true);
     }
 
     //bg.GetComponent<Image>().sprite = Spritexpto
 
     //jogar
 
-    //sair (para poder guardar antes de fechar)
+    public void Quit()
+    {
+        
+    }
 
     //instrucoes
 

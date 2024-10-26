@@ -8,10 +8,10 @@ public class GameController : MonoBehaviour
     public static GameController instance;
     public GameManager gameManager = GameManager.Idle;
     private List<IGameStateController> gameStateControllers = new List<IGameStateController>();
-
+    public PlayerController playerController = null;
     public int gamevolume;
     public int musicvolume;
-    public int highscore;
+    public int highscore = 0;
 
     private void Awake()
     {
@@ -43,6 +43,7 @@ public class GameController : MonoBehaviour
                     break;
             }
         }
+        
     }
 
     public void ChangeState(GameManager gameManager)
@@ -63,6 +64,10 @@ public class GameController : MonoBehaviour
         gamevolume = PlayerPrefs.GetInt("GameVolume", gamevolume);
         musicvolume = PlayerPrefs.GetInt("MusicVolume", musicvolume);
         highscore = PlayerPrefs.GetInt("HighScore", highscore);
+    }
 
+    private void OnApplicationQuit()
+    {
+        SavePrefs();
     }
 }
