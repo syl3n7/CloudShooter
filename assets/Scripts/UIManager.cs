@@ -12,7 +12,6 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject instructions_panel;
     [SerializeField] private GameObject highscore_panel;
 
-
     void Start()
     {
         start_bttn.onClick.AddListener(delegate
