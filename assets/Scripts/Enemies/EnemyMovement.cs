@@ -4,9 +4,12 @@ public class EnemyMovement : MonoBehaviour
 {
     public float speed = 3f;
     public int damageAmount = 10;
+    public float destroyDelay = 5f;
     
     private Camera mainCamera;
     private Rigidbody2D rb;
+    private bool hasLeftScreen = false;
+    private float timeLeftScreen = 0f;
 
     void Start()
     {
@@ -16,17 +19,24 @@ public class EnemyMovement : MonoBehaviour
 
     void FixedUpdate()
     {
-        // Move left using physics
-        rb.linearVelocity = Vector2.left * speed;
+        rb.velocity = Vector2.left * speed;
     }
 
     void Update()
     {
-        // Check if enemy is visible in camera
         Vector3 viewportPoint = mainCamera.WorldToViewportPoint(transform.position);
-        if (viewportPoint.x < -0.1f) // Slightly off screen
+        
+        if (viewportPoint.x < -0.1f)
         {
-            Destroy(gameObject);
+            if (!hasLeftScreen)
+            {
+                hasLeftScreen = true;
+                timeLeftScreen = Time.time;
+            }
+            else if (Time.time - timeLeftScreen >= destroyDelay)
+            {
+                Destroy(gameObject);
+            }
         }
     }
 

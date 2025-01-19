@@ -3,13 +3,33 @@ using System.Collections;
 
 public class EnemySpawner : MonoBehaviour
 {
-    public GameObject enemyPrefab;
+    private GameObject[] enemyPrefabs;
     public float spawnInterval = 2f;
     private Camera mainCamera;
 
     void Start()
     {
         mainCamera = Camera.main;
+        
+        // Initialize and load prefabs
+        enemyPrefabs = new GameObject[3];
+        string[] prefabPaths = new string[] {
+            "Prefabs/Enemy/Enemy",
+            "Prefabs/Enemy/EnemyFast",
+            "Prefabs/Enemy/EnemyTough"
+        };
+        
+        // Load all prefabs
+        for (int i = 0; i < enemyPrefabs.Length; i++)
+        {
+            enemyPrefabs[i] = Resources.Load<GameObject>(prefabPaths[i]);
+            if (enemyPrefabs[i] == null)
+            {
+                Debug.LogError($"Failed to load enemy prefab at path: {prefabPaths[i]}");
+                return;
+            }
+        }
+
         StartCoroutine(SpawnRoutine());
     }
 
@@ -24,6 +44,12 @@ public class EnemySpawner : MonoBehaviour
 
     void SpawnEnemy()
     {
+        if (enemyPrefabs == null || enemyPrefabs.Length == 0)
+        {
+            Debug.LogError("No enemy prefabs available!");
+            return;
+        }
+
         Vector3 rightEdge = mainCamera.ViewportToWorldPoint(new Vector3(1.1f, 0f, 0f));
         
         float randomY = Random.Range(
@@ -32,6 +58,9 @@ public class EnemySpawner : MonoBehaviour
         );
 
         Vector3 spawnPosition = new Vector3(rightEdge.x, randomY, 0f);
-        Instantiate(enemyPrefab, spawnPosition, Quaternion.identity);
+        
+        // Randomly select an enemy prefab
+        GameObject selectedPrefab = enemyPrefabs[Random.Range(0, enemyPrefabs.Length)];
+        Instantiate(selectedPrefab, spawnPosition, Quaternion.identity);
     }
 }
