@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 60e4a8d6c3d92e44dbf8f01529aa13ae
+guid: b30c3af5dd5dd0d49a76c2bf296f1acf
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 7709244552568602532
-    second: AlienSpaceship_secondcs_0
+      213: 7393695611680338838
+    second: AlienSpaceship_thirdcs_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -37,7 +37,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 2
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -75,7 +75,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 2
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -126,7 +126,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: AlienSpaceship_secondcs_0
+      name: AlienSpaceship_thirdcs_0
       rect:
         serializedVersion: 2
         x: 17
@@ -141,8 +141,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 4af7772431dbcfa60800000000000000
-      internalID: 7709244552568602532
+      spriteID: 693329f3cfeab9660800000000000000
+      internalID: 7393695611680338838
       vertices: []
       indices: 
       edges: []
@@ -161,7 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      AlienSpaceship_secondcs_0: 7709244552568602532
+      AlienSpaceship_thirdcs_0: 7393695611680338838
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
