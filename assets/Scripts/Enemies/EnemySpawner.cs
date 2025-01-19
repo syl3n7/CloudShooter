@@ -18,9 +18,9 @@ public class EnemySpawner : MonoBehaviour
         
         // Define paths clearly
         string[] prefabPaths = new string[] {
-            "Prefabs/Enemy",
-            "Prefabs/EnemyFast",
-            "Prefabs/EnemyTough"
+            "Prefabs/Enemy/Enemy",
+            "Prefabs/Enemy/EnemyFast",
+            "Prefabs/Enemy/EnemyTough"
         };
         
         // Load prefabs with explicit type and error checking
