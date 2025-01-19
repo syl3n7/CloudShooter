@@ -16,22 +16,24 @@ public class EnemySpawner : MonoBehaviour
     {
         enemyPrefabs = new GameObject[3];
         
-        // Load prefabs with error checking
-        enemyPrefabs[0] = Resources.Load<GameObject>("Prefabs/Enemy");
-        enemyPrefabs[1] = Resources.Load<GameObject>("Prefabs/EnemyFast");
-        enemyPrefabs[2] = Resources.Load<GameObject>("Prefabs/EnemyTough");  // Fixed typo
-
-        // Verify all prefabs loaded correctly
+        // Define paths clearly
+        string[] prefabPaths = new string[] {
+            "Prefabs/Enemy",
+            "Prefabs/EnemyFast",
+            "Prefabs/EnemyTough"
+        };
+        
+        // Load prefabs with explicit type and error checking
         for (int i = 0; i < enemyPrefabs.Length; i++)
         {
+            enemyPrefabs[i] = Resources.Load<GameObject>(prefabPaths[i]);
             if (enemyPrefabs[i] == null)
             {
-                Debug.LogError($"Failed to load enemy prefab at index {i}");
-                return; // Don't start coroutine if prefabs are missing
+                Debug.LogError($"Failed to load enemy prefab at path: {prefabPaths[i]}");
+                return;
             }
         }
 
-        // Only start spawning if all prefabs loaded successfully
         StartCoroutine(SpawnWaves());
     }
 
