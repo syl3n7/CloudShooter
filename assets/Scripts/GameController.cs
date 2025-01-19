@@ -23,13 +23,13 @@ public class GameController : MonoBehaviour
             {
                 if (_instance == null)
                 {
-                    _instance = FindObjectOfType<GameController>();
+                    _instance = FindAnyObjectByType<GameController>();
                     
                     if (_instance == null)
                     {
                         var singleton = new GameObject(typeof(GameController).Name);
                         _instance = singleton.AddComponent<GameController>();
-                        
+                        DontDestroyOnLoad(singleton);
                         Debug.Log("Created new GameController instance.");
                     }
                 }
@@ -68,7 +68,7 @@ public class GameController : MonoBehaviour
 
     private void Start()
     {
-        gameStateControllers.AddRange(FindObjectsOfType<IGameStateController>());
+        InitializeControllers();
         LoadPrefs();
     }
 
@@ -124,5 +124,16 @@ public class GameController : MonoBehaviour
     {
         applicationIsQuitting = true;
         SavePrefs();
+    }
+
+    private void InitializeControllers()
+    {
+        gameStateControllers.Clear();
+        var rootObjects = UnityEngine.SceneManagement.SceneManager.GetActiveScene().GetRootGameObjects();
+        
+        foreach (var root in rootObjects)
+        {
+            gameStateControllers.AddRange(root.GetComponentsInChildren<MonoBehaviour>().OfType<IGameStateController>());
+        }
     }
 }

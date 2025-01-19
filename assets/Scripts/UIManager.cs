@@ -23,7 +23,7 @@ public class UIManager : MonoBehaviour
 
         exit_bttn.onClick.AddListener(delegate
         {
-            GameController.instance.SavePrefs();
+            GameController.Instance.SavePrefs();
             Application.Quit();
         });
 
