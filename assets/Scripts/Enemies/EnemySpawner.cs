@@ -14,6 +14,7 @@ public class EnemySpawner : MonoBehaviour
 
     void Start()
     {
+        enemyPrefabs = new GameObject[3];
         enemyPrefabs[0] = Resources.Load<GameObject>("Prefabs/Enemy");
         enemyPrefabs[1] = Resources.Load<GameObject>("Prefabs/EnemyFast");
         enemyPrefabs[2] = Resources.Load<GameObject>("Prefabs/EnemyThough");
