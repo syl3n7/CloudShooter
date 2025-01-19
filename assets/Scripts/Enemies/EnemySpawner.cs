@@ -1,87 +1,37 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
+using System.Collections;
 
 public class EnemySpawner : MonoBehaviour
 {
-    public GameObject[] enemyPrefabs; // Array of enemy prefabs (Normal, Fast, Tough)
-    public float spawnInterval = 2f; // Time between spawns
-    public int waveSize = 10; // Number of enemies per wave
-    public float waveCooldown = 5f; // Time between waves
+    public GameObject enemyPrefab;
+    public float spawnInterval = 2f;
+    private Camera mainCamera;
 
-    private int currentWave = 0;
-
-    private void Start()
+    void Start()
     {
-        enemyPrefabs = new GameObject[3];
-        
-        // Define paths clearly
-        string[] prefabPaths = new string[] {
-            "Prefabs/Enemy/Enemy",
-            "Prefabs/Enemy/EnemyFast",
-            "Prefabs/Enemy/EnemyTough"
-        };
-        
-        // Load prefabs with explicit type and error checking
-        for (int i = 0; i < enemyPrefabs.Length; i++)
-        {
-            enemyPrefabs[i] = Resources.Load<GameObject>(prefabPaths[i]);
-            if (enemyPrefabs[i] == null)
-            {
-                Debug.LogError($"Failed to load enemy prefab at path: {prefabPaths[i]}");
-                return;
-            }
-        }
-
-        StartCoroutine(SpawnWaves());
+        mainCamera = Camera.main;
+        StartCoroutine(SpawnRoutine());
     }
 
-    IEnumerator SpawnWaves()
+    IEnumerator SpawnRoutine()
     {
-        while (true) // Infinite waves
+        while (true)
         {
-            currentWave++;
-            Debug.Log("Starting Wave " + currentWave);
-
-            for (int i = 0; i < waveSize; i++)
-            {
-                SpawnEnemy();
-                yield return new WaitForSeconds(spawnInterval);
-            }
-
-            yield return new WaitForSeconds(waveCooldown); // Wait before next wave
+            SpawnEnemy();
+            yield return new WaitForSeconds(spawnInterval);
         }
     }
 
     void SpawnEnemy()
     {
-        // Randomly select an enemy type based on wave progression
-        int enemyIndex = GetEnemyTypeForWave(currentWave);
-        GameObject enemy = Instantiate(enemyPrefabs[enemyIndex], GetSpawnPosition(), Quaternion.identity);
-    }
+        Vector3 rightEdge = mainCamera.ViewportToWorldPoint(new Vector3(1.1f, 0f, 0f));
+        
+        float randomY = Random.Range(
+            mainCamera.ViewportToWorldPoint(new Vector3(0, 0.1f, 0)).y,
+            mainCamera.ViewportToWorldPoint(new Vector3(0, 0.9f, 0)).y
+        );
 
-    int GetEnemyTypeForWave(int wave)
-    {
-        // Adjust logic to control enemy types per wave
-        if (wave % 5 == 0) // Every 5th wave, spawn tougher enemies
-        {
-            return 2; // Tough enemy
-        }
-        else if (wave % 2 == 0) // Every even wave, spawn faster enemies
-        {
-            return 1; // Fast enemy
-        }
-        else
-        {
-            return 0; // Normal enemy
-        }
-    }
-
-    Vector3 GetSpawnPosition()
-    {
-        // Spawn enemies off-screen to the right
-        float spawnY = Random.Range(-4f, 4f); // Random Y position within screen bounds
-        return new Vector3(10f, spawnY, 0f); // Adjust X for off-screen spawning
+        Vector3 spawnPosition = new Vector3(rightEdge.x, randomY, 0f);
+        Instantiate(enemyPrefab, spawnPosition, Quaternion.identity);
     }
 }

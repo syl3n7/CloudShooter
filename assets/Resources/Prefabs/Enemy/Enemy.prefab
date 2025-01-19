@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 4554619040458822209}
   - component: {fileID: 6214731388165919652}
   - component: {fileID: 8433794583955474700}
+  - component: {fileID: -754505342023148029}
+  - component: {fileID: 1221752411001759295}
   m_Layer: 5
   m_Name: Enemy
   m_TagString: Untagged
@@ -105,3 +107,97 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 2500
+  damageAmount: 10
+--- !u!68 &-754505342023148029
+EdgeCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7570213671200636632}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_EdgeRadius: 0
+  m_Points:
+  - {x: 0.27886364, y: 0.028934497}
+  - {x: 0.18123554, y: 0.07527776}
+  - {x: 0.08942418, y: 0.09816237}
+  - {x: 0.0068466384, y: 0.11590399}
+  - {x: -0.13296747, y: 0.11447518}
+  - {x: -0.2196587, y: 0.08679486}
+  - {x: -0.30345988, y: 0.027958052}
+  - {x: -0.3959806, y: -0.07147391}
+  - {x: -0.39572233, y: -0.0018045902}
+  - {x: -0.42851418, y: -0.09530288}
+  - {x: -0.4620621, y: -0.11664341}
+  - {x: -0.44169965, y: -0.20044267}
+  - {x: -0.39701453, y: -0.13395377}
+  - {x: -0.21733953, y: -0.20432417}
+  - {x: -0.2567865, y: -0.22892329}
+  - {x: -0.34991464, y: -0.2498704}
+  - {x: -0.2850416, y: -0.27676463}
+  - {x: 0.012582779, y: -0.27619416}
+  - {x: 0.10674269, y: -0.24022472}
+  - {x: 0.17781375, y: -0.19075923}
+  - {x: 0.25520042, y: -0.18356109}
+  - {x: 0.29877105, y: -0.21824965}
+  - {x: 0.29113948, y: -0.12285046}
+  - {x: 0.4153662, y: -0.09337051}
+  - {x: 0.35140485, y: 0.008806184}
+  m_AdjacentStartPoint: {x: 0, y: 0}
+  m_AdjacentEndPoint: {x: 0, y: 0}
+  m_UseAdjacentStartPoint: 0
+  m_UseAdjacentEndPoint: 0
+--- !u!50 &1221752411001759295
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7570213671200636632}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 1
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 1
+  m_SleepingMode: 0
+  m_CollisionDetection: 1
+  m_Constraints: 4

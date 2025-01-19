@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4554619040458822209}
   - component: {fileID: 6214731388165919652}
   - component: {fileID: 1123243759982685588}
+  - component: {fileID: -8849465324738148894}
   m_Layer: 5
   m_Name: EnemyTough
   m_TagString: Untagged
@@ -105,3 +106,65 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 1500
+  damageAmount: 10
+--- !u!68 &-8849465324738148894
+EdgeCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7570213671200636632}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_EdgeRadius: 0
+  m_Points:
+  - {x: 0.29909354, y: -0.2191167}
+  - {x: 0.23675941, y: -0.17276673}
+  - {x: 0.123523295, y: -0.225317}
+  - {x: 0.0070905574, y: -0.27935869}
+  - {x: -0.2836922, y: -0.27600098}
+  - {x: -0.3534475, y: -0.25476968}
+  - {x: -0.2635211, y: -0.23514141}
+  - {x: -0.23391993, y: -0.20042904}
+  - {x: -0.3896138, y: -0.13480102}
+  - {x: -0.445549, y: -0.20386803}
+  - {x: -0.45351553, y: -0.117022924}
+  - {x: -0.4365797, y: -0.096735366}
+  - {x: -0.39400524, y: 0.0010935515}
+  - {x: -0.38896218, y: -0.06417929}
+  - {x: -0.2679083, y: 0.06150706}
+  - {x: -0.1418092, y: 0.11754939}
+  - {x: -0.0010774434, y: 0.12445745}
+  - {x: 0.18282965, y: 0.07778691}
+  - {x: 0.27447334, y: 0.027700827}
+  - {x: 0.3327154, y: 0.03898391}
+  m_AdjacentStartPoint: {x: 0, y: 0}
+  m_AdjacentEndPoint: {x: 0, y: 0}
+  m_UseAdjacentStartPoint: 0
+  m_UseAdjacentEndPoint: 0
