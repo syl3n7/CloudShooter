@@ -1373,13 +1373,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 948638332}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 37ea07e8efaefdc429e263331ace417e, type: 3}
+  m_Script: {fileID: 11500000, guid: 6264816f07f454c40962cc14870b8e28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyPrefabs: []
-  spawnInterval: 10
-  waveSize: 100
-  waveCooldown: 60
+  spawnInterval: 2
 --- !u!1 &975289913
 GameObject:
   m_ObjectHideFlags: 0
