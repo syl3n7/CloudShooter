@@ -5,7 +5,39 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour
 {
-    public static GameController instance;
+    private static readonly object _lock = new object();
+    private static GameController _instance;
+    private static bool applicationIsQuitting = false;
+
+    public static GameController Instance
+    {
+        get
+        {
+            if (applicationIsQuitting)
+            {
+                Debug.LogWarning("Instance of GameController already destroyed on application quit. Won't create again.");
+                return null;
+            }
+            
+            lock (_lock)
+            {
+                if (_instance == null)
+                {
+                    _instance = FindObjectOfType<GameController>();
+                    
+                    if (_instance == null)
+                    {
+                        var singleton = new GameObject(typeof(GameController).Name);
+                        _instance = singleton.AddComponent<GameController>();
+                        
+                        Debug.Log("Created new GameController instance.");
+                    }
+                }
+                return _instance;
+            }
+        }
+    }
+
     public GameManager gameManager = GameManager.Idle;
     private List<IGameStateController> gameStateControllers = new List<IGameStateController>();
     public PlayerController playerController = null;
@@ -15,7 +47,23 @@ public class GameController : MonoBehaviour
 
     private void Awake()
     {
-        instance = this;
+        if (_instance != null && _instance != this)
+        {
+            Debug.LogWarning($"Multiple GameController instances detected. Destroying duplicate on {gameObject.name}");
+            Destroy(gameObject);
+            return;
+        }
+        
+        _instance = this;
+        DontDestroyOnLoad(gameObject);
+        InitializeController();
+    }
+
+    private void InitializeController()
+    {
+        // Add initialization logic here
+        gameManager = GameManager.Idle;
+        gameStateControllers.Clear();
     }
 
     private void Start()
@@ -64,8 +112,17 @@ public class GameController : MonoBehaviour
         highscore = PlayerPrefs.GetInt("HighScore", highscore);
     }
 
+    private void OnDestroy()
+    {
+        if (_instance == this)
+        {
+            applicationIsQuitting = true;
+        }
+    }
+
     private void OnApplicationQuit()
     {
+        applicationIsQuitting = true;
         SavePrefs();
     }
 }
