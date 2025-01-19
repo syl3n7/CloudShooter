@@ -6,7 +6,7 @@ using UnityEngine;
 public class HealthManager
 {
     private float health;
-
+    
     public HealthManager(float health)
     {
         this.health = health;
