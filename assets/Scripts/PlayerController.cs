@@ -1,4 +1,4 @@
-using UnityEditor.iOS;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -7,14 +7,13 @@ public class PlayerController : MonoBehaviour, IGameStateController
     private ScoreManager smanager;
 
     [Header("PlayerMovement")]
-
-    private Vector3 playerVelocity;
+    
+    private Rigidbody2D rb;
     [SerializeField] private InputActionAsset CustomInput;
     public float speed;
-    private float Hmovement;
-    private float Vmovement;
+    private Vector2 movementInput;
+
     private InputAction moveAction;
-    
 
     [Header("PlayerSprites")]
     private SpriteRenderer spriteRenderer;
@@ -26,6 +25,7 @@ public class PlayerController : MonoBehaviour, IGameStateController
 
     void Awake()
     {
+        rb = GetComponent<Rigidbody2D>();
         var playerInput = GetComponent<PlayerInput>();
         moveAction = playerInput.actions["Move"];
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -34,11 +34,11 @@ public class PlayerController : MonoBehaviour, IGameStateController
     void Start()
     {
         //smanager = new ScoreManager(GameController.instance.highscore);
-        defaultSprite = Resources.Load<Sprite>("Sprites/default");
-        //unlockedSprite1
-        //unlockedSprite2
-        //unlockedSprite3
-        //unlockedSprite4
+        defaultSprite = Resources.Load<Sprite>("Sprites/Player/first_ship_cs");
+        unlockedSprite1 = Resources.Load<Sprite>("Sprites/Player/first_ship_secondcs");
+        unlockedSprite2 = Resources.Load<Sprite>("Sprites/Player/first_ship_thirdcs");  
+        unlockedSprite3 = Resources.Load<Sprite>("Sprites/Player/first_ship_fourthcs");
+        unlockedSprite4 = Resources.Load<Sprite>("Sprites/Player/first_ship_fifthcs");
         LoadPlayerSprite();
     }
 
@@ -49,12 +49,13 @@ public class PlayerController : MonoBehaviour, IGameStateController
             // Handle escape key press for pause menu
         }
 
-        Vector2 input = moveAction.ReadValue<Vector2>();
-        Hmovement = input.x;
-        Vmovement = input.y;
+        movementInput = moveAction.ReadValue<Vector2>();
+    }
 
-        Vector3 move = new Vector3(Hmovement, Vmovement, 0) * speed * Time.deltaTime;
-        transform.position += move;
+    private void FixedUpdate()
+    {
+        Vector2 move = movementInput * speed * Time.fixedDeltaTime;
+        rb.linearVelocity = move;
     }
 
     private void LoadPlayerSprite()
@@ -72,10 +73,27 @@ public class PlayerController : MonoBehaviour, IGameStateController
             case 2:
                 spriteRenderer.sprite = unlockedSprite2;
                 break;
-            // Add more cases as needed
+            case 3:
+                spriteRenderer.sprite = unlockedSprite3;
+                break;
+            case 4:
+                spriteRenderer.sprite = unlockedSprite4;
+                break;
             default:
                 spriteRenderer.sprite = defaultSprite;
                 break;
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("enemy") || 
+            collision.gameObject.CompareTag("bullet1") || 
+            collision.gameObject.CompareTag("bullet2") || 
+            collision.gameObject.CompareTag("bullet3"))
+        {
+            // Handle collision with enemy or bullets
+            Debug.Log("Collision detected with: " + collision.gameObject.tag);
         }
     }
 
@@ -91,7 +109,7 @@ public class PlayerController : MonoBehaviour, IGameStateController
 
     public void Playing()
     {
-
+        
     }
 
     private void Move(InputAction.CallbackContext context)
