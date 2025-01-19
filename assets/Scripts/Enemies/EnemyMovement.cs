@@ -19,7 +19,7 @@ public class EnemyMovement : MonoBehaviour
 
     void FixedUpdate()
     {
-        rb.velocity = Vector2.left * speed;
+        rb.linearVelocity = Vector2.left * speed;
     }
 
     void Update()
