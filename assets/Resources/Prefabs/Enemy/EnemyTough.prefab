@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6214731388165919652}
   - component: {fileID: 1123243759982685588}
   - component: {fileID: -8849465324738148894}
+  - component: {fileID: -4290747300241600489}
   m_Layer: 5
   m_Name: EnemyTough
   m_TagString: Untagged
@@ -107,6 +108,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 1500
   damageAmount: 10
+  destroyDelay: 5
 --- !u!68 &-8849465324738148894
 EdgeCollider2D:
   m_ObjectHideFlags: 0
@@ -168,3 +170,30 @@ EdgeCollider2D:
   m_AdjacentEndPoint: {x: 0, y: 0}
   m_UseAdjacentStartPoint: 0
   m_UseAdjacentEndPoint: 0
+--- !u!50 &-4290747300241600489
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7570213671200636632}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
