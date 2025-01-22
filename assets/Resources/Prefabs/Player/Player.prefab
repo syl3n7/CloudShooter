@@ -143,7 +143,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d040aa15c83fd8a4099374a7595a8be1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rb: {fileID: 0}
+  rb: {fileID: 3113957482004805033}
   CustomInput: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   speed: 25000
   moveAction:
@@ -174,7 +174,7 @@ MonoBehaviour:
   - {fileID: 194951056985573184, guid: 3e7bad384a69bef42acfcd4ce0c369d0, type: 3}
   - {fileID: 3447702199853544016, guid: 83db39b655441764d9efbcd70db5ea76, type: 3}
   fireRate: 0.2
-  spriteRenderer: {fileID: 0}
+  spriteRenderer: {fileID: 9463385411375541}
 --- !u!114 &5907446915874740440
 MonoBehaviour:
   m_ObjectHideFlags: 0
