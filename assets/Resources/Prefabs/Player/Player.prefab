@@ -1,5 +1,40 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1846332046037919816
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3179623559239363424}
+  m_Layer: 5
+  m_Name: BulletPointSpawn
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &3179623559239363424
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1846332046037919816}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4482728120981225073}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -0.16, y: -0.278}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &3252391336484707045
 GameObject:
   m_ObjectHideFlags: 0
@@ -32,7 +67,8 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 162.192, y: 162.192, z: 162.192}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 3179623559239363424}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -109,6 +145,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CustomInput: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   speed: 5000
+  bulletSpawnPoint: {fileID: 3179623559239363424}
+  bulletPrefabs:
+  - {fileID: 4334076261306941842, guid: e190fb5f053cb244c906d1beea76e78f, type: 3}
+  - {fileID: 6514040314520405198, guid: 4af9d9bf236ca2443bbdb38b520368ef, type: 3}
+  - {fileID: 5625170155953215162, guid: 0e41441eb89caa34daffc2aa07de209c, type: 3}
+  casingPrefabs:
+  - {fileID: 4423551933835585105, guid: b4c9cc7305687dc4f87296c9c6c6a583, type: 3}
+  - {fileID: 194951056985573184, guid: 3e7bad384a69bef42acfcd4ce0c369d0, type: 3}
+  - {fileID: 3447702199853544016, guid: 83db39b655441764d9efbcd70db5ea76, type: 3}
+  fireRate: 0.2
 --- !u!114 &5907446915874740440
 MonoBehaviour:
   m_ObjectHideFlags: 0
