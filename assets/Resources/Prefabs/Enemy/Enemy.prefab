@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 1221752411001759295}
   m_Layer: 5
   m_Name: Enemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -108,6 +108,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 2500
   damageAmount: 10
+  destroyDelay: 5
 --- !u!68 &-754505342023148029
 EdgeCollider2D:
   m_ObjectHideFlags: 0

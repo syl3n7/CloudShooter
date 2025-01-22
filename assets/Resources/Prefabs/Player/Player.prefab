@@ -143,8 +143,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d040aa15c83fd8a4099374a7595a8be1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rb: {fileID: 0}
   CustomInput: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
-  speed: 5000
+  speed: 25000
+  moveAction:
+    m_Name: Move
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: db0c9c86-49df-43f1-97c2-d77ae27d65f0
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+  fireAction:
+    m_Name: Fire
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: d0ed3e63-7bd4-4800-b6e2-cd703a8fe25a
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
   bulletSpawnPoint: {fileID: 3179623559239363424}
   bulletPrefabs:
   - {fileID: 4334076261306941842, guid: e190fb5f053cb244c906d1beea76e78f, type: 3}
@@ -155,6 +174,7 @@ MonoBehaviour:
   - {fileID: 194951056985573184, guid: 3e7bad384a69bef42acfcd4ce0c369d0, type: 3}
   - {fileID: 3447702199853544016, guid: 83db39b655441764d9efbcd70db5ea76, type: 3}
   fireRate: 0.2
+  spriteRenderer: {fileID: 0}
 --- !u!114 &5907446915874740440
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -196,8 +216,8 @@ Rigidbody2D:
   m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 1
-  m_Mass: 1
+  m_UseAutoMass: 0
+  m_Mass: 1000
   m_LinearDamping: 0
   m_AngularDamping: 0
   m_GravityScale: 0

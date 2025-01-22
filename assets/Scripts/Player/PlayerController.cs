@@ -108,12 +108,9 @@ public class PlayerController : MonoBehaviour, IGameStateController
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("enemy") || 
-            collision.gameObject.CompareTag("bullet1") || 
-            collision.gameObject.CompareTag("bullet2") || 
-            collision.gameObject.CompareTag("bullet3"))
+        if (collision.gameObject.CompareTag("Enemy"))
         {
-            // Handle collision with enemy or bullets
+            // Handle collision with enemy 
             Debug.Log("Collision detected with: " + collision.gameObject.tag);
         }
     }
