@@ -7,7 +7,7 @@ public class PlayerController : MonoBehaviour, IGameStateController
     private ScoreManager smanager;
 
     [Header("PlayerMovement")]
-    
+
     public Rigidbody2D rb;
     [SerializeField] private InputActionAsset CustomInput;
     public float speed = 5f;
@@ -61,10 +61,32 @@ public class PlayerController : MonoBehaviour, IGameStateController
         //smanager = new ScoreManager(GameController.instance.highscore);
         defaultSprite = Resources.Load<Sprite>("Sprites/Player/first_ship_cs");
         unlockedSprite1 = Resources.Load<Sprite>("Sprites/Player/first_ship_secondcs");
-        unlockedSprite2 = Resources.Load<Sprite>("Sprites/Player/first_ship_thirdcs");  
+        unlockedSprite2 = Resources.Load<Sprite>("Sprites/Player/first_ship_thirdcs");
         unlockedSprite3 = Resources.Load<Sprite>("Sprites/Player/first_ship_fourthcs");
         unlockedSprite4 = Resources.Load<Sprite>("Sprites/Player/first_ship_fifthcs");
         LoadPlayerSprite();
+
+        StartCoroutine(MovePlayerToPos());
+    }
+
+    private IEnumerator MovePlayerToPos()
+    {
+        Vector3 startPos = new Vector3(-1500f, transform.position.y, transform.position.z);
+        Vector3 endPos = new Vector3(-600f, transform.position.y, transform.position.z);
+
+        transform.position = startPos;
+        float elapsedTime = 0f;
+        float moveTime = 2f; // Adjust duration as needed
+
+        while (elapsedTime < moveTime)
+        {
+            elapsedTime += Time.deltaTime;
+            float t = elapsedTime / moveTime;
+            transform.position = Vector3.Lerp(startPos, endPos, t);
+            yield return null;
+        }
+
+        transform.position = endPos;
     }
 
     private void Update()
@@ -190,7 +212,7 @@ public class PlayerController : MonoBehaviour, IGameStateController
 
     public void Playing()
     {
-        
+
     }
 
     private void Move(InputAction.CallbackContext context)
@@ -210,17 +232,17 @@ public class PlayerController : MonoBehaviour, IGameStateController
     private void Shoot()
     {
         int bulletIndex = 0; // Change based on current weapon level
-        
+
         // Spawn bullet
-        GameObject bullet = Instantiate(bulletPrefabs[bulletIndex], 
-            bulletSpawnPoint.position, 
+        GameObject bullet = Instantiate(bulletPrefabs[bulletIndex],
+            bulletSpawnPoint.position,
             bulletSpawnPoint.rotation);
 
         // Spawn casing
-        GameObject casing = Instantiate(casingPrefabs[bulletIndex], 
-            bulletSpawnPoint.position, 
+        GameObject casing = Instantiate(casingPrefabs[bulletIndex],
+            bulletSpawnPoint.position,
             Quaternion.identity);
-            
+
         if (casing.TryGetComponent<Rigidbody2D>(out var casingRb))
         {
             float ejectionForce = 2f;

@@ -1,19 +1,21 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UIManager : MonoBehaviour 
+public class UIManager : MonoBehaviour
 {
     private static UIManager _instance;
     public static UIManager Instance => _instance;
 
     [Header("Score UI")]
-    [SerializeField] private Text currentScoreText;
-    [SerializeField] private Text highScoreText;
+    [SerializeField] private TMPro.TMP_Text currentScoreText;
+    [SerializeField] private TMPro.TMP_Text highScoreText;
 
     [SerializeField] private Button start_bttn;
     [SerializeField] private Button exit_bttn;
     [SerializeField] private Button instructions_bttn;
     [SerializeField] private Button highscore_bttn;
+    [SerializeField] private Button backI_bttn;
+    [SerializeField] private Button backH_bttn;
     [SerializeField] private GameObject main_menu_panel;
     [SerializeField] private GameObject instructions_panel;
     [SerializeField] private GameObject highscore_panel;
@@ -57,6 +59,18 @@ public class UIManager : MonoBehaviour
             main_menu_panel.SetActive(false);
             highscore_panel.SetActive(true);
         });
+
+        backI_bttn.onClick.AddListener(delegate
+        {
+            instructions_panel.SetActive(false);
+            main_menu_panel.SetActive(true);
+        });
+
+        backH_bttn.onClick.AddListener(delegate
+        {
+            highscore_panel.SetActive(false);
+            main_menu_panel.SetActive(true);
+        });
     }
     void start_game()
     {
@@ -70,7 +84,7 @@ public class UIManager : MonoBehaviour
 
     public void Quit()
     {
-        
+
     }
 
     //instrucoes

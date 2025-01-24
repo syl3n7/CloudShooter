@@ -65,7 +65,7 @@ RectTransform:
   m_GameObject: {fileID: 3252391336484707045}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 162.192, y: 162.192, z: 162.192}
+  m_LocalScale: {x: 162.13342, y: 162.13342, z: 162.13342}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3179623559239363424}
@@ -175,7 +175,7 @@ MonoBehaviour:
   - {fileID: 3447702199853544016, guid: 83db39b655441764d9efbcd70db5ea76, type: 3}
   fireRate: 0.2
   spriteRenderer: {fileID: 9463385411375541}
-  dashSpeedMultiplier: 2
+  dashSpeedMultiplier: 0.2
   dashDuration: 0.2
   dashCooldown: 1
   doubleTapTimeWindow: 0.2
@@ -193,6 +193,15 @@ MonoBehaviour:
     m_Type: 0
     m_ExpectedControlType: 
     m_Id: 5a8bcda5-6632-49d3-ac72-13e0a962d179
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+  dashModifierAction:
+    m_Name: Dash Modifier
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 725a449f-b739-45c4-9e45-d5bbf69b958f
     m_Processors: 
     m_Interactions: 
     m_SingletonActionBindings: []
