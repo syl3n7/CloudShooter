@@ -145,7 +145,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 3113957482004805033}
   CustomInput: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
-  speed: 25000
+  speed: 5000
   moveAction:
     m_Name: Move
     m_Type: 0
@@ -175,6 +175,28 @@ MonoBehaviour:
   - {fileID: 3447702199853544016, guid: 83db39b655441764d9efbcd70db5ea76, type: 3}
   fireRate: 0.2
   spriteRenderer: {fileID: 9463385411375541}
+  dashSpeedMultiplier: 2
+  dashDuration: 0.2
+  dashCooldown: 1
+  doubleTapTimeWindow: 0.2
+  dashUpAction:
+    m_Name: Dash Up
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 2c8d625f-6efb-491e-b51c-dfb639050ad2
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+  dashDownAction:
+    m_Name: Dash Down
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 5a8bcda5-6632-49d3-ac72-13e0a962d179
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
 --- !u!114 &5907446915874740440
 MonoBehaviour:
   m_ObjectHideFlags: 0

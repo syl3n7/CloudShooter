@@ -1,4 +1,4 @@
-using Unity.VisualScripting;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -31,12 +31,28 @@ public class PlayerController : MonoBehaviour, IGameStateController
     private Sprite unlockedSprite3;
     private Sprite unlockedSprite4;
 
+    [Header("Dashing")]
+    [SerializeField] private float dashSpeedMultiplier = 2f;
+    [SerializeField] private float dashDuration = 0.2f;
+    [SerializeField] private float dashCooldown = 1f;
+    [SerializeField] private float doubleTapTimeWindow = 0.2f;
+    private float lastDashTime;
+    private bool isDashing;
+    public InputAction dashUpAction;
+    public InputAction dashDownAction;
+    public InputAction dashModifierAction;
+    private float lastUpTapTime;
+    private float lastDownTapTime;
+
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         var playerInput = GetComponent<PlayerInput>();
         moveAction = playerInput.actions["Move"];
         fireAction = playerInput.actions["Fire"];
+        dashUpAction = playerInput.actions["DashUp"];
+        dashDownAction = playerInput.actions["DashDown"];
+        dashModifierAction = playerInput.actions["DashModifier"];
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
@@ -58,6 +74,7 @@ public class PlayerController : MonoBehaviour, IGameStateController
             // Handle escape key press for pause menu
         }
 
+        HandleDashing();
         movementInput = moveAction.ReadValue<Vector2>();
 
         if (fireAction.ReadValue<float>() > 0 && Time.time >= nextFireTime)
@@ -67,10 +84,56 @@ public class PlayerController : MonoBehaviour, IGameStateController
         }
     }
 
+    private void HandleDashing()
+    {
+        if (isDashing)
+            return;
+
+        if (Time.time - lastDashTime < dashCooldown)
+            return;
+
+        if (!dashModifierAction.IsPressed())
+            return;
+
+        // Handle up dash
+        if (dashUpAction.triggered)
+        {
+            float timeSinceLastUpTap = Time.time - lastUpTapTime;
+            if (timeSinceLastUpTap <= doubleTapTimeWindow)
+            {
+                StartCoroutine(Dash(Vector2.up));
+            }
+            lastUpTapTime = Time.time;
+        }
+
+        // Handle down dash
+        if (dashDownAction.triggered)
+        {
+            float timeSinceLastDownTap = Time.time - lastDownTapTime;
+            if (timeSinceLastDownTap <= doubleTapTimeWindow)
+            {
+                StartCoroutine(Dash(Vector2.down));
+            }
+            lastDownTapTime = Time.time;
+        }
+    }
+
+    private IEnumerator Dash(Vector2 direction)
+    {
+        isDashing = true;
+        lastDashTime = Time.time;
+        float originalSpeed = speed;
+        speed *= dashSpeedMultiplier;
+
+        yield return new WaitForSeconds(dashDuration);
+
+        speed = originalSpeed;
+        isDashing = false;
+    }
+
     private void FixedUpdate()
     {
-        Vector2 move = movementInput * speed * Time.fixedDeltaTime;
-        rb.linearVelocity = move;
+        rb.linearVelocity = movementInput * speed;
     }
 
     private void LoadPlayerSprite()

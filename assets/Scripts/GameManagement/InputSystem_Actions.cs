@@ -44,42 +44,36 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""DashUp"",
+                    ""type"": ""Button"",
+                    ""id"": ""ce13fe8a-0f9d-4d69-85cd-682ed1f63d3e"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""DashDown"",
+                    ""type"": ""Button"",
+                    ""id"": ""2f44d673-c0d1-40d1-940c-50ba39c203e3"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""DashModifier"",
+                    ""type"": ""Button"",
+                    ""id"": ""3e65e3fa-c043-4a3d-a0df-361acd1ea47b"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
-                {
-                    ""name"": """",
-                    ""id"": ""2b2a2965-e549-49e5-a6ff-dc0242e1a8ec"",
-                    ""path"": ""<iOSGameController>/leftStick"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Gamepad"",
-                    ""action"": ""Move"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""0cb8ce10-73bf-4513-b478-685f21ee9a31"",
-                    ""path"": ""<AndroidGamepad>/leftStick"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Gamepad"",
-                    ""action"": ""Move"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""978bfe49-cc26-4a3d-ab7b-7d7a29327403"",
-                    ""path"": ""<Gamepad>/leftStick"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Gamepad"",
-                    ""action"": ""Move"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
                 {
                     ""name"": ""WASD"",
                     ""id"": ""00ca640b-d935-4593-8157-c05846ea39b3"",
@@ -187,6 +181,39 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": "";Keyboard&Mouse"",
                     ""action"": ""Fire"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""13156ed2-cc7a-4b89-85ff-ab06f60b5baa"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""DashUp"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c8dfc378-8c3e-435f-8d7a-9420e561f941"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""DashDown"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""fc4d8afc-2c0d-4172-b233-428607360512"",
+                    ""path"": ""<Keyboard>/shift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""DashModifier"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -776,6 +803,9 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
         m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
         m_Player_Fire = m_Player.FindAction("Fire", throwIfNotFound: true);
+        m_Player_DashUp = m_Player.FindAction("DashUp", throwIfNotFound: true);
+        m_Player_DashDown = m_Player.FindAction("DashDown", throwIfNotFound: true);
+        m_Player_DashModifier = m_Player.FindAction("DashModifier", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -857,12 +887,18 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
     private List<IPlayerActions> m_PlayerActionsCallbackInterfaces = new List<IPlayerActions>();
     private readonly InputAction m_Player_Move;
     private readonly InputAction m_Player_Fire;
+    private readonly InputAction m_Player_DashUp;
+    private readonly InputAction m_Player_DashDown;
+    private readonly InputAction m_Player_DashModifier;
     public struct PlayerActions
     {
         private @InputSystem_Actions m_Wrapper;
         public PlayerActions(@InputSystem_Actions wrapper) { m_Wrapper = wrapper; }
         public InputAction @Move => m_Wrapper.m_Player_Move;
         public InputAction @Fire => m_Wrapper.m_Player_Fire;
+        public InputAction @DashUp => m_Wrapper.m_Player_DashUp;
+        public InputAction @DashDown => m_Wrapper.m_Player_DashDown;
+        public InputAction @DashModifier => m_Wrapper.m_Player_DashModifier;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -878,6 +914,15 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @Fire.started += instance.OnFire;
             @Fire.performed += instance.OnFire;
             @Fire.canceled += instance.OnFire;
+            @DashUp.started += instance.OnDashUp;
+            @DashUp.performed += instance.OnDashUp;
+            @DashUp.canceled += instance.OnDashUp;
+            @DashDown.started += instance.OnDashDown;
+            @DashDown.performed += instance.OnDashDown;
+            @DashDown.canceled += instance.OnDashDown;
+            @DashModifier.started += instance.OnDashModifier;
+            @DashModifier.performed += instance.OnDashModifier;
+            @DashModifier.canceled += instance.OnDashModifier;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -888,6 +933,15 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @Fire.started -= instance.OnFire;
             @Fire.performed -= instance.OnFire;
             @Fire.canceled -= instance.OnFire;
+            @DashUp.started -= instance.OnDashUp;
+            @DashUp.performed -= instance.OnDashUp;
+            @DashUp.canceled -= instance.OnDashUp;
+            @DashDown.started -= instance.OnDashDown;
+            @DashDown.performed -= instance.OnDashDown;
+            @DashDown.canceled -= instance.OnDashDown;
+            @DashModifier.started -= instance.OnDashModifier;
+            @DashModifier.performed -= instance.OnDashModifier;
+            @DashModifier.canceled -= instance.OnDashModifier;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -1072,6 +1126,9 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
     {
         void OnMove(InputAction.CallbackContext context);
         void OnFire(InputAction.CallbackContext context);
+        void OnDashUp(InputAction.CallbackContext context);
+        void OnDashDown(InputAction.CallbackContext context);
+        void OnDashModifier(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {
