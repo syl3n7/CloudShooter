@@ -173,7 +173,7 @@ public class PlayerController : MonoBehaviour, IGameStateController
     {
         if (collision.gameObject.CompareTag("Enemy"))
         {
-            // Handle collision with enemy 
+            // Handle collision with enemy without adding score
             Debug.Log("Collision detected with: " + collision.gameObject.tag);
         }
     }

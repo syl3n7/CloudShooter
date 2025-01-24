@@ -4,6 +4,7 @@ public class Bullet : MonoBehaviour
 {
     public float speed = 20f;
     public float lifetime = 2f;
+    public int scoreValue = 10;
     
     void Start()
     {
@@ -19,6 +20,7 @@ public class Bullet : MonoBehaviour
     {
         if (other.CompareTag("Enemy"))
         {
+            GameController.Instance.AddScore(scoreValue);
             Destroy(other.gameObject);
             Destroy(gameObject);
         }

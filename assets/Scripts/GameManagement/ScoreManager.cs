@@ -2,30 +2,44 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ScoreManager
+public class ScoreManager : MonoBehaviour
 {
-    private int score;
-    public ScoreManager(int score)
+    private static ScoreManager _instance;
+    public static ScoreManager Instance => _instance;
+    
+    private int currentScore;
+    private int highScore;
+    
+    private void Awake()
     {
-        this.score = score;
+        if (_instance == null)
+        {
+            _instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
-    public int GetScore()
+    public int GetCurrentScore() => currentScore;
+    public int GetHighScore() => highScore;
+
+    public void AddScore(int points)
     {
-        return score;
+        currentScore += points;
+        if (currentScore > highScore)
+        {
+            highScore = currentScore;
+            GameController.Instance.UpdateHighScore(highScore);
+        }
+        UIManager.Instance.UpdateScoreDisplay(currentScore, highScore);
     }
 
-    public void SetScore(int score)
+    public void ResetScore()
     {
-        this.score = score;
-    }
-
-    public void AddScore(int score)
-    {
-        this.score += score;
-    }
-    public void RemoveScore(int score)
-    {
-        this.score -= score;
+        currentScore = 0;
+        UIManager.Instance.UpdateScoreDisplay(currentScore, highScore);
     }
 }

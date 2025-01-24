@@ -44,6 +44,7 @@ public class GameController : MonoBehaviour
     public int gamevolume;
     public int musicvolume;
     public int highscore = 0;
+    public int currentScore = 0;
 
     private void Awake()
     {
@@ -70,6 +71,7 @@ public class GameController : MonoBehaviour
     {
         InitializeControllers();
         LoadPrefs();
+        UIManager.Instance.UpdateScoreDisplay(currentScore, highscore);
     }
 
     private void Update()
@@ -97,6 +99,17 @@ public class GameController : MonoBehaviour
         this.gameManager = gameManager;
     }
 
+    public void AddScore(int points)
+    {
+        ScoreManager.Instance.AddScore(points);
+    }
+
+    public void UpdateHighScore(int newHighScore)
+    {
+        highscore = newHighScore;
+        SavePrefs();
+    }
+
     public void SavePrefs()
     {
         PlayerPrefs.SetInt("GameVolume", gamevolume);
@@ -117,6 +130,7 @@ public class GameController : MonoBehaviour
         if (_instance == this)
         {
             applicationIsQuitting = true;
+            SavePrefs();
         }
     }
 

@@ -1,8 +1,14 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UIManager : MonoBehaviour
+public class UIManager : MonoBehaviour 
 {
+    private static UIManager _instance;
+    public static UIManager Instance => _instance;
+
+    [Header("Score UI")]
+    [SerializeField] private Text currentScoreText;
+    [SerializeField] private Text highScoreText;
 
     [SerializeField] private Button start_bttn;
     [SerializeField] private Button exit_bttn;
@@ -12,6 +18,19 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject instructions_panel;
     [SerializeField] private GameObject highscore_panel;
     [SerializeField] private GameObject InGame_panel;
+
+    private void Awake()
+    {
+        if (_instance == null)
+        {
+            _instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
 
     void Start()
     {
@@ -58,4 +77,11 @@ public class UIManager : MonoBehaviour
 
     //pontuacoes
 
+    public void UpdateScoreDisplay(int currentScore, int highScore)
+    {
+        if (currentScoreText != null)
+            currentScoreText.text = $"Score: {currentScore}";
+        if (highScoreText != null)
+            highScoreText.text = $"High Score: {highScore}";
+    }
 }
