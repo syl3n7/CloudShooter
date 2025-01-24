@@ -21,6 +21,7 @@ public class Bullet : MonoBehaviour
         if (other.CompareTag("Enemy"))
         {
             GameController.Instance.AddScore(scoreValue);
+            Debug.Log("HIT");
             Destroy(other.gameObject);
             Destroy(gameObject);
         }

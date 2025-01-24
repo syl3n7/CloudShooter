@@ -5,38 +5,11 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour
 {
-    private static readonly object _lock = new object();
+    private static readonly object ? _lock = new object();
     private static GameController _instance;
     private static bool applicationIsQuitting = false;
 
-    public static GameController Instance
-    {
-        get
-        {
-            if (applicationIsQuitting)
-            {
-                Debug.LogWarning("Instance of GameController already destroyed on application quit. Won't create again.");
-                return null;
-            }
-            
-            lock (_lock)
-            {
-                if (_instance == null)
-                {
-                    _instance = FindAnyObjectByType<GameController>();
-                    
-                    if (_instance == null)
-                    {
-                        var singleton = new GameObject(typeof(GameController).Name);
-                        _instance = singleton.AddComponent<GameController>();
-                        DontDestroyOnLoad(singleton);
-                        Debug.Log("Created new GameController instance.");
-                    }
-                }
-                return _instance;
-            }
-        }
-    }
+    public static GameController Instance => _instance;
 
     public GameManager gameManager = GameManager.Idle;
     private List<IGameStateController> gameStateControllers = new List<IGameStateController>();
@@ -45,6 +18,11 @@ public class GameController : MonoBehaviour
     public int musicvolume;
     public int highscore = 0;
     public int currentScore = 0;
+
+    [Header("Game Progress")]
+    public int currentLevel { get; private set; } = 0;
+    private const int MAX_LEVEL = 2;
+    private readonly int[] LEVEL_THRESHOLDS = new int[] { 1000, 2500 };
 
     private void Awake()
     {
@@ -71,6 +49,7 @@ public class GameController : MonoBehaviour
     {
         InitializeControllers();
         LoadPrefs();
+        currentLevel = 0;
         UIManager.Instance.UpdateScoreDisplay(currentScore, highscore);
     }
 
@@ -101,7 +80,27 @@ public class GameController : MonoBehaviour
 
     public void AddScore(int points)
     {
-        ScoreManager.Instance.AddScore(points);
+        currentScore += points;
+        CheckLevelProgression();
+        if (currentScore > highscore)
+        {
+            highscore = currentScore;
+        }
+        UIManager.Instance.UpdateScoreDisplay(currentScore, highscore);
+    }
+
+    private void CheckLevelProgression()
+    {
+        if (currentLevel >= MAX_LEVEL) return;
+
+        for (int i = 0; i < LEVEL_THRESHOLDS.Length; i++)
+        {
+            if (currentScore >= LEVEL_THRESHOLDS[i] && currentLevel < i + 1)
+            {
+                currentLevel = Mathf.Min(i + 1, MAX_LEVEL);
+                Debug.Log($"Level Up! Now at level {currentLevel}");
+            }
+        }
     }
 
     public void UpdateHighScore(int newHighScore)
@@ -115,6 +114,7 @@ public class GameController : MonoBehaviour
         PlayerPrefs.SetInt("GameVolume", gamevolume);
         PlayerPrefs.SetInt("MusicVolume", musicvolume);
         PlayerPrefs.SetInt("HighScore", highscore);
+        PlayerPrefs.SetInt("CurrentLevel", currentLevel);
         PlayerPrefs.Save();
     }
 
@@ -122,7 +122,8 @@ public class GameController : MonoBehaviour
     {
         gamevolume = PlayerPrefs.GetInt("GameVolume", gamevolume);
         musicvolume = PlayerPrefs.GetInt("MusicVolume", musicvolume);
-        highscore = PlayerPrefs.GetInt("HighScore", highscore);
+        highscore = PlayerPrefs.GetInt("HighScore", 0);
+        currentLevel = PlayerPrefs.GetInt("CurrentLevel", 0);
     }
 
     private void OnDestroy()
@@ -149,5 +150,41 @@ public class GameController : MonoBehaviour
         {
             gameStateControllers.AddRange(root.GetComponentsInChildren<MonoBehaviour>().OfType<IGameStateController>());
         }
+    }
+
+    public void ResetGame()
+    {
+        currentScore = 0;
+        currentLevel = 0;
+        ScoreManager.Instance?.ResetScore();
+        UIManager.Instance?.UpdateScoreDisplay(currentScore, highscore);
+    }
+
+    private void OnEnable()
+    {
+        if (ScoreManager.Instance != null)
+        {
+            ScoreManager.Instance.OnScoreChanged += HandleScoreChanged;
+        }
+    }
+
+    private void OnDisable()
+    {
+        if (ScoreManager.Instance != null)
+        {
+            ScoreManager.Instance.OnScoreChanged -= HandleScoreChanged;
+        }
+    }
+
+    private void HandleScoreChanged(int newScore)
+    {
+        currentScore = newScore;
+        CheckLevelProgression();
+    }
+
+    private void OnScoreChanged(int newScore)
+    {
+        currentScore = newScore;
+        CheckLevelProgression();
     }
 }
