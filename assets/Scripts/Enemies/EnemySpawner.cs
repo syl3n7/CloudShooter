@@ -92,7 +92,7 @@ public class EnemySpawner : MonoBehaviour
         }
     }
 
-    IEnumerator SpawnRoutine()
+    private IEnumerator SpawnRoutine()
     {
         while (true)
         {
@@ -101,26 +101,19 @@ public class EnemySpawner : MonoBehaviour
         }
     }
 
-    void SpawnEnemy()
+    private void SpawnEnemy()
     {
-        if (enemyPrefabs == null || enemyPrefabs.Length == 0)
-        {
-            Debug.LogError("No enemy prefabs available!");
-            return;
-        }
+        if (enemyPrefabs == null || enemyPrefabs.Length == 0) return;
 
         Vector3 rightEdge = mainCamera.ViewportToWorldPoint(new Vector3(1.1f, 0f, 0f));
-        
         float randomY = Random.Range(
             mainCamera.ViewportToWorldPoint(new Vector3(0, 0.1f, 0)).y,
             mainCamera.ViewportToWorldPoint(new Vector3(0, 0.9f, 0)).y
         );
 
         Vector3 spawnPosition = new Vector3(rightEdge.x, randomY, 0f);
-        
-        // Ensure we don't exceed array bounds
-        GameObject selectedPrefab = enemyPrefabs[currentLevel];
-        Instantiate(selectedPrefab, spawnPosition, Quaternion.identity);
+        GameObject selectedPrefab = enemyPrefabs[Mathf.Min(currentLevel, enemyPrefabs.Length - 1)];
+        Instantiate(selectedPrefab, spawnPosition, Quaternion.identity, transform.parent);
     }
 
     private void OnDestroy()

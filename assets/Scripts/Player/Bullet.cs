@@ -5,6 +5,7 @@ public class Bullet : MonoBehaviour
     public float speed = 20f;
     public float lifetime = 2f;
     public int scoreValue = 10;
+    public float damage = 1f;
     
     void Start()
     {
@@ -20,9 +21,11 @@ public class Bullet : MonoBehaviour
     {
         if (other.CompareTag("Enemy"))
         {
-            GameController.Instance.AddScore(scoreValue);
-            Debug.Log("HIT");
-            Destroy(other.gameObject);
+            if (other.TryGetComponent<EnemyHealth>(out var enemyHealth))
+            {
+                enemyHealth.TakeDamage(damage);
+                Debug.Log("HIT");
+            }
             Destroy(gameObject);
         }
     }

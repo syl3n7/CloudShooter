@@ -1181,7 +1181,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6264816f07f454c40962cc14870b8e28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnInterval: 2
+  spawnInterval: 1
   levelThresholds: e8030000c4090000
 --- !u!114 &1027767143
 MonoBehaviour:
