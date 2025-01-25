@@ -75,6 +75,7 @@ public class UIManager : MonoBehaviour
     void start_game()
     {
         main_menu_panel.SetActive(false);
+        GameController.Instance.ChangeState(GameManager.Playing);
         InGame_panel.SetActive(true);
     }
 
