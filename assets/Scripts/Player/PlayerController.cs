@@ -44,6 +44,13 @@ public class PlayerController : MonoBehaviour, IGameStateController
     private float lastUpTapTime;
     private float lastDownTapTime;
 
+    [Header("Health and Lives")]
+    [SerializeField] private float maxHealth = 100f;
+    [SerializeField] private int maxLives = 3;
+    private HealthManager healthManager;
+    private int currentLives;
+    [SerializeField] private HealthBar healthBar;
+
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -64,9 +71,20 @@ public class PlayerController : MonoBehaviour, IGameStateController
         unlockedSprite2 = Resources.Load<Sprite>("Sprites/Player/first_ship_thirdcs");
         unlockedSprite3 = Resources.Load<Sprite>("Sprites/Player/first_ship_fourthcs");
         unlockedSprite4 = Resources.Load<Sprite>("Sprites/Player/first_ship_fifthcs");
+        InitializeHealth();
         LoadPlayerSprite();
 
         StartCoroutine(MovePlayerToPos());
+    }
+
+    private void InitializeHealth()
+    {
+        healthManager = new HealthManager(maxHealth);
+        currentLives = maxLives;
+        if (healthBar != null)
+        {
+            healthBar.UpdateHealthBar(maxHealth, maxHealth);
+        }
     }
 
     private IEnumerator MovePlayerToPos()
@@ -195,9 +213,50 @@ public class PlayerController : MonoBehaviour, IGameStateController
     {
         if (collision.gameObject.CompareTag("Enemy"))
         {
-            // Handle collision with enemy without adding score
-            Debug.Log("Collision detected with: " + collision.gameObject.tag);
+            if (collision.gameObject.TryGetComponent<EnemyMovement>(out var enemy))
+            {
+                TakeDamage(enemy.damageAmount);
+            }
         }
+    }
+
+    public void TakeDamage(float damage)
+    {
+        healthManager.TakeDamage(damage, OnDeath);
+        if (healthBar != null)
+        {
+            healthBar.UpdateHealthBar(healthManager.GetHealth(), maxHealth);
+        }
+    }
+
+    private void OnDeath()
+    {
+        currentLives--;
+        if (currentLives <= 0)
+        {
+            GameOver();
+        }
+        else
+        {
+            Respawn();
+        }
+    }
+
+    private void Respawn()
+    {
+        healthManager.ChangeHealth(maxHealth);
+        if (healthBar != null)
+        {
+            healthBar.UpdateHealthBar(maxHealth, maxHealth);
+        }
+        // Reset position
+        transform.position = new Vector3(-600f, 0f, 0f);
+    }
+
+    private void GameOver()
+    {
+        GameController.Instance.ChangeState(GameManager.Dead);
+        gameObject.SetActive(false);
     }
 
     public void Dead()

@@ -1,6 +1,6 @@
 # Side-Scrolling Airplane Shooter Game
 
-![Gameplay Screenshot](https://foremanbrosinc.com/wp-content/uploads/2017/05/1c0d0f0cb8b7f2fb2685da9798efe42b_big-image-png-image-placeholder-clipart_2400-2400.png)
+![Gameplay Screenshot](https://repository-images.githubusercontent.com/440026601/ac2c4ec2-abf0-4505-8afc-1f7ded9d373c)
 
 A classic side-scrolling shooter game where you control an airplane and fight waves of enemies. Built with Unity.
 

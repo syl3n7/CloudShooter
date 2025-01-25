@@ -10,6 +10,10 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TMPro.TMP_Text currentScoreText;
     [SerializeField] private TMPro.TMP_Text highScoreText;
 
+    [Header("Player UI")]
+    [SerializeField] private TMPro.TMP_Text livesText;
+    [SerializeField] private HealthBar playerHealthBar;
+
     [SerializeField] private Button start_bttn;
     [SerializeField] private Button exit_bttn;
     [SerializeField] private Button instructions_bttn;
@@ -20,6 +24,9 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject instructions_panel;
     [SerializeField] private GameObject highscore_panel;
     [SerializeField] private GameObject InGame_panel;
+
+    [Header("Lives Display")]
+    [SerializeField] private Image[] lifeHearts;
 
     private void Awake()
     {
@@ -71,6 +78,8 @@ public class UIManager : MonoBehaviour
             highscore_panel.SetActive(false);
             main_menu_panel.SetActive(true);
         });
+
+        UpdateLivesDisplay(3); // Initialize with max lives
     }
     void start_game()
     {
@@ -98,5 +107,20 @@ public class UIManager : MonoBehaviour
             currentScoreText.text = $"Score: {currentScore}";
         if (highScoreText != null)
             highScoreText.text = $"High Score: {highScore}";
+    }
+
+    public void UpdateLivesDisplay(int lives)
+    {
+        if (livesText != null)
+        {
+            livesText.text = $"Lives: {lives}";
+        }
+        for (int i = 0; i < lifeHearts.Length; i++)
+        {
+            if (lifeHearts[i] != null)
+            {
+                lifeHearts[i].enabled = i < lives;
+            }
+        }
     }
 }
