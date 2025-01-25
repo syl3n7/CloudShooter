@@ -11,7 +11,6 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TMPro.TMP_Text highScoreText;
 
     [Header("Player UI")]
-    [SerializeField] private TMPro.TMP_Text livesText;
     [SerializeField] private HealthBar playerHealthBar;
 
     [SerializeField] private Button start_bttn;
@@ -45,7 +44,6 @@ public class UIManager : MonoBehaviour
     {
         start_bttn.onClick.AddListener(delegate
         {
-            //carregar highscore antes de comecar o jogo
             start_game();
         });
 
@@ -88,19 +86,6 @@ public class UIManager : MonoBehaviour
         InGame_panel.SetActive(true);
     }
 
-    //bg.GetComponent<Image>().sprite = Spritexpto
-
-    //jogar
-
-    public void Quit()
-    {
-
-    }
-
-    //instrucoes
-
-    //pontuacoes
-
     public void UpdateScoreDisplay(int currentScore, int highScore)
     {
         if (currentScoreText != null)
@@ -109,17 +94,13 @@ public class UIManager : MonoBehaviour
             highScoreText.text = $"High Score: {highScore}";
     }
 
-    public void UpdateLivesDisplay(int lives)
+    public void UpdateLivesDisplay(int currentLives)
     {
-        if (livesText != null)
-        {
-            livesText.text = $"Lives: {lives}";
-        }
         for (int i = 0; i < lifeHearts.Length; i++)
         {
             if (lifeHearts[i] != null)
             {
-                lifeHearts[i].enabled = i < lives;
+                lifeHearts[i].enabled = i < currentLives;
             }
         }
     }

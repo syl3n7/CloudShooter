@@ -50,6 +50,10 @@ public class PlayerController : MonoBehaviour, IGameStateController
     private HealthManager healthManager;
     private int currentLives;
     [SerializeField] private HealthBar healthBar;
+    private bool isTakingDamage = false;
+    private float damageTickRate = 1f; // Time between damage ticks
+    private bool isInvulnerable = false;
+    private float invulnerabilityDuration = 2f;
 
     void Awake()
     {
@@ -85,6 +89,7 @@ public class PlayerController : MonoBehaviour, IGameStateController
         {
             healthBar.UpdateHealthBar(maxHealth, maxHealth);
         }
+        UIManager.Instance.UpdateLivesDisplay(currentLives);
     }
 
     private IEnumerator MovePlayerToPos()
@@ -216,41 +221,96 @@ public class PlayerController : MonoBehaviour, IGameStateController
             if (collision.gameObject.TryGetComponent<EnemyMovement>(out var enemy))
             {
                 TakeDamage(enemy.damageAmount);
+                Debug.Log("Player hit by enemy, taking " + enemy.damageAmount + " damage.");
             }
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            isTakingDamage = false;
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if ((other.CompareTag("Enemy") || other.CompareTag("EnemyFast") || other.CompareTag("EnemyTough")) && !isInvulnerable)
+        {
+            if (other.TryGetComponent<EnemyMovement>(out var enemy))
+            {
+                TakeDamage(enemy.damageAmount);
+                Debug.Log("Player hit by enemy, taking " + enemy.damageAmount + " damage.");
+            }
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.CompareTag("Enemy") || other.CompareTag("EnemyFast") || other.CompareTag("EnemyTough"))
+        {
+            isTakingDamage = false;
         }
     }
 
     public void TakeDamage(float damage)
     {
-        healthManager.TakeDamage(damage, OnDeath);
-        if (healthBar != null)
+        if (!isTakingDamage && !isInvulnerable)
         {
-            healthBar.UpdateHealthBar(healthManager.GetHealth(), maxHealth);
+            StartCoroutine(DamageOverTime(damage));
+        }
+    }
+
+    private IEnumerator DamageOverTime(float damage)
+    {
+        isTakingDamage = true;
+        while (isTakingDamage)
+        {
+            healthManager.TakeDamage(damage, OnDeath);
+            if (healthBar != null)
+            {
+                healthBar.UpdateHealthBar(healthManager.GetHealth(), maxHealth);
+            }
+            Debug.Log("Player health: " + healthManager.GetHealth());
+            yield return new WaitForSeconds(damageTickRate);
         }
     }
 
     private void OnDeath()
     {
         currentLives--;
+        UIManager.Instance.UpdateLivesDisplay(currentLives);
         if (currentLives <= 0)
         {
             GameOver();
         }
         else
         {
-            Respawn();
+            StartCoroutine(Respawn());
         }
     }
 
-    private void Respawn()
+    private IEnumerator Respawn()
     {
+        isInvulnerable = true;
         healthManager.ChangeHealth(maxHealth);
         if (healthBar != null)
         {
             healthBar.UpdateHealthBar(maxHealth, maxHealth);
         }
-        // Reset position
-        transform.position = new Vector3(-600f, 0f, 0f);
+
+        // Blinking effect
+        for (int i = 0; i < invulnerabilityDuration * 5; i++)
+        {
+            spriteRenderer.enabled = !spriteRenderer.enabled;
+            yield return new WaitForSeconds(0.2f);
+        }
+        spriteRenderer.enabled = true;
+        isInvulnerable = false;
+        isTakingDamage = false;
+        //!Reset position - removed temporarily, will acess later.
+        //*transform.position = new Vector3(-600f, 0f, 0f);
     }
 
     private void GameOver()

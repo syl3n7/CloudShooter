@@ -44,7 +44,11 @@ public class EnemyMovement : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            Debug.Log("i kamikazed the player");
+            if (other.TryGetComponent<PlayerController>(out var player))
+            {
+                player.TakeDamage(damageAmount);
+                Debug.Log("Enemy hit the player, dealing " + damageAmount + " damage.");
+            }
         }
     }
 }
