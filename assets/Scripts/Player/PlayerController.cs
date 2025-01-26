@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour, IGameStateController
 {
     private ScoreManager smanager;
+    private bool canMove = false;
 
     [Header("PlayerMovement")]
 
@@ -105,22 +106,13 @@ public class PlayerController : MonoBehaviour, IGameStateController
 
     private IEnumerator MovePlayerToPos()
     {
-        Vector3 startPos = new Vector3(-1500f, transform.position.y, transform.position.z);
-        Vector3 endPos = new Vector3(-600f, transform.position.y, transform.position.z);
-
-        transform.position = startPos;
-        float elapsedTime = 0f;
-        float moveTime = 2f; // Adjust duration as needed
-
-        while (elapsedTime < moveTime)
-        {
-            elapsedTime += Time.deltaTime;
-            float t = elapsedTime / moveTime;
-            transform.position = Vector3.Lerp(startPos, endPos, t);
-            yield return null;
-        }
-
-        transform.position = endPos;
+        canMove = false;
+        Vector3 targetPos = new Vector3(-600f, 0f, 0f);
+        transform.position = targetPos;
+        rb.linearVelocity = Vector2.zero;
+        yield return new WaitForSeconds(0.5f); // Give time for positioning
+        canMove = true;
+        Debug.Log("Player can now move");
     }
 
     private void Update()
@@ -202,8 +194,11 @@ public class PlayerController : MonoBehaviour, IGameStateController
 
     private void FixedUpdate()
     {
-        if (GameController.Instance.gameManager != GameManager.Playing)
+        if (GameController.Instance.gameManager != GameManager.Playing || !canMove)
+        {
+            rb.linearVelocity = Vector2.zero;
             return;
+        }
 
         Vector2 moveInput = moveAction.ReadValue<Vector2>();
         rb.linearVelocity = moveInput * speed;
@@ -242,29 +237,9 @@ public class PlayerController : MonoBehaviour, IGameStateController
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag("Enemy"))
-        {
-            if (collision.gameObject.TryGetComponent<EnemyMovement>(out var enemy))
-            {
-                TakeDamage(enemy.damageAmount);
-                Debug.Log("Player hit by enemy, taking " + enemy.damageAmount + " damage.");
-            }
-        }
-    }
-
-    private void OnCollisionExit2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag("Enemy"))
-        {
-            isTakingDamage = false;
-        }
-    }
-
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if ((other.CompareTag("Enemy") || other.CompareTag("EnemyFast") || other.CompareTag("EnemyTough")) && !isInvulnerable)
+        if (other.CompareTag("Enemy") && !isInvulnerable)
         {
             if (other.TryGetComponent<EnemyMovement>(out var enemy))
             {
@@ -276,7 +251,7 @@ public class PlayerController : MonoBehaviour, IGameStateController
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        if (other.CompareTag("Enemy") || other.CompareTag("EnemyFast") || other.CompareTag("EnemyTough"))
+        if (other.CompareTag("Enemy"))
         {
             isTakingDamage = false;
         }
@@ -365,7 +340,10 @@ public class PlayerController : MonoBehaviour, IGameStateController
         StartCoroutine(MovePlayerToPos());
     }
 
-    public void Paused() { }
+    public void Paused()
+    {
+        rb.linearVelocity = Vector2.zero;
+    }
 
     private void Move(InputAction.CallbackContext context)
     {
@@ -412,5 +390,13 @@ public class PlayerController : MonoBehaviour, IGameStateController
         }
 
         Destroy(casing, 2f);
+    }
+
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            rb.linearVelocity = Vector2.zero;
+        }
     }
 }
