@@ -55,18 +55,24 @@ public class PlayerController : MonoBehaviour, IGameStateController
     private bool isInvulnerable = false;
     private float invulnerabilityDuration = 2f;
 
+    [Header("Input")]
+    [SerializeField] private InputActionAsset inputActions;
+    private PlayerInput playerInput;
+
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-        var playerInput = GetComponent<PlayerInput>();
-        moveAction = playerInput.actions["Move"];
-        fireAction = playerInput.actions["Fire"];
-        dashUpAction = playerInput.actions["DashUp"];
-        dashDownAction = playerInput.actions["DashDown"];
-        dashModifierAction = playerInput.actions["DashModifier"];
-        spriteRenderer = GetComponent<SpriteRenderer>();
+        playerInput = GetComponent<PlayerInput>();
+        
+        // Get action references
+        var gameplayMap = playerInput.actions.FindActionMap("Player");
+        moveAction = gameplayMap.FindAction("Move");
+        fireAction = gameplayMap.FindAction("Fire");
+        dashUpAction = gameplayMap.FindAction("DashUp");
+        dashDownAction = gameplayMap.FindAction("DashDown");
+        dashModifierAction = gameplayMap.FindAction("DashModifier");
 
-        // Configure Rigidbody2D
+        // Configure Rigidbody
         rb.gravityScale = 0f;
         rb.linearDamping = 5f;
         rb.constraints = RigidbodyConstraints2D.FreezeRotation;
@@ -199,7 +205,8 @@ public class PlayerController : MonoBehaviour, IGameStateController
         if (GameController.Instance.gameManager != GameManager.Playing)
             return;
 
-        rb.linearVelocity = movementInput * speed;
+        Vector2 moveInput = moveAction.ReadValue<Vector2>();
+        rb.linearVelocity = moveInput * speed;
     }
 
     private void LoadPlayerSprite()
@@ -367,11 +374,20 @@ public class PlayerController : MonoBehaviour, IGameStateController
 
     private void OnEnable()
     {
-        CustomInput.Enable();
+        moveAction.Enable();
+        fireAction.Enable();
+        dashUpAction.Enable();
+        dashDownAction.Enable();
+        dashModifierAction.Enable();
     }
+
     private void OnDisable()
     {
-        CustomInput.Disable();
+        moveAction.Disable();
+        fireAction.Disable();
+        dashUpAction.Disable();
+        dashDownAction.Disable();
+        dashModifierAction.Disable();
     }
 
     private void Shoot()

@@ -211,6 +211,7 @@ MonoBehaviour:
   maxHealth: 100
   maxLives: 3
   healthBar: {fileID: 8124932411435498926, guid: 87f076391880dca4dabc2429298da5c6, type: 3}
+  inputActions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
 --- !u!114 &5907446915874740440
 MonoBehaviour:
   m_ObjectHideFlags: 0
