@@ -49,6 +49,7 @@ GameObject:
   - component: {fileID: 5907446915874740440}
   - component: {fileID: 3113957482004805033}
   - component: {fileID: 2171098201979757858}
+  - component: {fileID: 875824034809804560}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -368,6 +369,18 @@ PolygonCollider2D:
       - {x: 0.22, y: -0.26125}
       - {x: 0.1775, y: -0.24624999}
   m_UseDelaunayMesh: 0
+--- !u!210 &875824034809804560
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3252391336484707045}
+  m_Enabled: 1
+  m_SortingLayerID: 1357154163
+  m_SortingLayer: 3
+  m_SortingOrder: 0
+  m_SortAtRoot: 0
 --- !u!1001 &8630408978143961796
 PrefabInstance:
   m_ObjectHideFlags: 0

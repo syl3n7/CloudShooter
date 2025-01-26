@@ -65,6 +65,11 @@ public class PlayerController : MonoBehaviour, IGameStateController
         dashDownAction = playerInput.actions["DashDown"];
         dashModifierAction = playerInput.actions["DashModifier"];
         spriteRenderer = GetComponent<SpriteRenderer>();
+
+        // Configure Rigidbody2D
+        rb.gravityScale = 0f;
+        rb.linearDamping = 5f;
+        rb.constraints = RigidbodyConstraints2D.FreezeRotation;
     }
 
     void Start()
@@ -127,7 +132,10 @@ public class PlayerController : MonoBehaviour, IGameStateController
         }
 
         if (GameController.Instance.gameManager != GameManager.Playing)
+        {
+            rb.linearVelocity = Vector2.zero;
             return;
+        }
 
         HandleDashing();
         movementInput = moveAction.ReadValue<Vector2>();
@@ -188,6 +196,9 @@ public class PlayerController : MonoBehaviour, IGameStateController
 
     private void FixedUpdate()
     {
+        if (GameController.Instance.gameManager != GameManager.Playing)
+            return;
+
         rb.linearVelocity = movementInput * speed;
     }
 

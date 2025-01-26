@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1331075101008829734}
   - component: {fileID: 6852581980547232532}
   - component: {fileID: 229723158693619559}
+  - component: {fileID: -1470026193877060416}
   m_Layer: 0
   m_Name: Foreground
   m_TagString: Untagged
@@ -100,4 +101,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0dc38eb3007b29d41b8e68da871abe90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parallaxSpeed: 12
+--- !u!210 &-1470026193877060416
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4819744180480106273}
+  m_Enabled: 1
+  m_SortingLayerID: 69145753
+  m_SortingLayer: 1
+  m_SortingOrder: 0
+  m_SortAtRoot: 0

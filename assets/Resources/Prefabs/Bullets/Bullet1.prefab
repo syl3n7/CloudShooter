@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5241387471563587886}
   - component: {fileID: 3431565517732007801}
   - component: {fileID: 4880982449371109994}
+  - component: {fileID: 2670522530730279537}
   m_Layer: 5
   m_Name: Bullet1
   m_TagString: bullet1
@@ -183,3 +184,15 @@ MonoBehaviour:
   lifetime: 30
   scoreValue: 10
   damage: 10
+--- !u!210 &2670522530730279537
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4334076261306941842}
+  m_Enabled: 1
+  m_SortingLayerID: 1357154163
+  m_SortingLayer: 3
+  m_SortingOrder: 0
+  m_SortAtRoot: 0

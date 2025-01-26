@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 1123243759982685588}
   - component: {fileID: -4290747300241600489}
   - component: {fileID: -6238870913510013120}
+  - component: {fileID: -3790314208120754786}
   m_Layer: 0
   m_Name: EnemyTough
   m_TagString: EnemyTough
@@ -271,6 +272,18 @@ PolygonCollider2D:
       - {x: 0.11857143, y: -0.26857144}
       - {x: 0.14999999, y: -0.23428571}
   m_UseDelaunayMesh: 0
+--- !u!210 &-3790314208120754786
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7570213671200636632}
+  m_Enabled: 1
+  m_SortingLayerID: 1357154163
+  m_SortingLayer: 3
+  m_SortingOrder: 0
+  m_SortAtRoot: 0
 --- !u!1001 &7150365409931323684
 PrefabInstance:
   m_ObjectHideFlags: 0

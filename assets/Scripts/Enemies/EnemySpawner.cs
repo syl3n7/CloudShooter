@@ -6,6 +6,7 @@ public class EnemySpawner : MonoBehaviour, IGameStateController
     private GameObject[] enemyPrefabs;
     public float spawnInterval = 2f;
     private Camera mainCamera;
+    private bool isSpawning = false;
     
     [Header("Level Settings")]
     private int currentLevel = 0;
@@ -14,7 +15,11 @@ public class EnemySpawner : MonoBehaviour, IGameStateController
     void Start()
     {
         mainCamera = Camera.main;
-        
+        LoadEnemyPrefabs();
+    }
+
+    private void LoadEnemyPrefabs()
+    {
         // Initialize and load prefabs
         enemyPrefabs = new GameObject[3];
         string[] prefabPaths = new string[] {
@@ -43,8 +48,6 @@ public class EnemySpawner : MonoBehaviour, IGameStateController
         {
             Debug.LogError("ScoreManager instance is not initialized.");
         }
-
-        StartCoroutine(SpawnRoutine());
     }
 
     private void OnEnable()
@@ -94,7 +97,8 @@ public class EnemySpawner : MonoBehaviour, IGameStateController
 
     private IEnumerator SpawnRoutine()
     {
-        while (true)
+        isSpawning = true;
+        while (isSpawning)
         {
             if (GameController.Instance.gameManager == GameManager.Playing)
             {
@@ -121,6 +125,7 @@ public class EnemySpawner : MonoBehaviour, IGameStateController
 
     private void OnDestroy()
     {
+        isSpawning = false;
         // Unsubscribe from score changes
         if (ScoreManager.Instance != null)
         {
@@ -128,11 +133,25 @@ public class EnemySpawner : MonoBehaviour, IGameStateController
         }
     }
 
-    public void Idle() { }
+    public void Idle() 
+    {
+        isSpawning = false;
+        StopAllCoroutines();
+    }
     public void Playing() 
     {
-        StartCoroutine(SpawnRoutine());
+        if (!isSpawning)
+        {
+            StartCoroutine(SpawnRoutine());
+        }
     }
-    public void Paused() { }
-    public void Dead() { }
+    public void Paused() 
+    {
+        isSpawning = false;
+    }
+    public void Dead() 
+    {
+        isSpawning = false;
+        StopAllCoroutines();
+    }
 }
