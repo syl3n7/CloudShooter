@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class EnemySpawner : MonoBehaviour
+public class EnemySpawner : MonoBehaviour, IGameStateController
 {
     private GameObject[] enemyPrefabs;
     public float spawnInterval = 2f;
@@ -96,7 +96,10 @@ public class EnemySpawner : MonoBehaviour
     {
         while (true)
         {
-            SpawnEnemy();
+            if (GameController.Instance.gameManager == GameManager.Playing)
+            {
+                SpawnEnemy();
+            }
             yield return new WaitForSeconds(spawnInterval);
         }
     }
@@ -124,4 +127,12 @@ public class EnemySpawner : MonoBehaviour
             ScoreManager.Instance.OnScoreChanged -= CheckLevelUp;
         }
     }
+
+    public void Idle() { }
+    public void Playing() 
+    {
+        StartCoroutine(SpawnRoutine());
+    }
+    public void Paused() { }
+    public void Dead() { }
 }

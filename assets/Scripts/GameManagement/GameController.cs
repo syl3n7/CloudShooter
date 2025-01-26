@@ -36,6 +36,7 @@ public class GameController : MonoBehaviour
         _instance = this;
         DontDestroyOnLoad(gameObject);
         InitializeController();
+        LoadPrefs();
     }
 
     private void InitializeController()
@@ -73,9 +74,27 @@ public class GameController : MonoBehaviour
         
     }
 
-    public void ChangeState(GameManager gameManager)
+    public void ChangeState(GameManager newState)
     {
-        this.gameManager = gameManager;
+        gameManager = newState;
+        foreach (var controller in FindObjectsOfType<MonoBehaviour>().OfType<IGameStateController>())
+        {
+            switch (newState)
+            {
+                case GameManager.Idle:
+                    controller.Idle();
+                    break;
+                case GameManager.Playing:
+                    controller.Playing();
+                    break;
+                case GameManager.Paused:
+                    controller.Paused();
+                    break;
+                case GameManager.Dead:
+                    controller.Dead();
+                    break;
+            }
+        }
     }
 
     public void AddScore(int points)

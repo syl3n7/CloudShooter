@@ -23,6 +23,9 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject instructions_panel;
     [SerializeField] private GameObject highscore_panel;
     [SerializeField] private GameObject InGame_panel;
+    [SerializeField] private GameObject pause_menu_panel;
+    [SerializeField] private Button resume_bttn;
+    [SerializeField] private Button quit_to_menu_bttn;
 
     [Header("Lives Display")]
     [SerializeField] private Image[] lifeHearts;
@@ -77,6 +80,16 @@ public class UIManager : MonoBehaviour
             main_menu_panel.SetActive(true);
         });
 
+        resume_bttn.onClick.AddListener(delegate
+        {
+            ResumeGame();
+        });
+
+        quit_to_menu_bttn.onClick.AddListener(delegate
+        {
+            QuitToMenu();
+        });
+
         UpdateLivesDisplay(3); // Initialize with max lives
     }
     void start_game()
@@ -103,5 +116,29 @@ public class UIManager : MonoBehaviour
                 lifeHearts[i].enabled = i < currentLives;
             }
         }
+    }
+
+    public void PauseGame()
+    {
+        Time.timeScale = 0;
+        pause_menu_panel.SetActive(true);
+        GameController.Instance.ChangeState(GameManager.Paused);
+    }
+
+    public void ResumeGame()
+    {
+        Time.timeScale = 1;
+        pause_menu_panel.SetActive(false);
+        GameController.Instance.ChangeState(GameManager.Playing);
+    }
+
+    private void QuitToMenu()
+    {
+        Time.timeScale = 1;
+        pause_menu_panel.SetActive(false);
+        main_menu_panel.SetActive(true);
+        InGame_panel.SetActive(false);
+        GameController.Instance.ChangeState(GameManager.Idle);
+        GameController.Instance.ResetGame();
     }
 }

@@ -114,10 +114,20 @@ public class PlayerController : MonoBehaviour, IGameStateController
 
     private void Update()
     {
-        if (Keyboard.current.escapeKey.isPressed)
+        if (Keyboard.current.escapeKey.wasPressedThisFrame)
         {
-            // Handle escape key press for pause menu
+            if (GameController.Instance.gameManager == GameManager.Playing)
+            {
+                UIManager.Instance.PauseGame();
+            }
+            else if (GameController.Instance.gameManager == GameManager.Paused)
+            {
+                UIManager.Instance.ResumeGame();
+            }
         }
+
+        if (GameController.Instance.gameManager != GameManager.Playing)
+            return;
 
         HandleDashing();
         movementInput = moveAction.ReadValue<Vector2>();
@@ -321,18 +331,23 @@ public class PlayerController : MonoBehaviour, IGameStateController
 
     public void Dead()
     {
-        //GameController.instance.highscore = smanager.GetScore();
+        gameObject.SetActive(false);
     }
 
     public void Idle()
     {
-
+        gameObject.SetActive(false);
     }
 
     public void Playing()
     {
-
+        gameObject.SetActive(true);
+        InitializeHealth();
+        LoadPlayerSprite();
+        StartCoroutine(MovePlayerToPos());
     }
+
+    public void Paused() { }
 
     private void Move(InputAction.CallbackContext context)
     {
